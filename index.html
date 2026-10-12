@@ -789,7 +789,7 @@ function hid(t){let h=5381;for(let i=0;i<t.length;i++)h=((h<<5)+h+t.charCodeAt(i
 function ensureIds(st){st.vault=st.vault||[];st.days.forEach(d=>d.groups.forEach(g=>g.spots.forEach(s=>{if(!s.id)s.id="s"+hid(g.id+"|"+s.n)})));return st}
 
 /* ===================== 유틸 ===================== */
-const VER="ver 3";const VERD="10/12 23:50 업데이트";
+const VER="ver 4";const VERD="10/12 23:59 업데이트";
 const KEY="usTrip.v6",MEKEY="usTrip.me";
 const OFF={KST:9,EDT:-4};
 const p2=n=>String(n).padStart(2,"0");
@@ -1157,7 +1157,7 @@ function panelH(di,si,it){
  ${it.mt?mentorBox(it.mt):""}
  ${gs.map(g=>grpH(di,g)).join("")}
  <div class="ed"><button class="mini" data-act="addGrp" data-di="${di}" data-id="${it.id}">＋ 장소 그룹 추가</button><button class="mini" data-act="editItem" data-id="${it.id}">일정 수정</button><button class="mini dg" data-act="delItem" data-id="${it.id}">일정 삭제</button></div>
- <section class="phs"><div class="sh" style="margin-top:0">사진${ph.length?` ${ph.length}장`:""}</div><div class="ph">${ph.map(p=>thumb(p,it.id,false)).join("")}${shThumbs(it.id,false)}<button class="add" data-act="addPhoto" data-owner="${it.id}" data-day="${di}"><span style="font-size:20px">＋</span>사진 추가</button></div></section>
+ <section class="phs"><div class="sh" style="margin-top:0">사진${ph.length?` ${ph.length}장`:""}</div>${shNote()}<div class="ph">${ph.map(p=>thumb(p,it.id,false)).join("")}${shThumbs(it.id,false)}<button class="add" data-act="addPhoto" data-owner="${it.id}" data-day="${di}"><span style="font-size:20px">＋</span>사진 추가</button></div></section>
  <div class="pn"><button class="bt" data-act="sel" data-di="${di}" data-i="${si-1}" ${prev?"":"disabled"}>← ${prev?esc(prev.t.slice(0,14)):"처음"}</button><button class="bt gold" data-act="sel" data-di="${di}" data-i="${si+1}" ${next?"":"disabled"}>${next?esc(next.t.slice(0,14)):"마지막"} →</button></div>`}
 
 /* ===================== 정보 ===================== */
@@ -1227,7 +1227,7 @@ document.addEventListener("click",e=>{const el=e.target.closest("[data-act]");if
  if(a==="more")return moreUI();
  if(a==="shretry"){ui.sh.state="idle";return shEnter()}
  if(a==="shmore"){el.disabled=true;return shMore(false).then(()=>keepScroll(render)).catch(()=>{toast("불러오지 못했어요");el.disabled=false})}
- if(a==="shO"){const l=shOf(D.k);return openShList(l,+D.i)}
+ if(a==="shwarm"){shWarm(true);return}if(a==="shO"){const l=shOf(D.k);return openShList(l,+D.i)}
  if(a==="shv"){return openShList(ui.sh.items,+D.i)}
  if(a==="shup"){pendingOwner={owner:"shared",day:""};$("#fileIn").click();return}
  if(a==="dgo"){return}
@@ -1311,7 +1311,7 @@ async function shLoad(){
   async list(after){const q=Fs.query(Fs.collection(db,"photos"),Fs.orderBy("ts","desc"),...(after?[Fs.startAfter(after)]:[]),Fs.limit(12));const s=await Fs.getDocs(q);const items=s.docs.map(d=>Object.assign({id:d.id},d.data()));return {items,more:items.length===12}},
   async upload(blob,meta){const th=await shrinkTo(blob,[[360,.6],[300,.5],[240,.5],[180,.5]],100000);const img=await shrinkTo(blob,[[1100,.6],[900,.55],[700,.5],[500,.5]],850000);const ref=Fs.doc(Fs.collection(db,"photos"));await Fs.setDoc(Fs.doc(db,"full",ref.id),{img});await Fs.setDoc(ref,Object.assign({},meta,{th,ts:Date.now()}))},
   async full(it){if(it.url)return it.url;const d=await Fs.getDoc(Fs.doc(db,"full",it.id));return d.exists()?d.data().img:it.th},
-  async owners(){const s=await Fs.getDocs(Fs.query(Fs.collection(db,"photos"),Fs.where("owner",">",""),Fs.limit(300)));return s.docs.map(d=>Object.assign({id:d.id},d.data()))},
+  async owners(){const s=await Fs.getDocs(Fs.query(Fs.collection(db,"photos"),Fs.where("day","in",["0","1","2","3","4","5","6","7","8","9"]),Fs.limit(300)));return s.docs.map(d=>Object.assign({id:d.id},d.data())).filter(x=>x.owner)},
   async remove(it){await Fs.deleteDoc(Fs.doc(db,"photos",it.id));try{await Fs.deleteDoc(Fs.doc(db,"full",it.id))}catch(e){}}
  };
  return SH}
@@ -1320,8 +1320,9 @@ const shTh=p=>p.th||p.url||"";
 async function shMore(reset){const sh=await shLoad();const last=!reset&&ui.sh.items.length?ui.sh.items[ui.sh.items.length-1].ts:null;const r=await sh.list(last);ui.sh.items=reset?r.items:ui.sh.items.concat(r.items);ui.sh.more=r.more}
 async function shWarm(force){
  if(!SHARED_ON())return;if(!force&&Date.now()-ui.sh.ownAt<90000)return;ui.sh.ownAt=Date.now();
- try{const sh=await shLoad();await sh.wait();if(!sh.ready())return;const all=await sh.owners();const m={};all.forEach(x=>{(m[x.owner]=m[x.owner]||[]).push(x)});Object.values(m).forEach(a=>a.sort((x,y)=>x.ts-y.ts));ui.sh.own=m;
-  if(/^d\d$/.test(ui.tab)||ui.tab==="food"){if(!document.querySelector("#ov.on,#lb.on"))keepScroll(render)}}catch(e){ui.sh.ownAt=0}}
+ ui.sh.werr="";try{const sh=await shLoad();await sh.wait();if(!sh.ready()){ui.sh.werr="login";if(/^d\d$/.test(ui.tab)||ui.tab==="food")keepScroll(render);return}const all=await sh.owners();const m={};all.forEach(x=>{(m[x.owner]=m[x.owner]||[]).push(x)});Object.values(m).forEach(a=>a.sort((x,y)=>x.ts-y.ts));ui.sh.own=m;
+  if(/^d\d$/.test(ui.tab)||ui.tab==="food"){if(!document.querySelector("#ov.on,#lb.on"))keepScroll(render)}}catch(e){ui.sh.ownAt=0;ui.sh.werr=shErr(e);if(/^d\d$/.test(ui.tab)||ui.tab==="food")keepScroll(render)}}
+function shNote(){const w=ui.sh.werr;if(!w||!SHARED_ON())return "";return `<div class="card warn" style="margin:.5rem 0;padding:.6rem .8rem;font-size:.85rem">${w==="login"?"친구들이 올린 사진을 보려면 ‘더보기 → 공용 앨범’에서 비밀번호를 한 번 입력해 주세요.":"친구 사진을 불러오지 못했어요: "+esc(w)}<button class="bt" data-act="shwarm" style="margin-top:.4rem">다시 불러오기</button></div>`}
 const shOf=key=>(ui.sh.own[key]||[]).filter(x=>!(x.lid&&PH.some(p=>p.id===x.lid)));
 function shThumbs(key,sm){const L=shOf(key);return L.map((p,i)=>`<figure class="pf shd ${sm?"sm":""}"><img class="th" loading="lazy" src="${esc(shTh(p))}" data-act="shO" data-k="${esc(key)}" data-i="${i}" alt=""><figcaption>${p.cap?`&lt;${esc(p.cap)}&gt; `:""}<small>by ${esc(p.name||"")}</small></figcaption></figure>`).join("")}
 async function shEnter(force){
@@ -1364,3 +1365,4 @@ async function showSh(){const p=shV.list[shV.i];const lb=$("#lb");if(!p){lb.clas
 
 </script>
 </body></html>
+  
