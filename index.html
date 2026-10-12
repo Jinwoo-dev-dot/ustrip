@@ -789,7 +789,7 @@ function hid(t){let h=5381;for(let i=0;i<t.length;i++)h=((h<<5)+h+t.charCodeAt(i
 function ensureIds(st){st.vault=st.vault||[];st.days.forEach(d=>d.groups.forEach(g=>g.spots.forEach(s=>{if(!s.id)s.id="s"+hid(g.id+"|"+s.n)})));return st}
 
 /* ===================== 유틸 ===================== */
-const VER="ver 2";const VERD="10/12 23:40 업데이트";
+const VER="ver 3";const VERD="10/12 23:50 업데이트";
 const KEY="usTrip.v6",MEKEY="usTrip.me";
 const OFF={KST:9,EDT:-4};
 const p2=n=>String(n).padStart(2,"0");
