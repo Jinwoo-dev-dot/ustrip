@@ -283,6 +283,9 @@ textarea{min-height:76px;resize:vertical}
 html{-webkit-tap-highlight-color:transparent}
 button,a,input,select{touch-action:manipulation}
 
+.vtag{display:inline-block;font-size:.72rem;font-weight:700;background:#000;color:var(--gold);border-radius:999px;padding:0 .6rem;line-height:1.7;margin-left:.4rem;vertical-align:2px;justify-self:start}
+.vtag.big{margin:0;font-size:.82rem;padding:0 .8rem}
+.top .tt .vtag{margin-left:0}
 /* 모달 */
 .ov{position:fixed;inset:0;background:rgba(17,24,39,.55);z-index:100;display:none;align-items:center;justify-content:center;padding:16px}
 .ov.on{display:flex}
@@ -785,6 +788,7 @@ function applyFix(days){
 function ensureIds(st){st.vault=st.vault||[];st.days.forEach(d=>d.groups.forEach(g=>g.spots.forEach(s=>{if(!s.id)s.id="s"+Math.random().toString(36).slice(2,9)})));return st}
 
 /* ===================== 유틸 ===================== */
+const VER="ver 1";const VERD="10/12 23:17 업데이트";
 const KEY="usTrip.v5",MEKEY="usTrip.me";
 const OFF={KST:9,EDT:-4};
 const p2=n=>String(n).padStart(2,"0");
@@ -943,7 +947,7 @@ function gate(err){
  <p class="hint">이름을 입력하면 내 버스 자리와 내 멘토링 조가 바로 보여요. 학번(예: 1203)으로 입력해도 돼요.</p>
  <input type="text" id="gn" name="who" placeholder="이름 또는 학번" aria-label="이름 또는 학번" autofocus>
  <div class="gerr" id="ge" role="alert">${esc(err||"")}</div>
- <div class="row2"><button type="submit" class="bt gold">내 자리 보기</button><button type="button" class="mini" data-act="browse">이름 없이 둘러보기</button></div></form></div>`;
+ <p class="vtag big">${VER} · ${VERD}</p><div class="row2"><button type="submit" class="bt gold">내 자리 보기</button><button type="button" class="mini" data-act="browse">이름 없이 둘러보기</button></div></form></div>`;
  $("#gf").onsubmit=e=>{e.preventDefault();const r=lookup($("#gn").value);if(!r){$("#ge").textContent="명단에서 찾을 수 없어요. 이름을 정확히 입력하거나 학번 4자리를 입력해 주세요.";return}setMe(r)}}
 function setMe(r){ME=r;try{localStorage.setItem(MEKEY,JSON.stringify(r))}catch(e){}ui.tab="home";ui.bus=null;shell();render()}
 function clearMe(){ME=null;try{localStorage.removeItem(MEKEY)}catch(e){}gate()}
@@ -951,7 +955,7 @@ function clearMe(){ME=null;try{localStorage.removeItem(MEKEY)}catch(e){}gate()}
 /* ===================== 틀 · 탭 ===================== */
 let HAVEME=false;try{HAVEME=localStorage.getItem(MEKEY)!==null}catch(e){}
 function shell(){
- $("#app").innerHTML=`<header class="top"><div class="tt"><span class="kick">경기북과학고 1학년 · 2026.10.15–10.23</span><h1 class="ttl">미국 동부 체험학습</h1><div class="who" id="who"></div></div>
+ $("#app").innerHTML=`<header class="top"><div class="tt"><span class="kick">경기북과학고 1학년 · 2026.10.15–10.23</span><span class="vtag">${VER}</span><h1 class="ttl">미국 동부 체험학습</h1><div class="who" id="who"></div></div>
  <div class="clk">미국 <i class="u">EDT</i> <b id="cE"></b> · 한국 <i class="k">KST</i> <b id="cK"></b></div>
  <button class="bt" id="editBtn" data-act="editToggle">편집</button><button class="bt" data-act="menu">백업</button></header>
  <div class="now" id="now"></div><div class="geo" id="geo"></div><div class="tabs"><nav class="seg" id="nav" role="tablist"></nav></div><main class="panelx" id="main"></main><nav class="bnav" id="bnav" aria-label="주요 메뉴"></nav>`;tick()}
@@ -1261,7 +1265,7 @@ $("#fileIn").onchange=e=>{const fs=[...e.target.files];e.target.value="";$("#fil
  modal(`사진 ${fs.length}장 올리기`,fl,{c:"",sh:"0"},async o=>{const L=await addPhotos(fs,po.owner,po.day,o.c.trim());if(o.sh==="1")await shShare(L,{name:ME?ME.n:"",c:clsOf(ME)||0,day:po.day});keepScroll(render)},null,"완료")};
 $("#ov").addEventListener("click",e=>{if(e.target.id==="ov")closeM()});
 $("#impIn").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const j=JSON.parse(await f.text());if(!j.days)throw 0;ST=ensureIds(j);ST.vault=ST.vault||[];save();closeM();render();alert("복원했어요!")}catch(x){alert("올바른 백업 파일이 아니에요.")}e.target.value=""};
-function moreUI(){$("#md").innerHTML=`<h3>더보기</h3><div style="display:grid;gap:10px"><button class="bt" data-act="tab" data-k="ment" style="justify-content:center">멘토링 · 특강</button><button class="bt" data-act="tab" data-k="info" style="justify-content:center">여행 정보 (항공·숙소·연락처)</button><button class="bt" data-act="tab" data-k="album" style="justify-content:center">내 사진첩</button>${SHARED_ON()?`<button class="bt" data-act="tab" data-k="shared" style="justify-content:center">공용 앨범</button>`:""}<button class="bt ${ui.edit?"gold":""}" data-act="editToggle" style="justify-content:center">${ui.edit?"편집 끄기":"편집 켜기"}</button><button class="bt" data-act="menu" style="justify-content:center">백업 · 복원</button><button class="bt" data-act="chgMe" style="justify-content:center">이름 바꾸기</button><button class="bt" data-act="close" style="justify-content:center">닫기</button></div>`;$("#ov").classList.add("on")}
+function moreUI(){$("#md").innerHTML=`<h3>더보기 <small class="vtag">${VER} · ${VERD}</small></h3><div style="display:grid;gap:10px"><button class="bt" data-act="tab" data-k="ment" style="justify-content:center">멘토링 · 특강</button><button class="bt" data-act="tab" data-k="info" style="justify-content:center">여행 정보 (항공·숙소·연락처)</button><button class="bt" data-act="tab" data-k="album" style="justify-content:center">내 사진첩</button>${SHARED_ON()?`<button class="bt" data-act="tab" data-k="shared" style="justify-content:center">공용 앨범</button>`:""}<button class="bt ${ui.edit?"gold":""}" data-act="editToggle" style="justify-content:center">${ui.edit?"편집 끄기":"편집 켜기"}</button><button class="bt" data-act="menu" style="justify-content:center">백업 · 복원</button><button class="bt" data-act="chgMe" style="justify-content:center">이름 바꾸기</button><button class="bt" data-act="close" style="justify-content:center">닫기</button></div>`;$("#ov").classList.add("on")}
 function menuUI(){$("#md").innerHTML=`<h3>백업 · 복원</h3><p class="hint">일정·장소·체크리스트는 JSON 파일로 저장하고 복원할 수 있어요. 사진은 이 브라우저 안에만 있어서 백업에 들어가지 않아요. 사진첩에서 한 장씩 저장하세요.</p><div style="display:grid;gap:10px;margin-top:.8rem"><button class="bt gold" id="bx" style="justify-content:center">백업 파일 내려받기</button><button class="bt" id="bi" style="justify-content:center">백업 파일 불러오기</button><button class="bt" id="br" style="justify-content:center;color:#b3122b">기본 일정으로 초기화 (사진은 유지)</button><button class="bt" data-act="close" style="justify-content:center">닫기</button></div>`;$("#ov").classList.add("on");
  $("#bx").onclick=()=>{const b=new Blob([JSON.stringify(ST,null,1)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="us-trip-backup.json";a.click()};
  $("#bi").onclick=()=>$("#impIn").click();$("#br").onclick=()=>{if(confirm("정말 초기화할까요? 수정한 일정이 사라져요.")){ST=fresh();save();closeM();render()}}}
