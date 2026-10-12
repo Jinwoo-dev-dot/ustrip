@@ -1311,11 +1311,24 @@ async function shMore(reset){const sh=await shLoad();const last=!reset&&ui.sh.it
 async function shEnter(force){
  if(!SHARED_ON())return;if(ui.sh.state!=="idle"&&!force)return;ui.sh.state="loading";if(ui.tab==="shared")render();
  try{const sh=await shLoad();await sh.wait();if(!sh.ready())ui.sh.state="login";else{await shMore(true);ui.sh.state="ready"}}
- catch(e){ui.sh.state="err";ui.sh.err=String((e&&e.message)||e)}
+ catch(e){ui.sh.state="err";ui.sh.err=shErr(e)}
  if(ui.tab==="shared")keepScroll(render)}
-async function shLogin(pw){try{const sh=await shLoad();await sh.login(pw);ui.sh.state="idle";await shEnter(true)}catch(e){ui.sh.err="비밀번호가 맞지 않아요. 다시 입력해 주세요.";ui.sh.state="login";render()}}
-async function shShare(list,meta){if(!SH||!SH.ready()){toast("공용 앨범 탭에서 비밀번호를 먼저 입력해 주세요");return false}
- try{for(const b of list)await SH.upload(b.blob,Object.assign({},meta,{cap:b.caption||meta.cap||""}));toast("공용 앨범에 올렸어요");ui.sh.state="idle";return true}catch(e){toast("공용 앨범에 올리지 못했어요");return false}}
+function shErr(e){const c=(e&&e.code)||"",m=String((e&&e.message)||e);
+ if(/invalid-credential|wrong-password|invalid-login/.test(c))return "비밀번호가 맞지 않아요. 파이어베이스에서 만든 비밀번호를 입력해 주세요. ("+c+")";
+ if(/user-not-found/.test(c))return "파이어베이스 Authentication → 사용자에 class@example.com 이 없어요. ("+c+")";
+ if(/operation-not-allowed|configuration-not-found/.test(c))return "Authentication에서 ‘이메일/비밀번호’ 로그인을 켜 주세요. ("+c+")";
+ if(/permission-denied/.test(c)||/permission/i.test(m))return "Firestore 규칙이 막고 있어요. 규칙 탭에 setup 파일의 규칙을 붙여넣고 ‘게시’를 눌렀는지 확인하세요. ("+(c||m)+")";
+ if(/not-found|unavailable|failed-precondition/.test(c))return "Firestore 데이터베이스가 만들어졌는지 확인하세요. ("+(c||m)+")";
+ if(/network/.test(c))return "인터넷 연결을 확인해 주세요. ("+c+")";
+ return (c?c+" · ":"")+m}
+async function shLogin(pw){try{const sh=await shLoad();await sh.login(pw);ui.sh.state="idle";await shEnter(true)}catch(e){ui.sh.err=shErr(e);ui.sh.state="login";render()}}
+async function shShare(list,meta){
+ try{const sh=await shLoad();await sh.wait();
+  if(!sh.ready()){alert("공용 앨범에 올리려면 먼저 ‘공용 앨범’ 탭에서 비밀번호를 입력해야 해요. 사진은 내 폰에는 저장됐어요. 로그인한 뒤 다시 올려 주세요.");return false}
+  toast("공용 앨범에 올리는 중…");
+  for(const b of list)await sh.upload(b.blob,Object.assign({},meta,{cap:b.caption||meta.cap||""}));
+  toast("공용 앨범에 올렸어요");ui.sh.state="idle";return true}
+ catch(e){alert("공용 앨범에 올리지 못했어요.\n"+shErr(e));return false}}
 function rShared(){
  const s=ui.sh;let body;
  if(!SHARED_ON())body=`<div class="card warn"><b>공용 앨범이 아직 연결되지 않았어요</b><p class="hint" style="margin-top:.4rem">파일 위쪽 FBCFG에 파이어베이스 설정을 넣으면 켜져요. 방법은 firebase-setup.md에 있어요.</p></div>`;
