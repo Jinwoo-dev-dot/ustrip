@@ -1,0 +1,1335 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#FFD700">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="미국 체험학습">
+<meta name="format-detection" content="telephone=no">
+<title>미국 동부 체험학습</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+:root{
+  --paper:#fff;--ink:#000;--ink-2:#5B6270;--soft:#D9D9D9;--hair:#E6E8EC;--wash:#F7F8FA;
+  --gold:#FFD700;--gold-deep:#E8BE00;--yel:#FFF2CC;--red:#E00000;--us:#1D3FD6;--kr:#C8102E;
+  --k1:#DDE4F6;--k2:#D9E5DD;--k3:#E8DDF2;--k4:#E8E0D2;--k5:#F3DFE8;
+  --shadow:0 1px 2px rgba(17,24,39,.06),0 14px 32px -18px rgba(17,24,39,.35);
+  --f-serif:"Noto Serif KR","Batang","AppleMyungjo",serif;
+  --f-sans:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --c:#111;color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-sans);font-size:15.5px;line-height:1.65;-webkit-text-size-adjust:100%;padding-top:env(safe-area-inset-top,0)}
+h1,h2,h3,h4,p{margin:0}
+button,input,select,textarea{font-family:inherit}
+button{cursor:pointer;border:0;background:none;padding:0;color:inherit;text-align:left}
+a{color:inherit}
+:focus-visible{outline:3px solid #2447D6;outline-offset:2px;border-radius:6px}
+[hidden]{display:none!important}
+.wrap{max-width:1180px;margin:0 auto;padding:18px 20px 70px}
+
+/* 머리말 */
+.top{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;padding-bottom:.8rem}
+.top .tt{flex:1;min-width:240px;display:grid;gap:.15rem}
+.kick{font-size:.8rem;font-weight:700;letter-spacing:.06em;color:var(--ink-2)}
+.ttl{justify-self:start;font-family:var(--f-serif);font-weight:700;font-size:clamp(1.5rem,5vw,2rem);line-height:1.3;background:linear-gradient(transparent 60%,var(--gold) 60%);padding-inline:.15em;margin-inline:-.15em}
+.who{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;font-size:.85rem;color:var(--ink-2)}
+.who b{color:var(--ink)}
+.clk b{font-variant-numeric:tabular-nums}
+.clk i{font-style:normal;font-weight:700}
+.clk .u{color:var(--us)}.clk .k{color:var(--kr)}
+
+/* 버튼 */
+.bt{font-weight:700;font-size:.92rem;min-height:44px;padding:.3rem 1.1rem;border:1px solid #111;background:var(--paper);color:var(--ink);border-radius:999px;box-shadow:0 2px 0 #111;transition:transform .08s,box-shadow .08s;display:inline-flex;align-items:center;gap:.4rem;text-decoration:none}
+.bt:active{transform:translateY(2px);box-shadow:0 0 0 #111}
+.bt.gold{background:var(--gold)}
+.bt:disabled{opacity:.35;box-shadow:none;cursor:default}
+.mini{font-size:.82rem;font-weight:500;border:1px solid var(--soft);background:var(--paper);color:var(--ink-2);min-height:32px;padding:0 .8rem;border-radius:999px;display:inline-flex;align-items:center;text-decoration:none}
+.mini:hover{color:var(--ink);border-color:var(--ink-2)}
+.mini.dg{color:#b3122b}.mini.pr{background:#111;color:#fff;border-color:#111}
+
+/* 탭 */
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);padding-block:.35rem .6rem}
+.seg{display:flex;gap:4px;padding:4px;background:#F1F2F5;border-radius:16px;overflow-x:auto;scrollbar-width:none}
+.seg::-webkit-scrollbar{display:none}
+.tab{flex:none;border:0;background:transparent;color:var(--ink-2);font-weight:700;font-size:.9rem;min-height:46px;padding:.25rem .85rem;border-radius:12px;line-height:1.25;text-align:center;white-space:nowrap}
+.tab small{display:block;font-weight:500;font-size:.72rem;opacity:.85}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{background:var(--gold);color:#000;box-shadow:0 1px 2px rgba(0,0,0,.2),0 4px 10px -4px rgba(232,190,0,.9)}
+.tab-sep{flex:none;width:1px;background:#d6d9e0;margin:8px 3px}
+
+.panelx{padding-top:.5rem}
+h2.h{font-family:var(--f-serif);font-size:1.3rem;font-weight:700}
+h3.h{font-size:1.05rem;font-weight:700}
+.hint{color:var(--ink-2);font-size:.9rem}
+
+/* 이름 입력 */
+.gate{min-height:70vh;display:grid;place-items:center}
+.gcard{width:min(460px,100%);display:grid;gap:1rem;padding:1.6rem;border:1px solid #111;border-radius:22px;box-shadow:0 12px 28px -12px rgba(0,0,0,.35)}
+.gcard input{font-size:1.1rem;min-height:52px;padding:.3rem 1rem;border:1px solid #111;border-radius:14px;width:100%}
+.gerr{color:#b3122b;font-size:.9rem;min-height:1.3rem}
+.gcard .row2{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
+
+/* 홈: 버스 */
+.hbar{display:flex;flex-wrap:wrap;align-items:baseline;gap:.4rem 1rem;margin:.4rem 0 1rem}
+.hbar h2{font-family:var(--f-serif);font-size:clamp(1.3rem,4vw,1.7rem);font-weight:700}
+.hbar h2 b{background:linear-gradient(transparent 60%,var(--gold) 60%);padding-inline:.15em;margin-inline:-.15em}
+.hbar .seatbig{font-weight:700;font-size:1.05rem}
+.homegrid{display:grid;grid-template-columns:minmax(0,560px) minmax(0,1fr);gap:24px;align-items:start}
+.bsel{display:flex;gap:6px;margin-bottom:.7rem}
+.bsel .bt{min-height:40px;box-shadow:none}
+.bsel .bt[aria-pressed="true"]{background:var(--gold)}
+.bus{background:#FBFAF6;border:3px solid #3a2f27;border-radius:26px;padding:12px 14px 14px}
+.bus .hd{display:flex;justify-content:space-between;font-size:.8rem;color:var(--ink-2);font-weight:700;padding:2px 6px 8px;border-bottom:1px dashed #b9b3a6;margin-bottom:10px}
+.seats{display:grid;grid-template-columns:1fr 1fr 26px 1fr 1fr;gap:7px 6px;align-items:stretch}
+.rn{display:grid;place-items:center;font-size:.72rem;color:var(--ink-2)}
+.seat{border:1px solid rgba(0,0,0,.14);border-radius:11px;padding:3px 8px 4px;min-height:48px;background:#f2f2f2;display:flex;flex-direction:column;justify-content:center;min-width:0;line-height:1.25}
+.seat .sn{font-size:.68rem;color:#6b6b6b;font-variant-numeric:tabular-nums}
+.seat b{font-size:.92rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seat .st{color:#d4380d}
+.seat.k1{background:var(--k1)}.seat.k2{background:var(--k2)}.seat.k3{background:var(--k3)}.seat.k4{background:var(--k4)}.seat.k5{background:var(--k5)}
+.seat.tch{background:#111;color:#fff;border-color:#111}.seat.tch .sn{color:#bbb}
+.seat.sta{background:#E6DFD1}
+.seat.emp{background:transparent;border:1px dashed #cfcab9}
+.seat.org{background:#E8590C;color:#000;border:2px solid #111}
+.seat.me{background:var(--gold);color:#000;border:3px solid #000;box-shadow:0 0 0 3px rgba(255,215,0,.45),0 8px 16px -6px rgba(0,0,0,.45);position:relative;z-index:1;animation:pop .5s ease-out}
+.seat.me .tagme{position:absolute;right:-6px;top:-10px;background:#000;color:var(--gold);font-size:.66rem;font-weight:700;border-radius:999px;padding:0 8px;line-height:1.6}
+.seat.nb{outline:2px dashed #111;outline-offset:-3px}
+@keyframes pop{0%{transform:scale(.9)}60%{transform:scale(1.06)}100%{transform:scale(1)}}
+.wc{grid-column:4/6;grid-row:span 2;background:#E6DFD1;border:1px dashed #b9b3a6;border-radius:11px;display:grid;place-items:start center;padding-top:8px;font-size:.78rem;color:var(--ink-2)}
+.legend{display:flex;flex-wrap:wrap;gap:.3rem .9rem;margin-top:12px;font-size:.78rem;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:.35rem}
+.legend i{width:13px;height:13px;border-radius:50%;border:1px solid rgba(0,0,0,.2);display:inline-block}
+
+/* 표 (참고 html의 표 느낌) */
+table.w{width:100%;border-collapse:collapse;font-size:.93rem;background:#fff}
+table.w th,table.w td{border:1px solid #000;padding:.4em .65em;vertical-align:middle}
+table.w th{background:var(--gold);font-weight:700;text-align:center}
+table.w td.k{background:var(--yel);font-weight:700;white-space:nowrap;width:1%}
+table.w td.c{text-align:center}
+table.w tr.me td{background:var(--yel)}
+table.w tr.me td:first-child{box-shadow:inset 4px 0 0 #000}
+.tblwrap{overflow-x:auto}
+.cap{font-family:var(--f-serif);font-weight:700;font-size:1.02rem;margin:1.1rem 0 .4rem}
+.me-info td.k{width:92px}
+
+/* 일정 */
+.dh{display:grid;gap:.3rem;padding-bottom:.6rem}
+.dh .k{font-size:.82rem;font-weight:700;color:var(--ink-2)}
+.dh h1{justify-self:start;font-family:var(--f-serif);font-weight:700;font-size:clamp(1.4rem,4vw,1.9rem);line-height:1.3;background:linear-gradient(transparent 60%,var(--gold) 60%);padding-inline:.15em;margin-inline:-.15em}
+.dh p{color:var(--ink-2);font-size:.92rem}
+.dh .chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.25rem}
+.chip{font-size:.8rem;border:1px solid #111;background:var(--yel);color:var(--ink);min-height:28px;padding:0 .75rem;border-radius:999px;display:inline-flex;align-items:center}
+.chip.plain{background:#fff}
+.stage{display:grid;grid-template-columns:340px minmax(0,1fr);gap:22px;margin-top:.9rem;align-items:start}
+.line{position:sticky;top:76px;max-height:calc(100vh - 96px);overflow:auto;border:1px solid #000;border-radius:14px;background:#fff;scrollbar-width:thin}
+.stop{display:grid;grid-template-columns:78px 1fr;gap:10px;width:100%;padding:11px 14px;border-bottom:1px solid var(--hair);align-items:start}
+.stop:last-of-type{border-bottom:0}
+.stop:hover{background:var(--wash)}
+.stop.on{background:var(--yel);box-shadow:inset 5px 0 0 var(--gold-deep)}
+.stop .tr{display:flex;flex-direction:column;line-height:1.3;font-variant-numeric:tabular-nums;font-size:.8rem;color:var(--ink-2)}
+.stop .tr b{font-size:.98rem;color:#000;font-weight:700}
+.stop .nm{display:block;font-weight:700;font-size:.93rem;line-height:1.45}
+.stop .mt{display:block;margin-top:2px;font-size:.78rem;color:var(--ink-2)}
+.z{font-style:normal;font-weight:700}.z.EDT{color:var(--us)}.z.KST{color:var(--kr)}
+.tg{display:inline-block;font-size:.68rem;font-weight:700;border:1px solid #111;border-radius:999px;padding:0 .5rem;margin-left:.35rem;background:#fff;vertical-align:1px}
+.tg.mn{background:var(--gold)}
+.panel{border:1px solid var(--hair);border-radius:16px;box-shadow:var(--shadow);padding:24px 28px;min-width:0;background:#fff}
+.kind{font-size:.82rem;font-weight:700;color:var(--ink-2)}
+.panel h2{font-family:var(--f-serif);font-size:clamp(1.3rem,3vw,1.65rem);line-height:1.4;font-weight:700;margin-top:2px}
+.timetbl{margin:1rem 0 .9rem}
+.timetbl td{font-family:var(--f-serif);font-weight:700;font-size:1.25rem;text-align:center;padding:.5em .6em}
+.timetbl td small{display:block;font-family:var(--f-sans);font-weight:500;font-size:.78rem;color:var(--ink-2)}
+.timetbl th.u{color:var(--us)}.timetbl th.k{color:var(--kr)}
+.loc{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .7rem;margin:0 0 1rem;padding:.6rem .9rem;background:var(--wash);border:1px solid var(--hair);border-radius:12px;font-size:.9rem}
+.loc b{font-weight:700}.loc span{color:var(--ink-2)}
+.sh{font-family:var(--f-serif);font-weight:700;font-size:1.05rem;margin:1.2rem 0 .5rem}
+.pts{margin:0;padding:0;list-style:none;display:grid;gap:.45rem;max-width:80ch}
+.pts li{position:relative;padding-left:1.3rem}
+.pts li::before{content:"";position:absolute;left:.2rem;top:.7em;width:.45rem;height:.45rem;border-radius:50%;background:#000}
+.gh{margin:1.7rem 0 .7rem;padding-top:1.2rem;border-top:1px solid #000}
+.gh h3{font-family:var(--f-serif);font-size:1.15rem;font-weight:700}
+.gh p{color:var(--ink-2);font-size:.88rem;margin-top:2px;max-width:80ch}
+.sg{margin:.9rem 0 .5rem;font-weight:700;font-size:.9rem;color:var(--ink-2)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+.spot{border:1px solid #111;border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:.5rem;background:#fff;min-width:0}
+.spot h4{font-size:1rem;font-weight:700;line-height:1.4}
+.spot .ty{display:inline-block;font-size:.72rem;font-weight:700;background:var(--yel);border:1px solid #111;border-radius:999px;padding:0 .55rem;margin-left:.4rem;vertical-align:2px}
+.spot ul.d{margin:0;padding-left:1.1rem;font-size:.9rem;color:#333}
+.menu{display:flex;flex-wrap:wrap;gap:.3rem;margin:0;padding:0;list-style:none}
+.menu li{font-size:.8rem;background:var(--wash);border:1px solid var(--hair);border-radius:999px;padding:0 .65rem}
+.price{font-weight:700;font-size:.9rem}
+.tip{font-size:.82rem;color:var(--ink-2);border-left:3px solid var(--gold);padding-left:.6rem}
+.lk{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:auto;padding-top:.2rem}
+.phs{margin-top:1.8rem;padding-top:1.2rem;border-top:1px solid #000}
+.ph{display:flex;gap:8px;flex-wrap:wrap}
+.th{width:100px;height:100px;border-radius:10px;object-fit:cover;cursor:zoom-in;border:1px solid var(--hair)}
+.add{width:100px;height:100px;border-radius:10px;border:1px dashed #9aa0ad;color:var(--ink-2);display:flex;align-items:center;justify-content:center;flex-direction:column;font-size:.78rem;text-align:center}
+.add:hover{border-color:#000;color:#000;background:var(--yel)}
+.pn{display:flex;justify-content:space-between;gap:.6rem;margin-top:1.6rem;padding-top:1rem;border-top:1px solid #000}
+.mbox{border:1px solid #000;border-radius:14px;padding:14px 16px;margin:1rem 0;background:#fff}
+.mbox .cap{margin-top:0}
+.mem{display:flex;flex-wrap:wrap;gap:.3rem;margin:.5rem 0 0;padding:0;list-style:none}
+.mem li{font-size:.84rem;border:1px solid var(--hair);background:var(--wash);border-radius:999px;padding:0 .7rem}
+.mem li.me{background:var(--gold);border-color:#000;font-weight:700}
+details.all{margin-top:.6rem}
+details.all summary{cursor:pointer;font-size:.85rem;font-weight:700;color:var(--ink-2)}
+.ed{display:none;gap:.4rem;margin-top:.7rem;flex-wrap:wrap}
+body.edit .ed{display:flex}
+.only-edit{display:none}body.edit .only-edit{display:inline-flex}
+body.edit .panel{outline:2px dashed #888;outline-offset:4px}
+
+/* 정보 · 사진첩 */
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px;margin-top:.8rem}
+.card{border:1px solid #000;border-radius:14px;padding:16px 18px;background:#fff;min-width:0}
+.card.wide{grid-column:1/-1}
+.card h3{font-family:var(--f-serif);font-size:1.05rem;font-weight:700;margin-bottom:.5rem}
+.ck{display:flex;gap:.6rem;align-items:center;padding:2px 0}
+.ck input{width:1.15rem;height:1.15rem;accent-color:#000}
+.ck.done span{text-decoration:line-through;color:var(--ink-2)}
+.cols2{columns:2;column-gap:28px}.cols2 .ck{break-inside:avoid}
+.eng div{padding:.35rem 0;border-bottom:1px solid var(--hair);font-size:.9rem}
+.eng small{display:block;color:var(--ink-2);font-size:.78rem}
+input[type=text],input[type=date],input[type=time],input[type=number],input[type=search],select,textarea{width:100%;font:inherit;border:1px solid #111;background:#fff;border-radius:12px;padding:.45rem .75rem;color:var(--ink);min-height:42px}
+textarea{min-height:76px;resize:vertical}
+.row{display:flex;gap:8px}.row>*{flex:1}
+.drop{border:1px dashed #9aa0ad;border-radius:16px;padding:20px;text-align:center;background:var(--wash)}
+.sub{display:flex;gap:6px;margin:.9rem 0;flex-wrap:wrap}
+.pill{border:1px solid #111;background:#fff;border-radius:999px;padding:.2rem .85rem;font-size:.84rem;font-weight:700}
+.pill.on{background:var(--gold)}
+.alb{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
+.alb figure{margin:0;cursor:zoom-in}
+.alb img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;display:block;border:1px solid var(--hair)}
+.alb figcaption{font-size:.75rem;color:var(--ink-2);padding:3px 2px;line-height:1.3}
+.empty-s{color:var(--ink-2);padding:26px;text-align:center}
+
+
+/* 길 안내 · 식당 */
+.geo{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .8rem;padding:.5rem 0 .2rem}
+.geo .bt{min-height:40px;font-size:.85rem}
+.geo .gs{font-size:.82rem;color:var(--ink-2);flex:1;min-width:180px}.geo .gs.err{color:#b3122b}
+.modes{display:flex;gap:4px}
+.pill{cursor:pointer}
+.locw{margin:0 0 1rem}.locw .loc{margin:0}
+.emb{width:100%;height:320px;border:1px solid #000;border-radius:12px;margin-top:.5rem;background:var(--wash)}
+.spot .ty.plain{background:#fff}
+.meta{display:grid;grid-template-columns:auto 1fr;gap:2px .7rem;margin:0;font-size:.84rem}
+.meta dt{font-weight:700;color:var(--ink-2)}.meta dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.vf{font-size:.78rem;line-height:1.5;border-radius:10px;padding:.35rem .6rem;border:1px solid var(--hair);background:var(--wash);color:var(--ink-2)}
+.vf.ok::before{content:"확인 · ";font-weight:700;color:#0a7a3b}
+.vf.no{background:#FFF7E0;border-color:#E8BE00}.vf.no::before{content:"주의 · ";font-weight:700;color:#8a5a00}
+.sph{display:flex;gap:6px;flex-wrap:wrap}.sph .th,.sph .add{width:64px;height:64px;border-radius:8px}
+.sph .add{font-size:.68rem}
+.cap+.sg{margin-top:.3rem}
+
+
+/* 지금 · 식사 · 색 */
+.now{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin:.2rem 0 .3rem;padding:.55rem .8rem;border:1px solid #000;border-radius:14px;background:var(--yel)}
+.now .nt{display:grid;text-align:left;gap:0;flex:1;min-width:200px;line-height:1.35}.now .nt b{font-size:.98rem}.now .nt small{font-size:.78rem;color:var(--ink-2)}
+.now .nx{font-size:.82rem;color:var(--ink-2);text-align:left}.now .nx small{font-size:.74rem}
+.tg.nw{background:var(--red);color:#fff;border-color:var(--red);animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{50%{opacity:.55}}
+.tg.fm{background:#E11D74;color:#fff;border-color:#E11D74}
+.ml{display:inline-block;font-size:.7rem;font-weight:700;border-radius:999px;padding:0 .55rem;margin-right:.35rem;vertical-align:1px;border:1px solid rgba(0,0,0,.25)}
+.ml.b{background:#FFE9A8;color:#6b4500}.ml.l{background:#FFCF9E;color:#8a3d00}.ml.d{background:#D9CCFF;color:#3b2a8f}
+.ml.big{font-size:.85rem;padding:.05rem .75rem;margin-right:.6rem;vertical-align:3px}
+.stop .kd{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--kc);margin-right:6px;vertical-align:1px}
+.stop.meal:not(.on){background:#FFF8EC}.stop.freeml:not(.on){background:#FFEAF3}
+.stop.freeml{box-shadow:inset 4px 0 0 #E11D74}.stop.freeml.on{box-shadow:inset 5px 0 0 #E11D74}
+.stop.past:not(.on){opacity:.55}
+.stop.now:not(.on){background:#FFF1F1}.stop.now{box-shadow:inset 5px 0 0 var(--red)}
+.panel{border-top:5px solid var(--kc,#111)}
+.dh{border-top:6px solid var(--c,#111);padding-top:.7rem}
+.dact{display:flex;gap:.4rem;flex-wrap:wrap}
+.fmb{margin:.8rem 0 0;padding:.65rem .9rem;border-radius:12px;background:#FFE3EF;border:2px solid #E11D74;font-size:.92rem}
+.fmb b{background:#E11D74;color:#fff;border-radius:999px;padding:0 .7rem;margin-right:.4rem;font-size:.82rem}
+.fmb.grp{background:#FFF4DD;border-color:#F59E0B}.fmb.grp b{background:#F59E0B;color:#000}
+.fmb.grp.d{background:#EEE9FF;border-color:#7C5CFF}.fmb.grp.d b{background:#7C5CFF;color:#fff}
+.gfood .gh{background:#FFF4DD;border:1px solid #F59E0B;border-radius:12px;padding:.8rem 1rem;margin-top:1.5rem}
+.spot.food{background:#FFFBF0;border-left:6px solid #F59E0B}
+.spot.food h4{font-size:1.05rem}
+.spot.food .ty{background:#FFD98A}
+.pf{margin:0;width:100px}.pf .th{display:block}
+.pf figcaption{font-size:.72rem;line-height:1.3;color:var(--ink-2);padding-top:2px;overflow-wrap:anywhere}
+.pf.sm{width:76px}.pf.sm .th{width:76px;height:64px}
+.bnav{display:none}
+
+
+/* 길 찾기 · 보관함 */
+.card+.card,.dq+.card{margin-top:12px}
+#main>.card,#main>form.card{margin-top:12px}
+.nrow{display:flex;align-items:center;justify-content:space-between;gap:.7rem;padding:.45rem 0;border-top:1px solid var(--hair)}
+.nrow:first-of-type{border-top:0}
+.nrow>div{min-width:0;flex:1}.nrow b{display:block;line-height:1.35}.nrow small{display:block;color:var(--ink-2);font-size:.8rem;overflow-wrap:anywhere}
+.nrow2{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem}
+.near{display:flex;flex-wrap:wrap;gap:.45rem}.near .pill{text-decoration:none;color:inherit;min-height:40px;display:inline-flex;align-items:center}
+.card.sos{border:2px solid #DC2626;background:#FFF5F5}
+.card.warn{background:var(--yel);margin-top:.9rem}
+.docs{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:1rem}
+.dt{margin:0;border:1px solid #000;border-radius:14px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
+.dt .th{width:100%;height:150px;border-radius:0;border:0;border-bottom:1px solid #000;object-fit:cover}
+.pdfb{height:150px;display:grid;place-content:center;text-align:center;background:#FFE3E3;border-bottom:1px solid #000;text-decoration:none;color:#9b1c1c}
+.pdfb b{font-size:1.6rem}.pdfb span{font-size:.8rem}
+.dt figcaption{padding:.5rem .65rem .65rem;display:grid;gap:2px}.dt figcaption small{color:var(--ink-2);font-size:.75rem}
+.dact2{display:flex;gap:.35rem;margin-top:.3rem}
+.vrow{display:flex;gap:.6rem;align-items:center;justify-content:space-between;padding:.55rem 0;border-top:1px solid var(--hair)}
+.vrow:first-child{border-top:0}.vrow>div:first-child{min-width:0;flex:1}.vrow small{display:block;color:var(--ink-2);font-size:.78rem}
+.vv{display:block;font-weight:700;font-size:1.05rem;overflow-wrap:anywhere;white-space:pre-wrap}
+.vb{display:flex;gap:.35rem}
+.toast{position:fixed;left:50%;bottom:calc(86px + env(safe-area-inset-bottom,0px));transform:translate(-50%,12px);background:#000;color:#fff;border-radius:999px;padding:.55rem 1.1rem;font-size:.9rem;opacity:0;pointer-events:none;transition:.2s;z-index:200}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+html{-webkit-tap-highlight-color:transparent}
+button,a,input,select{touch-action:manipulation}
+
+/* 모달 */
+.ov{position:fixed;inset:0;background:rgba(17,24,39,.55);z-index:100;display:none;align-items:center;justify-content:center;padding:16px}
+.ov.on{display:flex}
+.md{background:#fff;border-radius:18px;width:min(560px,100%);max-height:92vh;overflow:auto;padding:22px}
+.md h3{margin:0 0 .7rem;font-family:var(--f-serif)}
+.fld{margin-bottom:.6rem}
+.fld label{display:block;font-size:.78rem;font-weight:700;color:var(--ink-2);margin-bottom:2px}
+.lbx{flex-direction:column;gap:10px;color:#fff}
+.lbx img{max-width:100%;max-height:68vh;border-radius:12px;object-fit:contain}
+.lbx .bar{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;width:min(560px,100%)}
+
+@media (max-width:980px){
+ .homegrid{grid-template-columns:minmax(0,1fr)}
+ .stage{grid-template-columns:minmax(0,1fr)}
+ .line{position:static;max-height:none;display:flex;overflow-x:auto}
+ .stop{flex:0 0 230px;border-bottom:0;border-right:1px solid var(--hair)}
+ .stop.on{box-shadow:inset 0 5px 0 var(--gold-deep)}
+}
+@media (max-width:640px){
+ .top{gap:8px}.top .bt{min-height:38px;padding:.1rem .95rem;font-size:.85rem}.top .clk{order:3;width:100%;font-size:.85rem}
+ .wrap{padding-inline:14px}
+ .panel{padding:18px 14px}
+ .timetbl td{font-size:1.05rem}
+ .cols2{columns:1}.info{grid-template-columns:minmax(0,1fr)}
+ .seat{padding:3px 6px;min-height:44px}.seat b{font-size:.84rem}
+ body{padding-bottom:calc(66px + env(safe-area-inset-bottom,0px))}
+ .bnav{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;z-index:40;background:#fff;border-top:1px solid #000;padding-bottom:env(safe-area-inset-bottom,0px)}
+ .bnav button{min-height:58px;text-align:center;font-weight:700;font-size:.82rem;color:var(--ink-2);padding:0}
+ .bnav button.on{background:var(--gold);color:#000}
+ .top .kick{display:none}.ttl{font-size:1.35rem}
+ .top .bt{display:none}
+ .geo{display:none!important}
+ .dh .chip.plain{display:none}
+ .top .clk{font-size:.8rem;width:100%;order:3}
+ .who .mini{min-height:30px;font-size:.75rem}
+ .ttl{white-space:nowrap}
+ .top{align-items:flex-start;gap:6px}
+ .who{font-size:.8rem}
+ .stop{flex:0 0 66vw;padding:10px 12px;grid-template-columns:62px 1fr}
+ .stop .nm{font-size:.88rem;-webkit-line-clamp:3;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+ .dh h1{font-size:1.4rem}
+ body:not([data-t="day"]) .tabs{display:none}
+ .seg .tab.main,.seg .tab-sep{display:none}
+ .tabs{padding-block:.25rem .4rem}
+ .bnav{grid-template-columns:repeat(6,1fr)}
+ .bnav button{font-size:.72rem;min-height:56px;letter-spacing:-.02em}
+ .ov{align-items:flex-end;padding:0}
+ .md{width:100%;max-height:88dvh;border-radius:20px 20px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))}
+ .lbx{padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+ .gate{min-height:80dvh}.gcard{padding:1.2rem}
+ .now .mini{min-height:40px}
+ .docs{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .dt .th,.pdfb{height:130px}
+ .wrap{padding-top:calc(10px + env(safe-area-inset-top,0px))}
+ .hbar{margin-top:.2rem}
+ .homegrid{gap:16px}
+ table.w{font-size:.88rem}
+ .spot{padding:12px 13px}
+ .nrow .mini,.nrow2 .mini,.nrow2 .bt{min-height:44px}
+ .tg{font-size:.66rem}
+
+ .top{flex-wrap:wrap}.top .tt{min-width:0;flex:1 1 0}.top .bt{min-height:36px;padding:0 .8rem;font-size:.8rem}.top .clk{order:3}.dh .chips{gap:.3rem}
+ .geo{gap:.4rem;padding:.35rem 0}.geo .gs:not(.err){display:none}.geo .bt{min-height:42px}
+ .modes{margin-left:auto}.pill{min-height:36px}
+ .now{padding:.5rem .65rem}.now .nx{display:none}
+ .cards{grid-template-columns:minmax(0,1fr)}
+ .stop{flex:0 0 74vw}
+ .tab{min-height:48px}
+ input,select,textarea{font-size:16px}
+ .md{padding:18px 14px;border-radius:16px}
+ .mini{min-height:38px}
+ .hbar h2{font-size:1.25rem}
+ .pn .bt{flex:1;justify-content:center;font-size:.8rem;padding:.2rem .5rem}
+ .panel h2{font-size:1.2rem}
+ .loc .mini,.lk .mini{min-height:40px;padding:0 1rem}
+
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<div class="ov" id="ov"><div class="md" id="md"></div></div>
+<div class="ov lbx" id="lb"></div>
+<input type="file" id="fileIn" accept="image/*" multiple hidden>
+<input type="file" id="impIn" accept="application/json" hidden>
+<script>
+const I=(kind,tz,s,e,t,d,o)=>Object.assign({kind,tz,s,e,t,d:d||"",note:""},o||{});
+const S=(n,type,desc,o)=>Object.assign({n,type,desc:desc||"",m:[],p:"",tip:"",u:"",q:"",lat:null,lng:null},o||{});
+const G=(id,title,note,spots)=>({id,title,note,spots});
+
+const DAYS=[
+/* ---------------- D1 ---------------- */
+{date:"2026-10-15",dow:"목",color:"#0f4c81",title:"출국 · 뉴욕 · 예일대",region:"인천 → 뉴욕 JFK → 뉴헤이븐(CT) → 내슈아(NH)",
+ hotel:"DoubleTree by Hilton Nashua · 2 Somerset Pkwy, Nashua NH · +1-603-886-1200",
+ items:[
+  I("move","KST","06:30","07:00","인천공항 집합 · 체크인","제2여객터미널 3층 출국장 1번 출입구 안쪽 → 대한항공 A카운터 앞 광장. 담임 선생님께 여권·e티켓을 받고 도착 순서대로 체크인·짐 부치기. 07:00까지 집합(늦으면 두고 감). 보조배터리는 부치는 짐에 넣지 말 것!"),
+  I("move","KST","07:00","07:30","출국 심사 (단체 자동심사)","체크인 후 A카운터 앞에 다시 모임 → 선생님 따라 F카운터 부근 에스컬레이터로 단체 이동. 혼자 먼저 들어가지 않기."),
+  I("free","KST","07:30","09:20","면세구역 자유시간","탑승구 번호·방향을 먼저 확인한 뒤 자유시간. 09:20까지 탑승구 앞 집합. 100ml 넘는 액체·면세 대량 구매 주의.",{g:"icn",free:true}),
+  I("move","KST","09:20","10:00","탑승","좌석은 여행사가 정해 준 그대로. 바꾸기·온라인 체크인 금지. 이륙 후 미국 유심으로 교체."),
+  I("flight","KST","10:00","11:00","KE081 인천 → 뉴욕 JFK (약 14시간)","기내식 2번 + 간식. 담요·슬리퍼·물 500ml 제공. 14시간 할 일(영화 〈위키드〉, 멘토 질문 정리, 입국심사 영어 연습) 정해 두기. 착륙 1시간 전 화장실. 기내 음식 가방에 넣어 내리지 말 것.",{etz:"EDT",edate:"2026-10-15"}),
+  I("move","EDT","11:00","12:00","JFK 입국심사 · 버스 탑승","노란 NON-US 표지판 → 입국심사(왜 왔는지·얼마나 머무는지·어디서 자는지) → 짐 찾기(학교 노란 띠) → 1층 회전문 밖 자기 호차 버스. 캐리어는 짐칸에, 바로 지정 좌석에. 여권은 버스에서 담임이 다시 걷음."),
+  I("meal","EDT","12:00","14:30","버스 이동 + 점심(서브웨이 햄 샌드위치·물)","JFK → 뉴헤이븐 약 2~3시간. 샌드위치는 받으면 바로 먹기(보관 금지)."),
+  I("uni","EDT","14:30","15:00","예일대 비지터 센터 · 멘토 만남","149 Elm St 흰색 목조 건물에서 예일 소개를 듣고 반별 멘토를 만나요. (1반 멘토: 김현지 멘토 · 간호학 전공)"),
+  I("uni","EDT","15:00","16:00","스털링 도서관 단체 사진 · 멘토링","스털링 기념도서관 앞 광장에서 현수막 단체사진 → 반별로 멘토와 캠퍼스 산책. 건물은 학생증 있어야 출입 → 주로 외부 관람.",{g:"yale"}),
+  I("shop","EDT","16:00","16:30","예일 북스토어 (선택)","77 Broadway. 16:30 북스토어 앞 집합·버스 탑승. 계산이 느리니 살 것 먼저 고르고 카드 준비. 일정 밀리면 가장 먼저 빠짐.",{g:"yalestore",opt:true}),
+  I("meal","EDT","17:30","18:30","저녁 · 히바치 그릴 & 수프림 뷔페","165 Slater St, Manchester CT. 퇴근길에 따라 1시간 이상. 짝꿍과 함께 앉기.",{g:"hibachi"}),
+  I("shop","EDT","18:30","20:00","월마트 (선택)","숙소 가는 길에 들를 수도 있음. 지정 시각까지 버스로 복귀. 카드 결제가 빠름.",{g:"walmart",opt:true}),
+  I("hotel","EDT","20:00","20:30","더블트리 내슈아 체크인 · 22:00 점호","버스에서 대기 → 선생님 안내 후 하차 → 띠 보고 캐리어 찾기. 샤워 레버는 반시계 90° 이상 돌려야 따뜻한 물!")
+ ],
+ groups:[
+  G("icn","면세구역에서 뭐 하지?","보안검색 후 약 1시간 40분. 09:20 집합을 위해 탑승구 위치부터 확인!",[
+   S("아워홈 푸디움 (면세구역 4층)","식사","한식·일식·중식·치킨까지 한곳에 모인 식당가.",{m:["손수헌 한식 밥상","가정식 보통식탁","하바린 일식","리틀싱카이 중식","치맥헌터"],p:"대략 1만~1.7만 원",tip:"2018년 개장 기사 기준 → 현재 입점은 현장 확인",u:"https://www.sateconomy.co.kr/news/view/179588369964019",q:"인천공항 제2터미널 아워홈 푸디움"}),
+   S("라운지엘 (롯데GRS)","식사","한식 위주 메뉴.",{m:["비빔밥","소불고기","닭강정"],p:"대략 1만~1.7만 원",tip:"면세구역 여부는 현장 확인",q:"인천공항 제2터미널 라운지엘"}),
+   S("가볍게 먹기: 파머스박스·쉐이크쉑·파리바게뜨","간식","샌드위치나 햄버거로 가볍게. 기내식이 두 번 나와요.",{m:["파머스박스 샌드위치","쉐이크쉑","파리바게뜨","던킨","배스킨라빈스"],tip:"입점은 현장 확인",q:"인천공항 제2터미널 쉐이크쉑"}),
+   S("카페·디저트","간식","엔제리너스·크리스피크림 등. 빈 물병은 정수기에서 채우기.",{m:["엔제리너스","크리스피크림 도넛"],q:"인천공항 제2터미널 면세구역 카페"}),
+   S("현대백화점 면세점","쇼핑","인터넷 면세점 구매 물품 수령도 여기서. 산 물건은 여행 내내 들고 다녀야 하니 많이 사지 않기.",{u:"https://www.airport.kr/",q:"인천공항 제2터미널 면세점"})
+  ]),
+  G("yale","예일 캠퍼스, 이런 곳 보고 와요","예일은 담장 없이 건물이 도시에 섞여 있어요. 멘토가 코스를 정하니 질문해서 가고 싶은 곳을 추가해 보세요.",[
+   S("스털링 기념도서관 (Sterling Memorial Library)","구경","성당 같은 고딕 내부, 스테인드글라스와 조각이 하나하나 달라요 — 왜 다른지 멘토에게 물어보기.",{q:"Sterling Memorial Library Yale"}),
+   S("여성의 탁자 (Women’s Table)","포토","물이 흐르는 돌 탁자. 연도별 예일 여학생 수가 나선형으로 새겨져 있고 0에서 시작해 1993년엔 수천 명이 돼요. 건축가 마야 린 작품.",{q:"Women's Table Yale"}),
+   S("바이네키 희귀본 도서관 (Beinecke)","구경","얇은 대리석 벽으로 빛이 스며드는 유리 서고. 오듀본 《미국의 새》, 구텐베르크 성경 등 전시(전시 변동 가능).",{u:"https://beinecke.library.yale.edu/",q:"Beinecke Rare Book Library"}),
+   S("예일 대학 미술관 (Yale University Art Gallery)","구경","미국 대학 미술관 중 가장 오래된 곳 중 하나, 입장 무료(운영 시간 확인). 시간 남을 때만.",{u:"https://artgallery.yale.edu/",q:"Yale University Art Gallery"}),
+   S("올드 캠퍼스 · 펠프스 게이트","포토","고딕 석조 정문과 안뜰. 예일 느낌 가득한 사진 포인트.",{q:"Phelps Gate Yale Old Campus"})
+  ]),
+  G("yalestore","예일 북스토어 쇼핑 팁","77 Broadway · 30분 이내!",[
+   S("The Yale Bookstore","쇼핑","예일 로고 후디·반집업·티셔츠·머그·문구. 후디 대략 $60~90대(예상). 마음에 드는 것 1~2개만 정해서 줄 서기.",{m:["후디","반집업","티셔츠","텀블러·머그","문구·펜"],p:"후디 약 $60~90 (예상)",tip:"계산이 느려요. 줄 서는 동안 카드를 꺼내 두고, 시간 모자라면 내려놓고 나오기.",q:"The Yale Bookstore 77 Broadway New Haven"})
+  ]),
+  G("hibachi","히바치 그릴 & 수프림 뷔페 (Manchester, CT)","단체 식사(식비 포함). 긴 비행 뒤라 무리하지 말고 먹을 만큼만.",[
+   S("Hibachi Grill & Supreme Buffet","식사","중식·일식·미국식 뷔페. 음료는 피처로 나와 각자 따라 마셔요.",{m:["치킨·튀김","생선찜","오븐구이","샐러드·과일","아이스크림","히바치 즉석 볶음"],tip:"히바치 코너: 재료를 골라 직원에게 주면 즉석에서 볶아 줌(100명 전원은 어려울 수 있음). 화장실 표지는 히바치 코너 왼쪽 위.",q:"165 Slater St Manchester CT Hibachi Grill Supreme Buffet"})
+  ]),
+  G("walmart","월마트에서 뭘 살까? (선택 일정)","세금은 계산대에서 따로 붙어요. 주류·담배는 미성년 구매 불가 & 금지!",[
+   S("미국 과자·간식","쇼핑","한국에 없는 맛 구경하기. 가격표 + 세금 확인.",{m:["Reese’s 땅콩버터컵","Pop-Tarts","Takis","Oreo 한정맛","Goldfish","Hershey’s"],p:"1개 $2~6대"}),
+   S("생활·여행용품","쇼핑","립밤(ChapStick·Burt’s Bees), 일회용 마스크, 물티슈, 충전 케이블, 텀블러·에코백 등.",{m:["립밤","물티슈","케이블","에코백"]}),
+  ])
+ ]},
+
+/* ---------------- D2 ---------------- */
+{date:"2026-10-16",dow:"금",color:"#a51c30",title:"하버드 · 보스턴",region:"케임브리지 / 보스턴(MA)",
+ hotel:"DoubleTree by Hilton Nashua (연박)",
+ items:[
+  I("meal","EDT","06:30","07:30","호텔 조식 · 07:10 버스 집합","별도 조식룸. 와플 메이커는 사실상 사용 불가(1개 3분). 07:30 출발이니 일찍 내려와서 빨리 먹기. 오늘은 체크아웃 없음."),
+  I("move","EDT","07:30","09:00","버스 → 하버드 (약 1시간, 여유 포함 1시간 30분)",""),
+  I("uni","EDT","09:00","09:15","스미스 캠퍼스 센터 하차 · 브리핑","1350 Massachusetts Ave. 건물 안 화장실을 미리! 길 건너 작은 철문이 하버드 교문. 하버드 면책 동의서 제출자만 참여."),
+  I("lec","EDT","09:15","10:30","하버드 특강 · 나노기술과 나노의학","Sackler Hall. 영어일 수 있음. 앱 설문 있음. 질문 4개(문제·한계·핵심 아이디어·새 개념) 미리 읽어 보기."),
+  I("uni","EDT","10:30","11:30","하버드 캠퍼스 멘토링 (10명 조)","와이드너 도서관·메모리얼 교회·메모리얼 홀·사이언스 센터 쪽을 지나가요. 끝나면 담임께 점심값 $25 받기."),
+  I("free","EDT","11:30","13:30","점심 자유식 · 북스토어 · 미술관","13:30까지 버스 집합(장소는 흩어지기 전 안내). 식당 1·2순위 미리 정하기!",{g:"harvard",free:true}),
+  I("move","EDT","13:30","14:00","버스 → 보스턴 시내",""),
+  I("visit","EDT","14:00","14:10","매사추세츠 주 의사당 앞 하차 (활동지)","금색 돔. 인도가 좁으니 보스턴 커먼 안쪽에서 인원 확인.",{g:"boston"}),
+  I("free","EDT","14:10","14:40","보스턴 커먼 (선택 · 활동지)","1634년 조성된 미국에서 가장 오래된 공원. 모일 곳·시각 확인.",{opt:true}),
+  I("visit","EDT","14:40","15:00","프리덤 트레일 → 퀸시 마켓 (활동지)","바닥의 빨간 벽돌선을 따라 걷기. 가방·휴대폰 조심."),
+  I("free","EDT","15:00","17:30","퀸시 마켓 자유시간 · 저녁 자유식","17:30 퀸시 마켓 동쪽 끝 스타벅스(노스 마켓 모퉁이) 집합. 지도 앱의 다른 스타벅스와 헷갈리지 않기! 저녁값 $25는 흩어지기 전 수령.",{g:"quincy",free:true}),
+  I("hotel","EDT","17:30","19:00","숙소 복귀 (월마트 선택) · 22:00 점호","월마트에 들르면 더 늦음.")
+ ],
+ groups:[
+  G("harvard","하버드 점심 + 구경","$25 안에 음식값+세금+팁! 식당은 대략 하버드 스퀘어 쪽(스미스 센터에서 도보). 영업·메뉴·가격은 변동 가능 — 현장 확인.",[
+   S("스미스 캠퍼스 센터 주스·샐러드 가게","식사","건물 안이라 이동 없이 빠름 (매일 08:00~18:00). 샐러드·주스·랩.",{p:"$10~16대 (예상)",tip:"시간 급할 때 1순위!"}),
+   S("Pinocchio’s Pizza & Subs","식사","하버드 스퀘어의 슬라이스 피자 가게. 큰 사각 슬라이스로 든든.",{m:["슬라이스 피자","서브(샌드위치)"],p:"슬라이스 $4~6대 (예상)",q:"Pinocchio's Pizza Harvard Square Cambridge"}),
+   S("Felipe’s Taqueria","식사","부리토·타코. 주문 후 바로 나옴.",{m:["부리토","타코","나초"],p:"$10~14대 (예상)",q:"Felipe's Taqueria Harvard Square"}),
+   S("Darwin’s Ltd.","식사","148 Mount Auburn St. 데일리 스페셜을 고르면 줄이 짧아요.",{m:["샌드위치","데일리 스페셜","커피"],p:"$10~15대 (예상)",tip:"2023 하버드 학생신문 추천 · 영업 확인",u:"https://archive.harbus.org/2023/the-five-best-lunches-2874/",q:"Darwin's Ltd 148 Mount Auburn St Cambridge MA"}),
+   S("Hi-Rise Bakery","식사","56 Brattle St. 갓 구운 빵 샌드위치와 생과일 레모네이드.",{m:["샌드위치","레모네이드"],p:"$10~15대 (예상)",tip:"2023 하버드 학생신문 추천 · 영업 확인",q:"Hi-Rise Bakery 56 Brattle St Cambridge"}),
+   S("Arrow Street Crepes","식사","1154 Mass Ave. 식사용 크레이프 + 디저트 크레이프. 학생증 15% 할인(2023 기준).",{m:["식사 크레이프","디저트 크레이프"],p:"$10~15대 (예상)",tip:"영업·할인 확인",q:"Arrow Street Crepes 1154 Massachusetts Ave Cambridge"}),
+   S("Tatte Bakery & Café","간식","베이커리·샌드위치. 디저트 먹기 좋아요.",{m:["페이스트리","샌드위치","커피"],p:"$8~18 (예상)",q:"Tatte Bakery Harvard Square"}),
+   S("Mr. Bartley’s Burger Cottage","식사","수제버거 명소. 세금·팁 포함하면 $25 넘기 쉬우니 주의!",{m:["수제버거","감자튀김","셰이크"],p:"$17~25+ (예상)",tip:"예산 초과 주의 · 줄 길 수 있음.",q:"Mr. Bartley's Burger Cottage Cambridge"}),
+   S("Dunkin’","간식","보스턴 지역의 국민 카페. 도넛·커피로 가볍게.",{q:"Dunkin Harvard Square"}),
+   S("The Harvard Coop (북스토어)","쇼핑","하버드 기념품(후디·티·머그). 위치는 현장 안내 — 하버드 스퀘어 쪽.",{q:"Harvard Coop 1400 Massachusetts Ave"}),
+   S("하버드 미술관 (Harvard Art Museums)","구경","입장 무료. 유럽 회화·풍경화·아시아 불교 조각. 하버드 야드에서 도보 약 5분.",{u:"https://harvardartmuseums.org/",q:"Harvard Art Museums 32 Quincy St"}),
+   S("사이언스 센터 (Harvard Science Center)","구경","실험실 창가에 옛 과학 기구(액체질소 용기·곡률 장치) 전시, 앞 광장엔 안개 분수. 건물 안 화장실.",{q:"Harvard Science Center"}),
+   S("하버드 자연사박물관 (HMNH)","구경","유리꽃 컬렉션·광물·동물 표본. 유료이고 시간이 빠듯해요.",{u:"https://hmnh.harvard.edu/",q:"Harvard Museum of Natural History"}),
+   S("존 하버드 동상 · 와이드너 도서관 · 메모리얼 교회","포토","하버드 야드 필수 포토. 동상 발 만지는 전통(‘세 가지 거짓말’ 동상 이야기)도 찾아보기.",{q:"John Harvard Statue"})
+  ]),
+  G("boston","프리덤 트레일 · 보스턴 커먼 (건국 역사)","바닥 빨간 벽돌선 = 프리덤 트레일 약 4km(우리는 일부 구간). 미리 검색해 가면 ‘예쁜 건물’이 ‘역사’로 보여요.",[
+   S("매사추세츠 주 의사당","포토","금색 돔 건물, 1798년부터 주정부 사용. 활동지 미션 장소.",{q:"Massachusetts State House"}),
+   S("보스턴 커먼","구경","미국에서 가장 오래된 공원(1634). 목축지→군사훈련장→시민 집회 장소.",{q:"Boston Common"}),
+   S("그래너리 묘지 (Granary Burying Ground)","구경","새뮤얼 애덤스·존 핸콕·폴 리비어 등 건국 인물 묘.",{q:"Granary Burying Ground Boston"}),
+   S("킹스 채플 (King’s Chapel)","구경","식민지 시대 석조 교회와 옛 묘지.",{q:"King's Chapel Boston"}),
+   S("올드 스테이트 하우스 · 보스턴 학살 현장 표지","포토","건물 앞 바닥의 둥근 표지가 1770년 사건 현장 표시.",{q:"Old State House Boston"}),
+   S("프리덤 트레일 공식 안내","정보","전체 16곳 코스와 역사 설명.",{u:"https://www.thefreedomtrail.org/"})
+  ]),
+  G("quincy","퀸시 마켓 · 패뉴얼 홀 (15:00~17:30)","푸드홀에 가게가 25곳 넘어요(공식 안내). 샌드위치 하나 약 $15, 음료 포함 $25 정도 + 세금·팁 별도. 사람 많음 → 지갑 앞쪽! 주황 천막(맥주 구역) 입장 금지.",[
+   S("클램차우더 브레드볼","식사","보스턴 대표 메뉴. 빵 그릇에 담긴 크림 수프.",{m:["클램차우더","브레드볼"],p:"약 $10~15 (예상)",q:"Boston Chowda Company Quincy Market"}),
+   S("랍스터롤","식사","보스턴 하면 랍스터롤. 단 $25는 빠듯할 수 있어요.",{m:["랍스터롤","칩스"],p:"$20~30+ (예상)",tip:"세금·팁까지 넣으면 예산 초과 가능."}),
+   S("조각 피자","식사","퀸시 마켓 안 피자 가게: 조각 $4.50~5.25 (답사 확인). 가장 가성비.",{m:["치즈","페퍼로니"],p:"$4.5~5.25/조각"}),
+   S("핫도그 세트","식사","세트 약 $21 (답사 확인).",{p:"약 $21"}),
+   S("누들·볶음밥 / 멕시칸 / 스무디 / 아이스크림","식사","건물 안 푸드코트에 다양. 멕시칸은 글루텐프리·비건 메뉴도 있음.",{m:["누들","볶음밥","부리토","타코","과일·스무디","아이스크림"]}),
+   S("패뉴얼 홀 (Faneuil Hall)","구경","‘자유의 요람’. 그레이트 홀 2층, 무료(화~일 10:00~16:30, 행사 땐 휴무). 국립공원 레인저 15분 무료 해설(15:30 예상). 4층 박물관은 평일 15시 마감 → 불가. 건물 안 음식 금지.",{u:"https://faneuilhallmarketplace.com/",q:"Faneuil Hall Boston"}),
+   S("유니온 오이스터 하우스","구경","1826년 개업, 미국에서 가장 오래된 레스토랑으로 알려짐. 외관·역사 구경(식사는 $25로 부족).",{u:"https://www.unionoysterhouse.com/",q:"Union Oyster House Boston"}),
+   S("보스턴 퍼블릭 마켓","식사","실내 로컬 마켓·간단 먹거리.",{u:"https://www.bostonpublicmarket.org/",q:"Boston Public Market"}),
+   S("노스엔드 Mike’s Pastry (카놀리)","간식","도보 10~15분 거리. 왕복·줄 시간까지 계산해야 해요. 17:30 집합 못 지키면 안 돼요!",{m:["카놀리"],p:"$5~7 (예상)",tip:"자유시간 절반 지나면 돌아가기.",q:"Mike's Pastry Boston"}),
+   S("집합 장소: 동쪽 끝 스타벅스","정보","퀸시 마켓 건물 안으로 끝까지 걸어가 동쪽 출구 → 왼쪽 노스 마켓 모퉁이. 도착하자마자 위치부터 확인!",{q:"Starbucks North Market Faneuil Hall Boston"})
+  ])
+ ]},
+
+/* ---------------- D3 ---------------- */
+{date:"2026-10-17",dow:"토",color:"#6b2a3a",title:"MIT 하루 종일",region:"케임브리지(MA)",
+ hotel:"DoubleTree by Hilton Nashua (3박째 · 내일 체크아웃 → 오늘 밤 짐 싸기)",
+ items:[
+  I("meal","EDT","06:30","07:30","호텔 조식 · 07:40 버스 집합","08:00 출발."),
+  I("move","EDT","08:00","09:00","버스 → MIT (약 1시간)",""),
+  I("lec","EDT","09:00","11:00","동문 특강 + Q&A (34동 101호)","우리 학교 졸업생 선배 특강 30~40분 + Q&A. MIT 면책 동의서 제출자만 참여. 끝나면 점심값 $25 수령."),
+  I("visit","EDT","11:00","11:30","킬리안 코트 단체 사진","77 Mass Ave 정문 → 실내 복도 → 그레이트 돔 로비(10번 건물) → 킬리안 코트. 그레이트 돔 앞 현수막 사진.",{g:"mit"}),
+  I("uni","EDT","11:00","14:40","심화 멘토링 · 캠퍼스 투어 · 점심(13:30~ 멘토와 자유식)","10명 조로 선배와 이동. 바나나 라운지, MIT.nano 클린룸(유리창 밖에서만), One.MIT 이름 웨이퍼. 점심은 멘토 선배와 조별로($25). 14:40 66동 앞 집합."),
+  I("move","EDT","14:40","15:00","66동 앞 집합 → 110호 Auditorium (14:50 입장)",""),
+  I("lec","EDT","15:00","16:00","MIT 특강 · AI 최신 동향 및 진로","66동 110호. 홍채·굴절률 영상+딥러닝 연구(백혈구 분류) 학습자료가 사이트에 있었어요 → 핵심용어 미리 보기."),
+  I("free","EDT","16:00","17:00","자유시간 · MIT 북스토어","17:00 집합(장소 현장 안내). 조원과 함께.",{g:"mitfree",free:true}),
+  I("meal","EDT","17:00","19:30","저녁 · Out of the Woods (Bolton, MA)","MIT → 버스 약 1시간. 치킨 파히타(밥·옥수수·닭고기·채소 한 그릇). 알레르기는 미리 선생님께.",{g:"outwoods"}),
+  I("hotel","EDT","19:30","21:30","호텔 복귀 (월마트 선택) · 짐 싸기 · 22:00 점호","내일 06:00 조식·07:00 뉴욕 출발! 오늘 밤 짐을 전부 싸 두기.",{opt:false})
+ ],
+ groups:[
+  G("mit","MIT에서 꼭 볼 것","건물은 학생증 있어야 열려요 → 선배 따라다니기. 연구시설은 유리창 밖에서만!",[
+   S("그레이트 돔 · 킬리안 코트","포토","MIT의 상징 돔과 잔디 마당. 단체사진 장소.",{q:"Great Dome MIT Killian Court"}),
+   S("인피니트 코리도 (Infinite Corridor)","구경","MIT 본관 7번~10번 건물을 잇는 긴 복도. 학생들이 다니는 메인 길.",{q:"Infinite Corridor MIT"}),
+   S("바나나 라운지 (Banana Lounge)","간식","MIT에서는 바나나를 누구나 무료로 가져갈 수 있어요. 먹을 만큼만!",{tip:"다발째 가져가기 금지."}),
+   S("MIT.nano · 클린룸","구경","반도체를 만드는 클린룸(Robert Noyce Cleanroom)을 유리창 너머로 구경. 문 열거나 들어가면 안 돼요.",{u:"https://mitnano.mit.edu/",q:"MIT.nano"}),
+   S("One.MIT 이름 웨이퍼","구경","1861년 개교 이래 약 34만 명의 이름이 새겨진 웨이퍼. 확대해서 보면 글씨가 전부 이름!",{q:"MIT.nano One.MIT wafer"}),
+   S("스타타 센터 (Stata Center)","포토","프랭크 게리가 설계한 삐뚤빼뚤한 건물. 컴퓨터과학·AI 연구 건물.",{q:"Stata Center MIT"}),
+   S("크레스기 강당 · MIT 채플","포토","둥근 지붕의 크레스기 강당과 사리넨 설계 채플.",{q:"Kresge Auditorium MIT"})
+  ]),
+  G("mitfree","16:00~17:00 자유시간","17:00 집합! 북스토어는 작은 편이에요.",[
+   S("MIT 스토어(북스토어)","쇼핑","MIT 굿즈 구경. 계산이 느릴 수 있으니 카드로, 17:00 전에 끝내기.",{q:"MIT Store Cambridge MA"}),
+   S("MIT 박물관","구경","캠퍼스 밖(켄들 스퀘어)이라 거리·유료 → 시간상 빠듯, 가고 싶으면 선생님께 먼저 확인.",{u:"https://mitmuseum.mit.edu/",q:"MIT Museum 314 Main St Cambridge"}),
+   S("캠퍼스 산책 · 찰스 강","포토","조원과 함께 캠퍼스·강변 산책. 17:00 집합 전에 돌아오기.",{q:"Charles River MIT"})
+  ]),
+  G("outwoods","저녁 · Out of the Woods","단체 식사(식비 포함).",[
+   S("치킨 파히타 (fajita) 한 그릇","식사","치폴레처럼 밥·옥수수·닭고기·채소를 한 그릇에. 1·2호차 모두 이 식당.",{m:["치킨 파히타","밥","옥수수","채소"],q:"626 Main St Bolton MA Out of the Woods"})
+  ])
+ ]},
+
+/* ---------------- D4 ---------------- */
+{date:"2026-10-18",dow:"일",color:"#6a3d99",title:"뉴욕 ① MoMA · 센트럴파크 · 위키드",region:"뉴욕 맨해튼 / 뉴저지",
+ hotel:"Hanover Marriott · 1401 Route 10 East, Whippany NJ · +1-973-538-8811",
+ items:[
+  I("hotel","EDT","06:00","07:00","조식 · 체크아웃 · 07:00 뉴욕 출발","06:40까지 짐 들고 버스. 귀중품·보조배터리·겉옷은 짐칸 말고 들고 타기."),
+  I("move","EDT","07:00","12:00","버스 → 맨해튼 (약 5시간)","화장실·간식·충전 정리."),
+  I("meal","EDT","12:00","13:00","점심 · 더큰집(한식)","맨해튼 코리아타운(32번가) 빨간 건물. 육개장·설렁탕·순두부·김치찌개·비빔밥 중 하나.",{g:"kunjip"}),
+  I("move","EDT","13:00","13:30","버스 → MoMA (약 30분)",""),
+  I("visit","EDT","13:30","15:00","뉴욕 현대미술관 MoMA","관람 후 1층 집합 15:00(입장 전 장소 확인). 5층부터 내려오기. 가방검사 → QR 입장.",{g:"moma"}),
+  I("move","EDT","15:00","15:30","버스 → 센트럴파크 (약 30분)",""),
+  I("free","EDT","15:30","16:30","센트럴파크 자유시간","공원이 엄청 커요. 갈 때만큼 돌아와야 해요(절반 지나면 돌아서기). 16:30 흩어진 곳 집합. 숲 깊은 곳·으슥한 곳 금지.",{g:"cp",free:true}),
+  I("meal","EDT","17:00","18:00","저녁 · 댈러스 BBQ (타임스스퀘어)","241 W 42nd St. 로스트 치킨·폭립·감자튀김·옥수수빵 한 접시, 음료 큰 피처.",{g:"dallas"}),
+  I("move","EDT","18:00","18:30","도보 → 거슈윈 극장 (타임스스퀘어 통과, 약 12분)","멈춰서 사진 찍기 금지! 앞사람 놓치면 안 돼요. 위험하면 버스로 전환.",{g:"timesq"}),
+  I("show","EDT","18:30","19:00","극장 앞 광장 집합 · 입장","222 W 51st St 1층 앞 광장. 입장권 받고 입장."),
+  I("show","EDT","19:00","22:00","뮤지컬 〈위키드〉 관람","영어 대사·노래, 자막 없음. 영화 〈위키드〉를 미리 보면 이해 쉬움. 끝나면 광장에서 기다려 출석 → 버스. 무단횡단 금지.",{g:"wicked"}),
+  I("hotel","EDT","22:00","23:00","하노버 메리어트 도착 (약 1시간)","버스에서 대기 → 선생님 안내 후 하차. 방에 가며 비상구 확인. 유리병 물 $8, 미니바 손대지 않기.")
+ ],
+ groups:[
+  G("kunjip","더큰집 (The Kunjip)","32 W 32nd St · 주문하면 1분 안에 나올 만큼 빨라요.",[
+   S("더큰집 메뉴","식사","밥+기본 반찬 함께, 식후 후식 음료도 나와요. 알레르기는 출발 전에 담임께.",{m:["육개장","설렁탕","순두부찌개","김치찌개","비빔밥"],q:"The Kunjip 32 W 32nd St New York"}),
+   S("코리아타운 32번가 구경","구경","한식당·카페·한국 간식 가게가 모여 있는 골목. 시간 짧으니 눈으로만.",{q:"Koreatown 32nd Street New York"})
+  ]),
+  G("moma","MoMA 보는 순서와 대표 작품","5층(1880~1950) → 4층(1950~1980) → 2층(1980~현재), 3층은 특별전(변동). 층·전시는 바뀔 수 있으니 입구 안내판 확인. 작품의 80% 넘게가 추상!",[
+   S("반 고흐 〈별이 빛나는 밤〉","구경","가장 사람이 몰리는 작품. 먼저 가서 보고 오기. (5층)",{u:"https://www.moma.org/",q:"MoMA Starry Night"}),
+   S("모네 〈수련〉 · 피카소 〈아비뇽의 처녀들〉 · 달리 〈기억의 지속〉","구경","교과서 명작들. (보통 5층)",{tip:"층 변동 가능 — 안내판 확인"}),
+   S("마티스 〈춤〉","구경","손을 잡고 강강술래처럼 둘러 춤추는 사람들. 찾아보기!"),
+   S("앤디 워홀 〈골드 마릴린 먼로〉","구경","팝아트의 상징. (4층)"),
+   S("마크 로스코 · 이브 클랭 〈파란 모노크롬〉","구경","색 하나로 감정을 만드는 작품들. 제목과 설명판을 읽고 다시 보기. (4층)"),
+   S("조각 정원 (1층 유리창 너머)","포토","1층에서 야외 조각 정원이 보여요. 관람 끝나고 1층 집합 전 구경."),
+   S("MoMA 디자인 스토어","쇼핑","디자인 소품·문구. 짧은 시간 안에 구경.",{q:"MoMA Design Store 11 W 53rd St"}),
+  ]),
+  G("cp","센트럴파크 (1시간) – 어디까지 갈까?","내리는 위치를 먼저 확인하고 ‘왕복 시간’을 계산하세요. 도로 쪽·사람 많은 길 위주로!",[
+   S("그랜드 아미 플라자 · 풀리처 분수","포토","공원 동남쪽 입구(59번가·5번가). 분수와 광장. 가장 가까운 포인트.",{q:"Pulitzer Fountain Grand Army Plaza"}),
+   S("개프스토 브리지 · 더 폰드","포토","연못 너머로 뉴욕 빌딩 스카이라인이 겹치는 사진 명소(남동쪽).",{q:"Gapstow Bridge Central Park"}),
+   S("더 몰 · 리터러리 워크","구경","양옆 느릅나무가 터널을 이루는 산책로. 거리 공연·사람이 많아 안전한 편.",{q:"The Mall Literary Walk Central Park"}),
+   S("베데스다 테라스와 분수","포토","센트럴파크 대표 장소. 남쪽 입구에서 걸어서 꽤 멀어요 — 왕복 시간 계산 필수.",{tip:"자유시간 1시간이면 여기가 한계. 절반 지나면 돌아서기!",q:"Bethesda Terrace Central Park"}),
+   S("노점 간식 (프레첼·핫도그)","간식","공원 입구 근처 푸드카트. 현금/카드 가능한지 확인.",{p:"$3~6 (예상)"}),
+  ]),
+  G("dallas","댈러스 BBQ (타임스스퀘어점)","양이 아주 많아요(선생님도 못 다 먹음).",[
+   S("Dallas BBQ","식사","한 사람당 한 접시. 음료는 1~1.5L 피처.",{m:["로스트 치킨","폭립(돼지고기)","감자튀김","옥수수빵"],tip:"못 먹는 고기(돼지) 있으면 미리 담임께.",u:"https://www.dallasbbq.com/",q:"Dallas BBQ 241 W 42nd St New York"})
+  ]),
+  G("timesq","타임스스퀘어 – 지나가며 볼 것 (멈추기 금지)","시위·행사로 아주 붐비기도 해요. 대열 중간 선생님 위치 기억!",[
+   S("전광판 빌딩 · 광고","구경","도시 광고 관찰 미션: ‘광고가 도시를 지배한다’ / ‘빛과 인간공학’.",{tip:"사진은 걸으면서!"}),
+   S("TKTS 빨간 계단","포토","공연 할인 티켓 부스 위 빨간 계단 (47번가 즈음). 멈추는 것은 허용될 때만.",{q:"TKTS Red Steps Times Square"}),
+  ]),
+  G("wicked","위키드 관람 준비","대사·노래 모두 영어 + 자막 없음. 줄거리와 노래 제목만 알아도 이해가 훨씬 쉬워요.",[
+   S("줄거리 한 줄","정보","오즈의 마법사를 ‘서쪽 마녀’ 엘파바의 시점에서 다시 쓴 이야기. 초록 피부 엘파바와 글린다의 우정과 갈등.",{u:"https://wickedthemusical.com/"}),
+   S("꼭 들어 볼 넘버 (제목만)","정보","〈No One Mourns the Wicked〉 〈The Wizard and I〉 〈What Is This Feeling?〉 〈Dancing Through Life〉 〈Popular〉 〈Defying Gravity〉 〈For Good〉",{tip:"영화 〈위키드〉(넷플릭스 등)를 비행기에서 먼저 보기."}),
+   S("극장 앞 광장","편의","거슈윈 극장 1층 앞 지붕 있는 광장 = 입장 전·공연 후 집합 장소. 차가 들어오는 쪽으로 나가지 않기.",{q:"Gershwin Theatre 222 W 51st St"})
+  ])
+ ]},
+
+/* ---------------- D5 ---------------- */
+{date:"2026-10-19",dow:"월",color:"#0e7c86",title:"뉴욕 ② 월가 · 자유의 여신상 · 메트로폴리탄",region:"맨해튼 / 뉴저지",
+ hotel:"Hanover Marriott (연박)",
+ items:[
+  I("meal","EDT","06:30","08:00","호텔 조식 · 07:40 버스","1층 연회장 살롱을 따로 열어 줄 예정. 이어폰·서클라인 앱 확인!"),
+  I("move","EDT","08:00","09:00","버스 → 맨해튼 월가 (약 1시간)",""),
+  I("visit","EDT","09:00","10:00","월가 걷기: 황소상 → 트리니티 교회 → 뉴욕증권거래소 → 페더럴 홀 → 피어 16","황소상 앞 사진 줄은 서지 않기. 울퉁불퉁한 돌길 주의. 위험하면 버스로 전환.",{g:"wall"}),
+  I("visit","EDT","10:00","11:00","자유의 여신상 유람선 (서클라인)","피어 16, 09:45 탑승 준비. 앱+이어폰으로 한국어 해설. 약 45분.",{g:"cruise"}),
+  I("move","EDT","11:00","11:30","버스 → 그라운드 제로",""),
+  I("free","EDT","11:30","13:00","자유시간: 9/11 메모리얼 · 원 월드 전망대","13:00 원 월드 트레이드 센터 1층 집합. 추모 공간 — 조용히.",{g:"gz",free:true}),
+  I("move","EDT","13:00","13:30","버스 → 점심 식당",""),
+  I("meal","EDT","13:30","14:30","점심 · 효동각 / 한밭 (한국식 중국 음식)","1호차 한밭(초록 차양), 2호차 효동각(빨간 차양). 짬뽕·짜장면·볶음밥 + 탕수육.",{g:"hyo"}),
+  I("move","EDT","14:30","15:00","버스 → 메트로폴리탄 미술관","단체 체크인 카운터에 집합."),
+  I("free","EDT","15:00","17:20","메트로폴리탄 미술관 자유 관람","17:30 단체 체크인 카운터 재집합. 순서 미리 정하기!",{g:"met",free:true}),
+  I("meal","EDT","17:30","18:50","저녁 · 칠러스 그릴 (Fort Lee, NJ)","치즈 치킨가스+폭립+감자튀김 한 접시.",{g:"chillers"}),
+  I("move","EDT","18:50","19:30","버스 → 해밀턴 파크",""),
+  I("visit","EDT","19:30","20:00","해밀턴 파크 · 맨해튼 야경","허드슨강 건너 맨해튼 야경. 20:00 버스 집합.",{g:"ham"}),
+  I("shop","EDT","20:00","21:00","숙소 복귀 (월마트 선택)","내일 06:30 조식 · 짐 싸서 체크아웃!",{opt:true})
+ ],
+ groups:[
+  G("wall","월가 코스","황소상 → 월가 → 피어 16 도보 약 30분(보며 걸으면 1시간). 황소상 근처는 마리화나 냄새가 날 수 있어요 → 가까이 가지 않기.",[
+   S("돌진하는 황소상 (Charging Bull)","포토","월가의 상징. 사진 줄이 길어서 단체로는 어려워요.",{q:"Charging Bull Bowling Green"}),
+   S("트리니티 교회","구경","월가 끝의 고딕 교회. 교회 묘지에 알렉산더 해밀턴 묘가 있어요.",{u:"https://www.trinitywallstreet.org/",q:"Trinity Church Wall Street"}),
+   S("뉴욕증권거래소 (NYSE)","포토","새로 상장한 기업이 종을 치는 곳. 외관 관람. ‘Fearless Girl’ 동상도 근처에서 찾아보기.",{u:"https://www.nyse.com/",q:"New York Stock Exchange 11 Wall St"}),
+   S("페더럴 홀 (Federal Hall)","구경","조지 워싱턴이 초대 대통령에 취임한 곳, 앞에 워싱턴 동상. 첫 연방의회 장소.",{u:"https://www.nps.gov/feha/",q:"Federal Hall National Memorial"}),
+   S("피어 16 / 사우스 스트리트 시포트","포토","큰 간판은 피어 17, 우리는 간판 없는 피어 16. 브루클린 다리가 바로 앞.",{q:"Pier 16 South Street Seaport"})
+  ]),
+  G("cruise","서클라인 유람선 – 배에서 볼 것 (순서대로)","10:00 출항 예정(09:45 탑승 준비). 앱·GPS 켜고 이어폰! 승선 후 구명조끼 위치 확인.",[
+   S("브루클린 다리 · 맨해튼 다리","포토","출발할 때 / 돌아올 때 다리 아래를 지나요.",{q:"Brooklyn Bridge"}),
+   S("로어 맨해튼 스카이라인","포토","원 월드 트레이드 센터가 보이는 남쪽 스카이라인."),
+   S("엘리스 섬 · 거버너스 섬","구경","이민자가 들어오던 관문 엘리스 섬(이민 역사)과 거버너스 섬."),
+   S("자유의 여신상","포토","1886년 프랑스가 미국에 선물. 이민자에게 자유와 새 삶의 상징. 배가 여신상 앞까지 가요.",{u:"https://www.nps.gov/stli/",q:"Statue of Liberty"}),
+   S("앱과 이어폰","정보","Circle Line 앱: 휴대폰 스피커로는 안 들려요(이어폰 필수). 앱은 한국에서 미리 설치. 부두 화장실은 찾기 어려우니 호텔에서!",{u:"https://www.circleline.com/"})
+  ]),
+  G("gz","그라운드 제로 · 원 월드 (자유 1시간 30분)","전망대 입장권은 시간이 정해진 표 → 늦지 말기. 13:00 원 월드 트레이드 센터 1층 집합.",[
+   S("9/11 메모리얼 (두 개의 추모 폭포)","구경","쌍둥이 빌딩 자리에 파 만든 사각 폭포. 가장자리에 희생자 이름. 왜 물이 끝없이 떨어지게 했는지 생각해 보기.",{u:"https://www.911memorial.org/",q:"National September 11 Memorial"}),
+   S("원 월드 전망대 (One World Observatory)","구경","엘리베이터로 약 47초만에 102층. 벽 화면으로 맨해튼 400년이 지나가요. 자유의 여신상·브루클린 다리 찾아보기.",{u:"https://www.oneworldobservatory.com/",q:"One World Observatory"}),
+   S("생존자 나무 (Survivor Tree)","포토","잔해 속에서 살아남아 다시 심은 배나무. 메모리얼 광장 안.",{q:"Survivor Tree 9/11 Memorial"}),
+   S("오큘러스 (Oculus)","포토","칼라트라바가 설계한 하얀 날개 모양 역사. 안은 쇼핑몰·화장실.",{u:"https://www.wtc.com/",q:"Oculus World Trade Center"}),
+   S("세인트 폴 채플","구경","1766년 건립, 맨해튼에 현존하는 가장 오래된 건물로 알려짐. 9/11 때 구조대 쉼터.",{q:"St Paul's Chapel New York"}),
+   S("Eataly Downtown / Brookfield Place","간식","간단한 이탈리안 먹거리·푸드홀. 점심이 곧이므로 가볍게 구경.",{u:"https://www.eataly.com/",q:"Eataly NYC Downtown"})
+  ]),
+  G("hyo","효동각 · 한밭","두 식당은 주방 공유. 탑승한 호차별로 나눠 먹어요.",[
+   S("효동각 / 한밭 메뉴","식사","짬뽕·짜장면·볶음밥 중 하나 + 테이블마다 탕수육. 계란 알레르기는 계란 뺀 볶음밥 가능.",{m:["짬뽕","짜장면","볶음밥","탕수육","짬짜면"],q:"효동각 Hyodonggak 51 W 35th St New York"})
+  ]),
+  G("met","메트로폴리탄 2시간 20분 코스 제안","다 볼 수 없어요! 1·2·3순위를 정하고 동선 짜기. 17:30 단체 체크인 카운터 집합. 무료 와이파이: MetMuseumFreeWiFi.",[
+   S("이집트관 · 덴두르 신전","구경","유리 벽 큰 전시실에 통째로 옮겨 온 신전. 미라·관·무덤 예배실(안에 들어갈 수 있음). (1층)",{u:"https://www.metmuseum.org/",q:"Temple of Dendur Met Museum"}),
+   S("그리스·로마관","구경","그리스 조각·붉은 그림 항아리·카노바 ‘메두사의 머리를 든 페르세우스’. (1층)"),
+   S("American Wing Cafe (1층)","식사","샌드위치·샐러드·빵·아이스크림·커피. 월요일 11:00~16:00 운영.",{m:["샌드위치","샐러드","아이스크림","커피"],p:"$$ (예상 $12~20)",tip:"4시에 닫아요 → 먹을 거면 일찍",u:"https://www.metmuseum.org/visit/food-and-drink",q:"The Metropolitan Museum of Art American Wing Cafe"}),
+   S("Great Hall Balcony Cafe (2층)","식사","아시안 느낌의 샌도·포케·초밥·샐러드. 월요일 11:00~16:00 운영.",{m:["샌도","포케","초밥","샐러드"],p:"$$ (예상 $15~25)",tip:"4시에 닫아요",u:"https://www.metmuseum.org/visit/food-and-drink",q:"The Metropolitan Museum of Art Great Hall Balcony Cafe"}),
+   S("Lehman Cafe Cart (1층)","간식","가볍게 샌드위치·디저트·차가운 음료. 월요일 11:00~16:00 운영.",{m:["샌드위치","디저트","음료"],p:"$ (예상 $5~12)",u:"https://www.metmuseum.org/visit/food-and-drink",q:"The Metropolitan Museum of Art"}),
+   S("유럽 회화 (2층)","구경","고흐·고갱·모네·드가·제롬 등. 사이트 사진 목록의 〈이아 오라나 마리아〉, 〈밀짚모자 자화상〉, 〈해바라기〉를 찾아보기."),
+   S("아시아관 · 한국관 (Arts of Korea)","구경","한국관 입구 화면에 상감 도자기 제작 영상. 한국 미술을 세계 미술관에서 보는 경험."),
+   S("아프리카·오세아니아관","구경","상아 조각·청동 두상·긴 카누 조각. (1층)"),
+   S("무기와 갑옷 (Arms & Armor)","구경","기사 갑옷·검. 학생들이 좋아하는 코너.",{tip:"코스 예: 이집트 → 그리스·로마 → 유럽 회화 순으로 가볍게."}),
+   S("미국관 안뜰 카페","간식","유리 지붕 아래 조각들과 테이블 있는 휴식 공간(1층). 가볍게 음료·간식.",{p:"$5~15 (예상)"}),
+  ]),
+  G("chillers","칠러스 그릴","도로 옆 ‘Chillers Grill’ 간판, 계단 올라 가운데 정문. 폭립(돼지고기) 있음.",[
+   S("한 접시 메뉴","식사","치즈를 올린 치킨가스(치킨 파르메산)+폭립+감자튀김.",{m:["치킨 파르메산","폭립","감자튀김"],q:"Chiller's Grill 2191 Fletcher Ave Fort Lee NJ"})
+  ]),
+  G("ham","해밀턴 파크 야경 (30분)","공원이 작아서 붐벼요. 해 진 뒤라 어둡 → 선생님이 정한 곳 안에서만.",[
+   S("난간 앞 맨해튼 파노라마","포토","허드슨강 건너 불이 꺼지지 않는 맨해튼. 이틀간 다닌 곳(월가·MoMA·센트럴파크 쪽)을 찾아보세요.",{q:"Hamilton Park Weehawken NJ skyline"}),
+  ])
+ ]},
+
+/* ---------------- D6 ---------------- */
+{date:"2026-10-20",dow:"화",color:"#b45309",title:"프린스턴 → 워싱턴 D.C.",region:"프린스턴(NJ) / 워싱턴 D.C.",
+ hotel:"Bethesda Marriott · 5151 Pooks Hill Rd, Bethesda MD · +1-301-897-9400 (1박)",
+ items:[
+  I("hotel","EDT","06:30","07:10","조식 · 체크아웃","07:10까지 짐 들고 버스. 쌈장은 들고 타는 가방에."),
+  I("move","EDT","07:10","08:30","버스 → 프린스턴 (약 1시간)",""),
+  I("shop","EDT","08:30","09:00","프린스턴 대학 스토어 분점 (선택)","36 University Place, 08:00 오픈. 본점(114 Nassau St)은 10시 오픈이라 못 가요.",{g:"princeton",opt:true}),
+  I("lec","EDT","09:00","10:00","AI 특강 · ‘AI for Scientific Research’","Frist Campus Center 302호. 자기 재연결(플라즈마) 연구 학습자료가 사이트에 있었어요.",{}),
+  I("uni","EDT","10:00","11:00","반별 멘토링 · 캠퍼스 투어","멘토 1명과 1시간 캠퍼스. 나소 홀·채플·이스트 파인 홀·피츠랜돌프 게이트. 11:00 버스 집합.",{g:"princeton"}),
+  I("meal","EDT","11:30","12:25","점심 · 골든 코랄 (Bensalem, PA)","미국식 뷔페. 버스 오래 타니 식사 후 화장실!",{g:"golden"}),
+  I("move","EDT","12:30","16:30","버스 → 워싱턴 D.C. (3.5~4시간)",""),
+  I("visit","EDT","16:30","18:00","내셔널 몰 투어","백악관 → 의회의사당(단체사진) → 제퍼슨 기념관 → 한국전 참전용사 기념비(헌화) → 링컨 기념관. 18:00 버스 집합. 현지 가이드 놓치지 않기.",{g:"dc"}),
+  I("meal","EDT","18:00","20:00","저녁 · 노쉬 그릴 하우스 (고기 무한리필)","Rockville MD. 남긴 음식은 1lb당 $16.99 추가! 시킨 만큼만.",{g:"nosh"}),
+  I("hotel","EDT","20:00","21:00","베데스다 메리어트 도착 (월마트 선택)","1박만. 짐 다 풀지 말기. 내일 귀국 짐 정리 시작."),
+ ],
+ groups:[
+  G("princeton","프린스턴 구경 · 쇼핑","특강 전 30분 + 멘토링 1시간. 건물 안은 수업 중 → 조용히.",[
+   S("프린스턴 대학 스토어 (분점 36 University Pl)","쇼핑","로고 후디·모자·기념품·과자 코너. 본점에서 로고 맨투맨 $72였음(답사).",{u:"https://www.pustore.com/",p:"맨투맨 약 $72",q:"Princeton University Store 36 University Place"}),
+   S("나소 홀 (Nassau Hall)","포토","캠퍼스 중심 건물. 18세기 독립 전후 역사의 현장으로 알려져 있어요(일반 학습 설명).",{q:"Nassau Hall Princeton"}),
+   S("피츠랜돌프 게이트","포토","나소 스트리트 쪽 정문. 안쪽 길 끝에 나소 홀.",{q:"FitzRandolph Gate Princeton"}),
+   S("프리스트 캠퍼스 센터 302호","구경","아인슈타인이 강의한 적 있는 강의실로 소개된 곳. 지금도 수업 중이라 유리창 너머로 조용히 잠깐만.",{q:"Frist Campus Center Princeton"}),
+   S("프린스턴 대학 채플","구경","높은 아치 천장과 스테인드글라스. 조용히.",{q:"Princeton University Chapel"}),
+   S("이스트 파인 홀 안뜰","포토","아치문을 지나면 나오는 안뜰.",{q:"East Pyne Hall Princeton"}),
+   S("프린스턴 대학 미술관","구경","입장 무료(운영시간 확인). 일정상 시간 있을 때만.",{u:"https://artmuseum.princeton.edu/",q:"Princeton University Art Museum"}),
+   S("Hoagie Haven (샌드위치)","식사","캠퍼스 근처 유명 호기(대형 샌드위치) 가게. 점심이 곧이라 간식으로 나눠 먹는 정도.",{p:"$8~12 (예상)",q:"Hoagie Haven Princeton"})
+  ]),
+  G("golden","골든 코랄 (미국식 뷔페)","음료는 피처. 많이 덜지 말고 먹을 만큼만. 단체석에 모여 앉기.",[
+   S("Golden Corral 뷔페","식사","치킨·감자튀김·핫도그·샐러드바·케이크·파이.",{m:["치킨·구이","핫도그","샐러드바","케이크·파이","스테이크(코너)"],q:"Golden Corral 1465 Street Rd Bensalem PA"})
+  ]),
+  G("dc","내셔널 몰 5곳 (90분) + 보너스","현지 가이드를 따라 이동. 11월 초 선거를 앞두고 행사가 있을 수 있어요.",[
+   S("백악관 (White House)","포토","철책에 가림막이 있어 멀리서는 안 보이고 철책 틈으로 봐요. 라파예트 광장엔 백악관 역사·시위 역사 안내판.",{u:"https://www.nps.gov/whho/",q:"White House"}),
+   S("미국 의회의사당 (US Capitol)","포토","잔디밭에서 한 번(전체), 계단 앞에서 한 번(근접) 단체사진. 테라스에선 내셔널 몰이 쭉 보여요.",{u:"https://www.visitthecapitol.gov/",q:"United States Capitol"}),
+   S("토머스 제퍼슨 기념관","구경","독립선언문 초안 작성자·3대 대통령. 둥근 지붕 건물, 벽에 글귀, 호수 건너 워싱턴 기념탑.",{u:"https://www.nps.gov/thje/",q:"Thomas Jefferson Memorial"}),
+   S("한국전 참전용사 기념비 (헌화)","구경","판초 입은 병사 조각상 19명. FREEDOM IS NOT FREE 글귀, 추모의 벽에 미군·카투사 전사자 이름. 헌화하는 동안 조용히. 연못에 동전 던지지 않기.",{u:"https://www.nps.gov/kowa/",q:"Korean War Veterans Memorial"}),
+   S("링컨 기념관","구경","앉아 있는 링컨 동상, 벽의 게티즈버그 연설문. 내려올 때 계단 바닥에서 ‘I HAVE A DREAM’ 새겨진 자리를 찾기 (킹 목사 연설 자리).",{u:"https://www.nps.gov/linc/",q:"Lincoln Memorial"}),
+   S("아인슈타인 기념비 (보너스)","포토","국립과학아카데미 앞 청동상(1979). 실제 방문 여부는 현장 안내.",{q:"Albert Einstein Memorial Washington DC"}),
+   S("워싱턴 기념탑","포토","내셔널 몰 한가운데 흰 탑. 링컨 기념관 계단·의사당 어디서든 보여요.",{u:"https://www.nps.gov/wamo/",q:"Washington Monument"})
+  ]),
+  G("nosh","노쉬 그릴 하우스","12 N Washington St, Rockville · 테이블 태블릿으로 주문(영어). 불판이 뜨거워요!",[
+   S("고기 무한리필","식사","삼겹살·목살·차돌박이·양념고기·해산물. 두꺼운 생고기가 구우기 쉬워요(얇은 고기는 들러붙음). 소스는 중국식 → 작은 쌈장 챙기면 좋아요.",{m:["삼겹살","목살","차돌박이","양념 고기","새우"],tip:"남긴 음식 1lb(약 450g)당 $16.99 추가.",u:"https://www.noshgrillhouse.com/",q:"Nosh Grill House Rockville MD"})
+  ])
+ ]},
+
+/* ---------------- D7 ---------------- */
+{date:"2026-10-21",dow:"수",color:"#2f7a45",title:"스미스소니언 · 저지 가든 → JFK",region:"워싱턴 D.C. / 뉴저지 / 뉴욕",
+ hotel:"(오늘은 숙박 없음 · 밤 비행기)",
+ items:[
+  I("hotel","EDT","06:30","08:30","조식 · 체크아웃 · 08:10 버스","오늘 호텔로 안 돌아와요. 보조배터리·충전기·겉옷은 들고 타는 가방에."),
+  I("move","EDT","08:30","10:00","버스 → 내셔널 몰 박물관 (약 1시간)","내리기 전 점심값 $25 수령."),
+  I("free","EDT","10:00","14:00","자유시간 · 자연사박물관 + 항공우주박물관 + 점심","14:00 버스 집합(장소는 흩어지기 전 안내). 두 박물관은 걸어서 10분. 항공우주박물관은 QR 사전 체크인 필수!",{g:"nhm,nasm",free:true}),
+  I("move","EDT","14:00","18:00","버스 → 저지 가든 (약 4시간)","출발 전 화장실!"),
+  I("free","EDT","18:00","20:00","저지 가든 · 저녁 자유식 + 쇼핑","저녁 $25 수령. 20:00 버스 집합. 마지막 집합이니 꼭 지키기. 기내 짐 한도 생각해서 쇼핑.",{g:"jg",free:true}),
+  I("move","EDT","20:00","21:30","버스 → JFK 공항 (약 1시간 30분)",""),
+  I("move","EDT","21:30","00:50","JFK 출국 수속 · 체크인 · 보안검색 · 탑승 대기","버스 문 앞에서 여권 수령. 대한항공 카운터 체크인(줄 1시간+ 가능). 보조배터리는 들고 타는 가방에. 전광판에서 KE086 탑승구 확인.")
+ ],
+ groups:[
+  G("nhm","스미스소니언 국립자연사박물관 (10th St & Constitution Ave)","10:00 오픈, 입장 무료. 아주 커서 하루로도 다 못 봄 → 순서 정하기. 1층 화장실 옆에 급수대.",[
+   S("로툰다 – 아프리카 코끼리","구경","정문 들소 조각상 계단 → 1층 중앙 원형 홀에 대형 코끼리 표본(안내판에서 전시관 방향 확인).",{u:"https://naturalhistory.si.edu/",q:"Smithsonian National Museum of Natural History"}),
+   S("화석관 (Fossil Hall)","구경","티라노사우루스 vs 트리케라톱스, 목 긴 공룡 골격, 스테고사우루스, 대멸종 이후 동물들.",{tip:"FossiLab: 연구원이 유리창 너머로 실제 화석을 연구하는 모습을 볼 수 있어요."}),
+   S("호프 다이아몬드 · 보석·광물관","구경","(2층) 세계에서 가장 유명한 푸른 다이아몬드.",{p:"무료"}),
+   S("해양관 (Ocean Hall)","구경","1층 대형 해양 생물 전시.",{}),
+   S("인류 기원관 (Human Origins)","구경","인류 진화 과정 전시."),
+   S("곤충 동물원 (Insect Zoo)","구경","살아있는 곤충 관찰 (운영·줄 확인)."),
+   S("박물관 카페","식사","내부 카페테리아에서 샌드위치·피자·샐러드. 항공우주박물관 지하 카페(Mars)도 있어요.",{p:"$10~18 (예상)"})
+  ]),
+  G("nasm","스미스소니언 항공우주박물관 (600 Independence Ave SW)","QR 체크인(선생님이 링크 전송)을 미리! 전시장 안 음식·음료·껌 금지. 사진 속 디스커버리·콩코드는 다른 분관(어드바-헤이지) → 이번에는 안 가요.",[
+   S("보잉 비행 이정표 홀","구경","천장에 매달린 스푸트니크 1호·스페이스십원·달 착륙선 LM-2 모형 등.",{u:"https://airandspace.si.edu/",q:"National Air and Space Museum"}),
+   S("1903 라이트 플라이어 (실물)","구경","라이트 형제가 하늘을 난 첫 비행기. 라이트 형제관(107)."),
+   S("아폴로 11호 사령선 ‘컬럼비아’","구경","달에 다녀온 우주선 실물. ‘Destination Moon’ 전시."),
+   S("비행 원리 체험 · 비행기 설계하기","구경","날개 모양별 공기저항 비교 체험, 비행기 설계 코너 (보고서 ‘과학관 견학’ 소재)."),
+   S("IMAX 영화관 (Lockheed Martin)","구경","상영 시간표를 미리 확인하고 동선 짜기."),
+   S("Mars Café (지하)","식사","샌드위치·피자·샐러드·음료. $25로 해결 가능.",{m:["샌드위치","피자","샐러드","음료"],p:"$10~16 (예상)"}),
+   S("Mitsitam Café (옆 건물 아메리칸 인디언 박물관)","식사","미국 원주민 지역 음식. 항공우주박물관 입장권을 보이면 10% 할인(답사 안내).",{u:"https://americanindian.si.edu/visit/washington/mitsitam",p:"$15~25 (예상)",q:"Mitsitam Cafe National Museum of the American Indian"}),
+  ]),
+  G("jg","The Mills at Jersey Gardens (Elizabeth, NJ)","스타필드 같은 아웃렛 몰. 18:00~20:00에 식사+쇼핑. 뉴저지는 일반 의류·신발에 판매세가 붙지 않아요(영수증 확인). 푸드코트는 팁 불필요(카운터 주문).",[
+   S("푸드코트: 버거·치킨","식사","Burger King, Popeyes 등 익숙한 프랜차이즈.",{m:["Burger King","Popeyes"],p:"$8~13 (예상)"}),
+   S("Nathan’s (핫도그)","식사","뉴욕 코니아일랜드 핫도그 브랜드.",{m:["핫도그","감자튀김"],p:"$5~9 (예상)"}),
+   S("파스타 랩","식사","큰 치즈 휠에 버무려 주는 페투치네 알프레도 $9.95 (답사 확인), 토핑은 추가.",{m:["페투치네 알프레도"],p:"$9.95"}),
+   S("Johnny Rockets","식사","오리지널 버거 $10.49, 감자튀김 $4.99, 셰이크 (키오스크 포장 주문 가능, 답사 확인).",{m:["오리지널 버거","감자튀김","셰이크"],p:"$10.49~"}),
+   S("멕시칸 / 케이준 / 중식 코너","식사","Moe’s Southwest Grill(멕시칸), Cajun Grill, 중식 코너, Arthur Treacher’s(피시앤칩스) 등 푸드코트에 다양(입점 변동 가능).",{m:["부리토","케이준 그릴","중식","피시앤칩스"]}),
+   S("쇼핑 브랜드","쇼핑","Michael Kors, Coach, Hollister, PUMA, Hugo Boss, Sephora, H&M, Nike 등 (입점 변동 가능 — 몰 안내판 확인).",{u:"https://www.simon.com/mall/the-mills-at-jersey-gardens",q:"The Mills at Jersey Gardens 651 Kapkowski Rd Elizabeth NJ"}),
+  ])
+ ]},
+
+/* ---------------- D8 ---------------- */
+{date:"2026-10-22",dow:"목",color:"#34495e",title:"귀국 비행",region:"기내 (뉴욕 → 인천)",hotel:"",
+ items:[
+  I("flight","EDT","00:50","05:10","KE086 JFK → 인천 (약 15시간 20분)","10/22 00:50(뉴욕) 출발 = 한국 10/22 13:50. 인천 10/23(금) 05:10 도착. 보조배터리 사용·충전 금지, 겉옷 챙기기. 인천 도착 전 한국 유심으로 교체. 내리기 전 좌석 주머니·선반 확인.",{etz:"KST",edate:"2026-10-23"})
+ ],
+ groups:[]},
+
+/* ---------------- D9 ---------------- */
+{date:"2026-10-23",dow:"금",color:"#1f8a70",title:"인천 도착 · 귀가",region:"인천공항 제2여객터미널",hotel:"",
+ items:[
+  I("move","KST","05:10","06:00","인천공항 도착 · 입국심사 · 짐 찾기","전광판에서 KE086 수취대 번호 확인. 짐이 늦게 나올 수 있어요."),
+  I("move","KST","06:00","06:30","담임 선생님께 얼굴 보이고 귀가","담임께 확인받기 전에 가지 않기! 집에 가면 구글 지도 위치 공유 끄기. 10/25(일) 기숙사 입사, 11/3(화) 발표회 보고서.")
+ ],
+ groups:[]}
+];
+
+/* ===================== 여행 정보(정적) ===================== */
+const DEF_CHECK=["여권(담임 보관)·여권 사진 2장·사본","ESTA 승인 확인","트래블 카드(해외 결제)","달러 현금 소액 + 1·2달러 지폐","유심/이심/로밍 준비","서클라인 앱 설치 + 유선 이어폰","보조배터리 2개 이하(27,000mAh↓) – 들고 타는 가방","충전 케이블 / 110V 변환 어댑터","구글 지도 위치 공유 켜기","얇은 옷 여러 벌 + 겉옷(가벼운 패딩) + 우산","편한 운동화","미술관·뮤지컬용 단정한 옷","폼클렌징·칫솔·100ml 이하 치약","상비약 8일분(들고 타는 가방) · 영문 처방전(필요 시)","작은 쌈장(부치는 짐)","필기도구 · 멘토에게 물어볼 질문 목록","영화 〈위키드〉 보기","자유식 식당 1·2순위 정하기","입국심사 영어 답변 연습","기내용: 목베개·마스크·보습제·인공눈물","학교 띠를 캐리어에 두르기"];
+
+
+/* ===== 명단 데이터 (안전교육 PDF · 좌석표 · 멘토링 표에서 옮김) ===== */
+const STU=[{"id":"1101","n":"김건유","c":1},{"id":"1102","n":"김기범","c":1},{"id":"1103","n":"김민준","c":1},{"id":"1104","n":"김진우","c":1},{"id":"1105","n":"리원준","c":1},{"id":"1106","n":"박건우","c":1},{"id":"1107","n":"설민기","c":1},{"id":"1108","n":"양호찬","c":1},{"id":"1109","n":"오시윤","c":1},{"id":"1110","n":"이선우","c":1},{"id":"1111","n":"이성찬","c":1},{"id":"1112","n":"이시혁","c":1},{"id":"1113","n":"정윤진","c":1},{"id":"1114","n":"정지우","c":1},{"id":"1115","n":"최우수진","c":1},{"id":"1116","n":"최은호","c":1},{"id":"1117","n":"한상우","c":1},{"id":"1118","n":"홍지호","c":1},{"id":"1119","n":"황보성","c":1},{"id":"1120","n":"황진우","c":1},{"id":"1201","n":"고승준","c":2},{"id":"1202","n":"김민결","c":2},{"id":"1203","n":"김시우","c":2},{"id":"1204","n":"김영휘","c":2},{"id":"1205","n":"박준호","c":2},{"id":"1206","n":"박지호","c":2},{"id":"1207","n":"신서연","c":2},{"id":"1208","n":"심대원","c":2},{"id":"1209","n":"양태영","c":2},{"id":"1210","n":"이승현","c":2},{"id":"1211","n":"이시윤","c":2},{"id":"1212","n":"이어준","c":2},{"id":"1213","n":"이예준","c":2},{"id":"1214","n":"이재인","c":2},{"id":"1215","n":"장현재","c":2},{"id":"1216","n":"정예준","c":2},{"id":"1217","n":"조인성","c":2},{"id":"1218","n":"최서윤","c":2},{"id":"1219","n":"한은원","c":2},{"id":"1220","n":"황윤서","c":2},{"id":"1301","n":"강시우","c":3},{"id":"1302","n":"강유노","c":3},{"id":"1303","n":"권예준","c":3},{"id":"1304","n":"김경환","c":3},{"id":"1305","n":"김시후","c":3},{"id":"1306","n":"안재현","c":3},{"id":"1307","n":"김주영","c":3},{"id":"1308","n":"성채은","c":3},{"id":"1309","n":"신재빈","c":3},{"id":"1310","n":"이상준","c":3},{"id":"1311","n":"이서영","c":3},{"id":"1312","n":"이주형","c":3},{"id":"1313","n":"이치호","c":3},{"id":"1314","n":"이효준","c":3},{"id":"1315","n":"임승유","c":3},{"id":"1316","n":"정병현","c":3},{"id":"1317","n":"정의찬","c":3},{"id":"1318","n":"정지후","c":3},{"id":"1319","n":"조아인","c":3},{"id":"1320","n":"최유빈","c":3},{"id":"1401","n":"김겸","c":4},{"id":"1402","n":"김덕현","c":4},{"id":"1403","n":"김민재","c":4},{"id":"1404","n":"김솔민","c":4},{"id":"1405","n":"김수한","c":4},{"id":"1406","n":"김준기","c":4},{"id":"1407","n":"노동건","c":4},{"id":"1408","n":"문선호","c":4},{"id":"1409","n":"박현준","c":4},{"id":"1410","n":"신대용","c":4},{"id":"1411","n":"양유나","c":4},{"id":"1412","n":"엄지훈","c":4},{"id":"1413","n":"엄초원","c":4},{"id":"1414","n":"유도현","c":4},{"id":"1415","n":"이세연","c":4},{"id":"1416","n":"이현욱","c":4},{"id":"1417","n":"임주호","c":4},{"id":"1418","n":"장하은","c":4},{"id":"1419","n":"전윤","c":4},{"id":"1420","n":"지현우","c":4},{"id":"1421","n":"최예서","c":4},{"id":"1502","n":"김성빈","c":5},{"id":"1503","n":"김태호","c":5},{"id":"1504","n":"김태희","c":5},{"id":"1505","n":"백재호","c":5},{"id":"1506","n":"서은지","c":5},{"id":"1507","n":"안익희","c":5},{"id":"1508","n":"오소민","c":5},{"id":"1509","n":"유태규","c":5},{"id":"1510","n":"유호라","c":5},{"id":"1511","n":"윤정민","c":5},{"id":"1512","n":"이용찬","c":5},{"id":"1513","n":"이유상","c":5},{"id":"1514","n":"이하음","c":5},{"id":"1515","n":"이하진","c":5},{"id":"1516","n":"임서후","c":5},{"id":"1517","n":"임시후","c":5},{"id":"1518","n":"조영호","c":5},{"id":"1519","n":"주재담","c":5},{"id":"1520","n":"최겸","c":5}];
+const BUS={"1":[{"s":1,"n":"가이드","t":"guide"},{"s":2,"n":"","t":"empty"},{"s":3,"n":"강은지","t":"teacher"},{"s":4,"n":"수행원","t":"staff"},{"s":5,"n":"홍창욱","t":"teacher"},{"s":6,"n":"김선아","t":"teacher"},{"s":7,"n":"성채은","t":"stu","id":"1308"},{"s":8,"n":"이서영","t":"stu","id":"1311"},{"s":9,"n":"양호찬","t":"stu","id":"1108"},{"s":10,"n":"한상우","t":"stu","id":"1117","star":1},{"s":11,"n":"이시혁","t":"stu","id":"1112","star":1},{"s":12,"n":"김진우","t":"stu","id":"1104"},{"s":13,"n":"신재빈","t":"stu","id":"1309"},{"s":14,"n":"이주형","t":"stu","id":"1312","star":1},{"s":15,"n":"정의찬","t":"stu","id":"1317","star":1},{"s":16,"n":"이치호","t":"stu","id":"1313"},{"s":17,"n":"정지우","t":"stu","id":"1114"},{"s":18,"n":"최우수진","t":"stu","id":"1115"},{"s":19,"n":"김건유","t":"stu","id":"1101"},{"s":20,"n":"설민기","t":"stu","id":"1107"},{"s":21,"n":"고승준","t":"stu","id":"1201"},{"s":22,"n":"한은원","t":"stu","id":"1219"},{"s":23,"n":"황보성","t":"stu","id":"1119"},{"s":24,"n":"황진우","t":"stu","id":"1120","org":1},{"s":25,"n":"김시우","t":"stu","id":"1203"},{"s":26,"n":"최서윤","t":"stu","id":"1218"},{"s":27,"n":"이재인","t":"stu","id":"1214"},{"s":28,"n":"신서연","t":"stu","id":"1207"},{"s":29,"n":"박준호","t":"stu","id":"1205"},{"s":30,"n":"이승현","t":"stu","id":"1210"},{"s":31,"n":"김민결","t":"stu","id":"1202"},{"s":32,"n":"정예준","t":"stu","id":"1216"},{"s":33,"n":"김영휘","t":"stu","id":"1204"},{"s":34,"n":"양태영","t":"stu","id":"1209"},{"s":35,"n":"이시윤","t":"stu","id":"1211"},{"s":36,"n":"조인성","t":"stu","id":"1217"},{"s":37,"n":"이어준","t":"stu","id":"1212"},{"s":38,"n":"이예준","t":"stu","id":"1213"},{"s":39,"n":"장현재","t":"stu","id":"1215"},{"s":40,"n":"황윤서","t":"stu","id":"1220"},{"s":41,"n":"권예준","t":"stu","id":"1303"},{"s":42,"n":"강유노","t":"stu","id":"1302"},{"s":43,"n":"박지호","t":"stu","id":"1206"},{"s":44,"n":"심대원","t":"stu","id":"1208"},{"s":45,"n":"김주영","t":"stu","id":"1307"},{"s":46,"n":"안재현","t":"stu","id":"1306"},{"s":47,"n":"강시우","t":"stu","id":"1301"},{"s":48,"n":"조아인","t":"stu","id":"1319"},{"s":49,"n":"이효준","t":"stu","id":"1314"},{"s":50,"n":"임승유","t":"stu","id":"1315"},{"s":51,"n":"김시후","t":"stu","id":"1305"},{"s":52,"n":"김경환","t":"stu","id":"1304"},{"s":53,"n":"최유빈","t":"stu","id":"1320"},{"s":54,"n":"이상준","t":"stu","id":"1310"},{"s":55,"n":"정병현","t":"stu","id":"1316"},{"s":56,"n":"정지후","t":"stu","id":"1318"}],"2":[{"s":1,"n":"가이드","t":"guide"},{"s":2,"n":"","t":"empty"},{"s":3,"n":"박동희","t":"teacher"},{"s":4,"n":"한혜리","t":"teacher"},{"s":5,"n":"임수빈","t":"teacher"},{"s":6,"n":"김정민","t":"teacher"},{"s":7,"n":"김민준","t":"stu","id":"1103"},{"s":8,"n":"박건우","t":"stu","id":"1106"},{"s":9,"n":"임주호","t":"stu","id":"1417"},{"s":10,"n":"이현욱","t":"stu","id":"1416","star":1},{"s":11,"n":"지현우","t":"stu","id":"1420","star":1},{"s":12,"n":"엄지훈","t":"stu","id":"1412"},{"s":13,"n":"이유상","t":"stu","id":"1513"},{"s":14,"n":"임서후","t":"stu","id":"1516","star":1},{"s":15,"n":"노동건","t":"stu","id":"1407","star":1},{"s":16,"n":"김민재","t":"stu","id":"1403"},{"s":17,"n":"김기범","t":"stu","id":"1102"},{"s":18,"n":"최은호","t":"stu","id":"1116"},{"s":19,"n":"홍지호","t":"stu","id":"1118"},{"s":20,"n":"리원준","t":"stu","id":"1105"},{"s":21,"n":"이선우","t":"stu","id":"1110"},{"s":22,"n":"이성찬","t":"stu","id":"1111"},{"s":23,"n":"오시윤","t":"stu","id":"1109"},{"s":24,"n":"정윤진","t":"stu","id":"1113"},{"s":25,"n":"김겸","t":"stu","id":"1401"},{"s":26,"n":"박현준","t":"stu","id":"1409"},{"s":27,"n":"김덕현","t":"stu","id":"1402"},{"s":28,"n":"김수한","t":"stu","id":"1405"},{"s":29,"n":"신대용","t":"stu","id":"1410"},{"s":30,"n":"전윤","t":"stu","id":"1419"},{"s":31,"n":"김솔민","t":"stu","id":"1404"},{"s":32,"n":"엄초원","t":"stu","id":"1413"},{"s":33,"n":"유도현","t":"stu","id":"1414"},{"s":34,"n":"최예서","t":"stu","id":"1421"},{"s":35,"n":"김준기","t":"stu","id":"1406"},{"s":36,"n":"문선호","t":"stu","id":"1408"},{"s":37,"n":"양유나","t":"stu","id":"1411"},{"s":38,"n":"이세연","t":"stu","id":"1415"},{"s":39,"n":"장하은","t":"stu","id":"1418"},{"s":40,"n":"조영호","t":"stu","id":"1518"},{"s":41,"n":"김태희","t":"stu","id":"1504"},{"s":42,"n":"이하음","t":"stu","id":"1514"},{"s":43,"n":"유호라","t":"stu","id":"1510"},{"s":44,"n":"이용찬","t":"stu","id":"1512"},{"s":45,"n":"서은지","t":"stu","id":"1506"},{"s":46,"n":"오소민","t":"stu","id":"1508"},{"s":47,"n":"안익희","t":"stu","id":"1507"},{"s":48,"n":"유태규","t":"stu","id":"1509"},{"s":49,"n":"이하진","t":"stu","id":"1515"},{"s":50,"n":"최겸","t":"stu","id":"1520"},{"s":51,"n":"백재호","t":"stu","id":"1505"},{"s":52,"n":"임시후","t":"stu","id":"1517"},{"s":53,"n":"윤정민","t":"stu","id":"1511"},{"s":54,"n":"주재담","t":"stu","id":"1519"},{"s":55,"n":"김성빈","t":"stu","id":"1502"},{"s":56,"n":"김태호","t":"stu","id":"1503"}]};
+const HAR=[{"no":1,"major":"신경과학","mentor":"라용수","ids":["1404","1407","1409","1503","1504","1508","1511","1514","1517","1520"]},{"no":2,"major":"응용물리학","mentor":"김한주","ids":["1105","1106","1302","1303","1306","1307","1310","1507","1512","1515"]},{"no":3,"major":"정치학","mentor":"임태균","ids":["1101","1102","1107","1202","1208","1219","1312","1314","1317","1413"]},{"no":4,"major":"화학","mentor":"이일봉","ids":["1103","1110","1116","1201","1203","1301","1305","1411","1416","1417"]},{"no":5,"major":"생명공학/뇌과학","mentor":"변진수","ids":["1104","1109","1120","1204","1205","1209","1214","1308","1311","1320"]},{"no":6,"major":"진화생물학","mentor":"이서진","ids":["1108","1111","1112","1113","1118","1119","1212","1213","1506","1518"]},{"no":7,"major":"재료공학","mentor":"안희라","ids":["1117","1206","1210","1211","1215","1313","1319","1419","1509","1510"]},{"no":8,"major":"물리학","mentor":"이기석","ids":["1216","1217","1218","1220","1406","1410","1414","1421","1502","1505"]},{"no":9,"major":"의학통계학","mentor":"봉수환","ids":["1114","1115","1207","1304","1309","1315","1316","1318","1405","1415"]},{"no":10,"major":"재료공학","mentor":"문준엽","ids":["1401","1402","1403","1408","1412","1418","1420","1513","1516","1519"]}];
+const MIT=[{"no":1,"major":"전자공학","mentor":"김호현","topic":"Chemical Sensors","school":"경기북과학고(11기)","ids":["1110","1114","1202","1205","1218","1316","1318","1319","1414","1512"]},{"no":2,"major":"화학공학","mentor":"김지수","topic":"Tissue Engineering","school":"경기북과학고(10기)","ids":["1108","1111","1113","1119","1211","1212","1214","1304","1305","1308"]},{"no":3,"major":"화학+컴퓨터공학","mentor":"최민규","topic":"Protein Generative Models","school":"경기북과학고(10기)","ids":["1109","1116","1120","1204","1405","1407","1416","1417","1419","1506"]},{"no":4,"major":"전자공학","mentor":"권강규","topic":"Neuromorphic-Biosensors","school":"한국과학영재학교","ids":["1213","1216","1217","1306","1307","1310","1311","1312","1402","1508"]},{"no":5,"major":"화학공학","mentor":"권도훈","topic":"Electrochemical materials discovery","school":"세종과학예술영재학교","ids":["1118","1201","1203","1301","1313","1314","1411","1418","1513","1519"]},{"no":6,"major":"화학공학","mentor":"구본혁","topic":"Chemical Kinetics","school":"울산과학고","ids":["1112","1207","1315","1317","1320","1408","1409","1415","1511","1516"]},{"no":7,"major":"전자공학","mentor":"김경훈","topic":"Quantum Computing","school":"경기과학고","ids":["1102","1104","1107","1208","1209","1219","1406","1507","1509","1518"]},{"no":8,"major":"전자공학","mentor":"심진우","topic":"Quantum Materials","school":"대전과고","ids":["1103","1220","1410","1412","1413","1420","1421","1502","1515","1520"]},{"no":9,"major":"컴퓨터공학","mentor":"이정수","topic":"Energy Based Models","school":"경기과학고","ids":["1101","1105","1106","1117","1206","1210","1215","1302","1503","1510"]},{"no":10,"major":"기계공학","mentor":"최재윤","topic":"Robotics","school":"한성과고","ids":["1115","1303","1309","1401","1403","1404","1504","1505","1514","1517"]}];
+const ROOMS=[{"k":"남","no":1,"names":["김기범","최은호"]},{"k":"남","no":2,"names":["양호찬","한상우"]},{"k":"남","no":3,"names":["리원준","홍지호"]},{"k":"남","no":4,"names":["김민준","박건우"]},{"k":"남","no":5,"names":["이선우","이성찬"]},{"k":"남","no":6,"names":["김건유","설민기"]},{"k":"남","no":7,"names":["김진우","이시혁"]},{"k":"남","no":8,"names":["황보성","황진우"]},{"k":"남","no":9,"names":["고승준","한은원"]},{"k":"남","no":10,"names":["김영휘","양태영"]},{"k":"남","no":11,"names":["김민결","정예준"]},{"k":"남","no":12,"names":["박지호","심대원"]},{"k":"남","no":13,"names":["박준호","이승현"]},{"k":"남","no":14,"names":["장현재","황윤서"]},{"k":"남","no":15,"names":["이시윤","조인성"]},{"k":"남","no":16,"names":["이어준","이예준"]},{"k":"남","no":17,"names":["엄지훈","지현우"]},{"k":"남","no":18,"names":["정병현","정지후"]},{"k":"남","no":19,"names":["신재빈","이주형"]},{"k":"남","no":20,"names":["김주영","안재현"]},{"k":"남","no":21,"names":["정의찬","이치호"]},{"k":"남","no":22,"names":["최유빈","이상준"]},{"k":"남","no":23,"names":["권예준","강유노"]},{"k":"남","no":24,"names":["김시후","김경환"]},{"k":"남","no":25,"names":["이효준","임승유"]},{"k":"남","no":26,"names":["김준기","문선호"]},{"k":"남","no":27,"names":["김민재","노동건"]},{"k":"남","no":28,"names":["신대용","전윤"]},{"k":"남","no":29,"names":["유도현","최예서"]},{"k":"남","no":30,"names":["김겸","박현준"]},{"k":"남","no":31,"names":["이현욱","임주호"]},{"k":"남","no":32,"names":["김솔민","엄초원"]},{"k":"남","no":33,"names":["김덕현","김수한"]},{"k":"남","no":34,"names":["김성빈","김태호"]},{"k":"남","no":35,"names":["백재호","임시후"]},{"k":"남","no":36,"names":["안익희","유태규"]},{"k":"남","no":37,"names":["유호라","이용찬"]},{"k":"남","no":38,"names":["윤정민","주재담"]},{"k":"남","no":39,"names":["이하진","최겸"]},{"k":"남","no":40,"names":["이유상","임서후"]},{"k":"남","no":41,"names":["조영호"]},{"k":"여","no":1,"names":["정지우","최우수진"]},{"k":"여","no":2,"names":["오시윤","정윤진"]},{"k":"여","no":3,"names":["김시우","최서윤"]},{"k":"여","no":4,"names":["신서연","이재인"]},{"k":"여","no":5,"names":["강시우","조아인"]},{"k":"여","no":6,"names":["성채은","이서영"]},{"k":"여","no":7,"names":["양유나","이세연"]},{"k":"여","no":8,"names":["장하은"]},{"k":"여","no":9,"names":["김태희","이하음"]},{"k":"여","no":10,"names":["서은지","오소민"]}];
+const HELP=[{"n":"설민기","k":"남","f":1,"t":7},{"n":"정예준","k":"남","f":8,"t":14},{"n":"엄지훈","k":"남","f":15,"t":20},{"n":"김준기","k":"남","f":21,"t":27},{"n":"유도현","k":"남","f":28,"t":34},{"n":"조영호","k":"남","f":35,"t":41},{"n":"이재인","k":"여","f":1,"t":4},{"n":"양유나","k":"여","f":5,"t":10}];
+
+/* ===== 식당 조사 반영 (2026.10 웹 확인) =====
+   v: "ok|..." = 실제로 있는 곳 확인 / "no|..." = 확인 못 함·주의 */
+const FIX=[
+ [/^Hibachi Grill/,{desc:"코네티컷 맨체스터에 있는 아시안 뷔페 + 철판구이(히바치) 식당. 첫날 단체 저녁이에요.",a:"165 Slater St, Manchester, CT 06042",tip:"뷔페 가격은 단체 식사에 포함이라 따로 내지 않아요. 음료는 따로일 수 있어요.",v:"ok|165 Slater St에 같은 이름의 식당이 있는 것을 여러 식당 목록(Yelp, Restaurant.com, Yahoo)에서 확인했어요. 매장 메뉴표는 못 봤어서 구성은 일반적인 아시안 뷔페 기준이에요."}],
+ [/^치킨 파히타/,{n:"Out of the Woods",desc:"보스턴 서쪽 볼턴(Bolton)에 있는 뉴 아메리칸 레스토랑이에요. 제철 재료로 직접 만드는 코스형 저녁이라 분위기가 차분해요.",m:["Cheese Board (치즈 플래터)","Grilled Venison (사슴고기 구이)","Prime NY Strip (스테이크)","Fig Glazed Duck Breast (오리 가슴살)","Pistachio Crusted Halibut (넙치 구이)"],p:"단체 식사 포함 · 메뉴는 여행사가 정해둔 것으로 나올 수 있어요",tip:"알레르기·못 먹는 음식은 자리에 앉자마자 직원에게 영어로 말하기. “I’m allergic to nuts.”",u:"https://outofthewoodsma.com/",q:"Out of the Woods 626 Main St Bolton MA",a:"626 Main St, Bolton, MA 01740",h:"토요일 16:30–21:00 (공식 사이트)",tel:"+1-978-634-1058",v:"ok|공식 사이트와 OpenTable에서 실제 영업을 확인했어요. 이전 자료의 ‘치킨 파히타’는 맞지 않아서 고쳤어요."}],
+ [/^더큰집 메뉴/,{n:"The Kunjip (더큰집) 한식",desc:"맨해튼 코리아타운 한식당이에요. 반찬이 기본으로 나와요.",m:["김치찌개","순두부찌개 (해물)","갈비찜","갈비구이","비빔밥 (산채 · 곱돌 · 해물곱돌)","잡채","해물파전","만두구이"],p:"단체 식사 포함 (개별 주문 시 메인 $20대 예상)",u:"http://www.kunjip.net/",q:"The Kunjip 32 W 32nd St New York",a:"32 W 32nd St, New York, NY 10001",tel:"+1-212-216-9487",v:"ok|메뉴 목록은 식당 메뉴 페이지(SinglePlatform)에서 확인했어요. 가격은 확인하지 못했어요."}],
+ [/^Dallas BBQ$/,{n:"Dallas BBQ (타임스스퀘어점)",desc:"타임스스퀘어 한복판의 미국식 바비큐·버거 체인이에요.",m:["Texas Crispy Wings (5개 $10.99 · 10개 $16.99)","BBQ Chicken Sandwich $8.99","Classic Burger $11.99","Jumbo Shrimp Cocktail $9.99~","Garden Salad $5.99"],p:"단체 식사 포함 · 가격은 메뉴 목록 사이트 기준이라 현장과 다를 수 있어요",q:"Dallas BBQ 241 W 42nd St New York",a:"241 W 42nd St, New York, NY 10036",v:"ok|주소와 메뉴를 식당 메뉴 페이지(SinglePlatform)에서 확인했어요. 가격은 달라졌을 수 있어요."}],
+ [/^효동각/,{n:"효동각 Hyo Dong Gak (한국식 중국 음식)",desc:"코리아타운의 한국식 중식당이에요. 짜장면·짬뽕·탕수육 같은 한국에서 먹던 맛이에요.",m:["짜장면 (Noodle with Brown Sauce) $11~15","짬뽕 (Jjam Bbong) $15","군만두 $9~","탕수육 (Sweet & Sour) $20~27","볶음밥 $18","해물파전 $21 (월~목)"],p:"단체 식사 포함 · 개별 주문 시 $11~30 · 가격은 2022~2025 목록 기준",tip:"일정표에는 ‘효동각 / 한밭’으로 되어 있어요. 한밭은 확인하지 못했고, 확인된 곳은 효동각이에요.",q:"Hyo Dong Gak 51 W 35th St New York",a:"51 W 35th St, New York, NY 10001",h:"매일 11:30–21:00 (평일 점심 특선 11:30–15:00)",tel:"+1-212-695-7167",v:"ok|OpenTable과 메뉴 목록(MenuPages)에서 확인했어요. 한밭은 확인하지 못했어요."}],
+ [/^한 접시 메뉴/,{n:"Chiller’s Grill (칠러스 그릴)",desc:"포트리(Fort Lee, NJ)의 미국식 다이너 그릴이에요. 피자, 버거, 파스타, 스테이크, 그리스식 기로(gyro)까지 메뉴가 넓어요.",m:["Classic Burger $15","Cheeseburger $17","Chicken Parm $24","Fish & Chips $25","Grilled Chicken Platter $24","Buffalo Wings $14","Gyro Platter $20~23","Cheese Pizza $16"],p:"단체 식사 포함 · 가격은 배달앱(Slice) 기준",q:"Chiller's Grill 2191 Fletcher Ave Fort Lee NJ",a:"2191 Fletcher Ave, Fort Lee, NJ 07024",h:"밤 11시까지 영업 · 주말 브런치 10:00–15:00",tel:"+1-201-948-5937",v:"ok|주소·전화·메뉴를 Slice 메뉴 페이지에서 확인했어요. 가격은 매장과 다를 수 있어요."}],
+ [/^Golden Corral/,{desc:"미국식 뷔페 체인이에요. 튀긴 닭, 로스트 요리, 샐러드바, 디저트가 있어요.",m:["Famous Fried Chicken","Bourbon Street Chicken","Pot Roast","Buffalo Wings","Yeast Rolls (허니 버터)","Carrot Cake · 디저트"],p:"단체 식사 포함 · 뷔페 가격은 확인하지 못했어요",q:"Golden Corral 1465 Street Rd Bensalem PA",a:"1465 Street Rd, Bensalem, PA 19020",tel:"+1-215-245-5301",v:"ok|주소·전화·대표 메뉴를 메뉴 페이지(AllMenus)에서 확인했어요. 영업시간·뷔페 가격은 못 찾았어요."}],
+ [/^고기 무한리필/,{n:"Nosh Grill House (고기 무한리필)",desc:"중국식 바비큐와 훠궈를 무한리필로 먹는 곳이에요. 직접 굽거나 직원에게 구워 달라고 해요.",m:["고기 여러 부위 (직접 굽기)","콘치즈 · 계란찜 (그릴 옆에서 같이 익혀요)","소스 여러 종류"],p:"단체 식사 포함 · 가격은 확인하지 못했어요",tip:"후기에 이용 시간 약 90분 제한이 있다고 해요. 옷에 냄새가 밸 수 있어요.",q:"Nosh Grill House 12 N Washington St Rockville MD",a:"12 N Washington St, Suite 7G, Rockville, MD 20850",h:"월~목 16:30부터 · 금~일 12:00부터 · 새벽 2시까지",tel:"+1-240-423-0257",u:"https://noshgrillhouse.com/",v:"ok|Wanderlog의 장소 정보에서 확인했어요(구글 평점 4.1, 후기 189개). 후기는 갈리는 편이에요."}],
+ [/^American Wing Cafe/,{desc:"1층 미국관 안에 있는 카페예요. 샌드위치·샐러드·빵·아이스크림이 있어요.",h:"월요일 11:00–16:00 (메트 공식 사이트)",v:"ok|메트 공식 사이트 식당 안내에서 시간과 메뉴 성격을 확인했어요(2026.10)."}],
+ [/^Great Hall Balcony Cafe/,{desc:"2층 그레이트 홀 발코니에 있는 카페예요. 아시아풍 메뉴(샌드, 포케, 스시)와 샐러드, 빵이 있어요.",h:"월요일 11:00–16:00 (메트 공식 사이트)",v:"ok|메트 공식 사이트 식당 안내에서 확인했어요(2026.10)."}],
+ [/^Lehman Cafe Cart/,{desc:"1층 레만 윙 앞의 간이 카트예요. 가벼운 샌드위치·단 것·찬 음료를 팔아요.",h:"월요일 11:00–16:00 (메트 공식 사이트)",v:"ok|메트 공식 사이트 식당 안내에서 확인했어요(2026.10)."}],
+ [/^미국관 안뜰 카페/,{tip:"10/19는 월요일이라 The Eatery(지하 1층)는 쉬고, Petrie Court Cafe도 임시 휴업이라고 공식 사이트에 나와요.",v:"no|이 이름의 카페는 공식 사이트에서 찾지 못했어요. 위의 American Wing Cafe가 미국관에 있는 카페예요."}],
+ [/^박물관 카페/,{n:"Atrium Café (자연사박물관 1층)",type:"식사",desc:"자연사박물관에서 가장 큰 카페예요. 가족 단위 메뉴와 디저트가 있어요.",m:["Butcher Craft Burgers","Chef’s Market Table (제철 메뉴)","디저트 · 커피 · 음료"],h:"11:00–17:00 (15시 이후엔 메뉴가 줄어요)",q:"Atrium Cafe National Museum of Natural History",v:"ok|스미스소니언 공식 식당 안내에서 확인했어요."}],
+ [/^Mars Café/,{n:"Mars Café (항공우주박물관 지하)",desc:"커피·에스프레소 바 형태의 카페예요. 간단한 샌드위치와 빵이 있어요.",m:["Seasonal Sandwiches","Warm Paninis","Salads","Pastries · Coffee"],h:"10:00–17:00",q:"Mars Cafe National Air and Space Museum",v:"ok|스미스소니언 공식 식당 안내에서 확인했어요."}],
+ [/^Mitsitam Café/,{desc:"국립 아메리카 인디언 박물관 안에 있어요. 북·중·남미 원주민 음식을 코너별로 팔아요. 항공우주박물관 옆 건물이에요.",m:["코너별 원주민 음식 (Four Corners 등)","Mitsitam Espresso Bar: 포솔레, 칠리, 샌드위치, 빵"],h:"카페 11:00–16:00 · 에스프레소 바 10:00–17:00",v:"ok|스미스소니언 공식 식당 안내에서 확인했어요."}],
+ [/^푸드코트: 버거/,{n:"푸드코트: 버거킹 · 파파이스 · 네이선스",desc:"몰 푸드코트에서 패스트푸드를 골라 먹어요.",m:["Burger King","Popeyes Chicken","Nathan’s Famous (핫도그)","Potato Corner (감자튀김)"],v:"ok|몰 입점 목록(Central Jersey)에서 확인했어요. 입점 매장은 바뀔 수 있어요."}],
+ [/^Nathan/,{v:"ok|몰 입점 목록에서 확인했어요."}],
+ [/^파스타 랩/,{n:"Sbarro (피자 · 파스타)",desc:"푸드코트의 피자·파스타 가게예요.",m:["Pizza Slice","Pasta"],v:"ok|몰 입점 목록(Sbarro)에서 확인했어요."}],
+ [/^Johnny Rockets/,{v:"ok|몰 입점 목록과 지역 기사에서 확인했어요(앉아서 먹는 식당)."}],
+ [/^멕시칸 \/ 케이준/,{n:"푸드코트: Moe’s · Kelly’s Cajun Grill · Yeung’s Lotus Express",desc:"멕시칸, 케이준, 중식을 파는 푸드코트 가게들이에요.",m:["Moe’s Southwest Grill (부리토·볼)","Kelly’s Cajun Grill (케이준 치킨)","Yeung’s Lotus Express (중식)"],v:"ok|몰 입점 목록에서 확인했어요."}],
+ [/^조각 피자/,{n:"Pizzeria Regina (조각 피자)",desc:"퀸시 마켓 콜로네이드의 피자 가게예요. 페퍼로니 조각이 유명해요.",m:["Pepperoni Slice","Cheese Slice"],v:"ok|퀸시 마켓 맛집 목록(Time Out)에서 확인했어요."}],
+ [/^클램차우더 브레드볼/,{n:"Boston Chowda Co. (클램차우더 브레드볼)",desc:"직접 만든 클램차우더를 빵 그릇에 담아줘요. 바닷조개와 손으로 썬 감자를 써요.",m:["Clam Chowder Bread Bowl","Maine Lobster Roll","New England Pot Pie","Lobster Mac & Cheese"],h:"월~토 10:00–21:00 · 일 11:00–19:00",u:"https://faneuilhallmarketplace.com/go/boston-chowda",q:"Boston Chowda Company Quincy Market Boston",a:"Quincy Market Food Colonnade, Boston, MA 02109",v:"ok|패뉴얼 홀 공식 사이트 페이지에서 확인했어요."}],
+ [/^Arrow Street Crepes/,{del:true}],
+ [/^Hi-Rise/,{n:"Hi-Rise Bread Company",tip:"2024년에 케임브리지에서 가까운 곳으로 가게를 옮겼다는 기사가 있어요. 가기 전에 구글 지도에서 위치와 영업 여부를 확인하세요.",q:"Hi-Rise Bread Company Cambridge MA",v:"no|이전 주소에서 이전한 것을 기사로 확인했어요. 현재 위치는 지도에서 다시 확인해 주세요."}],
+ [/^(Pinocchio|Felipe|Darwin|Tatte|Mr\. Bartley|Dunkin|스미스 캠퍼스 센터)/,{v:"no|예전 기사와 지도 정보를 바탕으로 한 추천이에요. 이번에 영업 여부는 확인하지 못했어요. 가기 전에 구글 지도로 확인해 주세요."}]
+];
+const ADD=[
+ ["quincy",{n:"Ben & Jerry’s",type:"간식",desc:"콜로네이드 근처 아이스크림 가게예요.",m:["클래식·시즌 맛 아이스크림"],v:"ok|퀸시 마켓 맛집 목록(Time Out)에서 확인했어요."}],
+ ["quincy",{n:"Wagamama",type:"식사",desc:"라멘, 철판 요리, 커리 등을 파는 앉아서 먹는 팬아시안 식당이에요.",m:["Ramen","Teppanyaki","Katsu Curry"],p:"1인 $20 안팎 (예상)",v:"ok|퀸시 마켓 맛집 목록(Time Out)에서 확인했어요."}],
+ ["quincy",{n:"Ned Devine’s Irish Pub",type:"식사",desc:"피시 앤 칩스와 클램차우더가 유명한 아일랜드풍 식당이에요.",m:["Fish & Chips","Clam Chowder","Corned Beef"],p:"1인 $20 안팎 (예상)",v:"ok|퀸시 마켓 맛집 목록(Time Out)에서 확인했어요. 술집이라 학생은 식사만 하세요."}],
+ ["nhm",{n:"Ocean Terrace Café (자연사박물관 1층)",type:"식사",desc:"곡물과 채소 중심의 제철 메뉴, 직접 구운 빵을 파는 카페예요.",m:["제철 메인 요리","House-baked Pastries","커피·차"],h:"카페 11:00–15:00 · 커피 바 10:00–17:00",q:"Ocean Terrace Cafe National Museum of Natural History",v:"ok|스미스소니언 공식 식당 안내에서 확인했어요."}],
+ ["jg",{n:"Chili’s · Applebee’s (앉아서 먹는 식당)",type:"식사",desc:"몰 안에서 앉아서 먹을 수 있는 미국 체인 식당이에요. 18:00–20:00 안에 먹으려면 시간을 먼저 계산하세요.",m:["Burgers","Fajitas","Ribs"],p:"1인 $15~25 (예상)",v:"ok|몰 입점 목록(Central Jersey)에서 확인했어요."}]
+];
+const SU=[[/^Hibachi/,""],[/^Dallas BBQ/,"https://www.dallasbbq.com"],[/^Golden Corral/,"https://www.goldencorral.com"],[/^Chiller/,""],[/^(American Wing|Great Hall|Lehman)/,"https://www.metmuseum.org/visit/dining"],[/^(Atrium|Ocean Terrace|Mars|Mitsitam)/,"https://www.si.edu/dining"],[/^푸드코트|^Sbarro|^Nathan|^Johnny|^Chili/,"https://www.themillsatjerseygardens.com"],[/^Pizzeria Regina/,"https://pizzeriaregina.com"],[/^Ben & Jerry/,"https://www.benjerry.com"],[/^Wagamama/,"https://www.wagamama.us"],[/^Hi-Rise/,"https://www.hirisebread.com"],[/^Tatte/,"https://tattebakery.com"],[/^Mr\. Bartley/,"https://www.mrbartley.com"],[/^Felipe/,"https://www.felipestaqueria.com"],[/^Darwin/,"https://www.darwinsltd.com"],[/^Dunkin/,"https://www.dunkindonuts.com"],[/^Hoagie Haven/,"https://www.hoagiehaven.com"],[/^노스엔드 Mike/,"https://mikespastry.com"]];
+function applyFix(days){
+ days.forEach(d=>d.groups.forEach(g=>{
+  g.spots=g.spots.filter(s=>{const r=FIX.find(f=>f[0].test(s.n));if(r&&r[1].del)return false;if(r){const p=Object.assign({},r[1]);Object.assign(s,p)}return true});
+  ADD.forEach(a=>{if(a[0]===g.id)g.spots.push(Object.assign({m:[],p:"",tip:"",u:"",q:"",lat:null,lng:null},a[1]))});
+  g.spots.forEach(s=>{if(!s.u){const r=SU.find(x=>x[0].test(s.n));if(r&&r[1])s.u=r[1]}})}))}
+function ensureIds(st){st.vault=st.vault||[];st.days.forEach(d=>d.groups.forEach(g=>g.spots.forEach(s=>{if(!s.id)s.id="s"+Math.random().toString(36).slice(2,9)})));return st}
+
+/* ===================== 유틸 ===================== */
+const KEY="usTrip.v5",MEKEY="usTrip.me";
+const OFF={KST:9,EDT:-4};
+const p2=n=>String(n).padStart(2,"0");
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const $=s=>document.querySelector(s);
+const uid=()=>Math.random().toString(36).slice(2,9);
+const KIND={move:"이동",meal:"식사",visit:"견학",uni:"대학",lec:"특강",free:"자유시간",shop:"쇼핑",hotel:"숙소",flight:"비행",show:"공연"};
+const TYPES=["식사","간식","구경","쇼핑","포토","편의","정보"];
+const DOW=["일","월","화","수","목","금","토"];
+const WEATHER=["9~17°C","9~14°C · 비 올 가능성 높음","약 7~15°C","8~16°C","10~19°C","11~21°C","약 11~18°C"];
+const TEACH={1:["강은지","ejkang110@gmail.com"],2:["김선아","iamsky79@gmail.com"],3:["홍창욱","shinnanchanguk@gmail.com"],4:["임수빈","binnsu21@gmail.com"],5:["김정민","ybp2077@gmail.com"]};
+const YALE={1:["김현지","간호학"],2:["유승용","경제학"],3:["박종혁","MBA"],4:["강태경","바이오메디컬공학"],5:["배지영","사회학"]};
+const PRIN={1:["양태연","화학생명공학"],2:["조수혁","전기전자공학"],3:["양서연","수학"],4:["정의찬","물리학"],5:["권재홍","화학생명공학"]};
+const LEC={
+ lh:{u:"하버드 특강",t:"Next Generation Nanotechnology and Nanomedicine",w:"10/16 (금) 9:30–10:30",p:"Sackler Hall",n:"임형순 교수",b:"한성과학고 졸업 · KAIST 전자공학과 학사 · 하버드 의대 졸업 · 현 하버드 의과대학 교수 (의학전자공학, 암 진단용 나노기술)"},
+ lm:{u:"MIT 특강",t:"AI 최신 동향 및 진로",w:"10/17 (토) 15:00–16:00",p:"66동 110호 Auditorium (14:50 입장)",n:"류동훈 교수",b:"GIST 학사 · 칼텍 석사 · MIT 박사 · 현 MIT 연구원·조교 (컴퓨터 비전, 머신러닝)"},
+ lp:{u:"프린스턴 특강",t:"AI for Scientific Research",w:"10/20 (화) 9:00–10:00",p:"Frist Campus Center 302호",n:"유종수 박사",b:"포항공대 학·석사 · 프린스턴대 플라즈마 물리학 박사 · 전 기초과학연구원 연구원 · 현 PPPL Research Engineer"}};
+const SN={};STU.forEach(s=>SN[s.id]=s);
+
+function utc(date,hm,tz){const [y,m,d]=date.split("-").map(Number);const [h,mi]=hm.split(":").map(Number);return Date.UTC(y,m-1,d,h-OFF[tz],mi)}
+function parts(u,tz){const x=new Date(u+OFF[tz]*36e5);return {md:(x.getUTCMonth()+1)+"/"+x.getUTCDate(),hm:p2(x.getUTCHours())+":"+p2(x.getUTCMinutes())}}
+function span(it){const su=utc(it.date,it.s,it.tz);let eu=null;if(it.e){const etz=it.etz||it.tz;eu=utc(it.edate||it.date,it.e,etz);if(eu<=su&&!it.edate)eu+=864e5}return {su,eu}}
+function mdOf(date){const [,m,d]=date.split("-").map(Number);return m+"/"+d}
+function pts(s){return (s||"").split(/(?<=[.!?。])\s+|\n+/).map(x=>x.trim()).filter(Boolean)}
+function dur(it){const {su,eu}=span(it);if(eu==null)return "";const m=Math.round((eu-su)/6e4);if(m<=0)return "";const h=Math.floor(m/60),mm=m%60;return (h?h+"시간":"")+(mm?(h?" ":"")+mm+"분":"")}
+function rp(it,tz){const {su,eu}=span(it);const a=parts(su,tz);const b=eu!=null?parts(eu,tz):null;return {md:a.md,s:a.hm,e:b?b.hm:"",emd:b?b.md:a.md}}
+const gids=it=>(it.g||"").split(",").map(s=>s.trim()).filter(Boolean);
+const locs=it=>Array.isArray(it.loc)?it.loc:it.loc?[it.loc]:[];
+const gmap=q=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);
+function mapUrl(s){return gmap(s.q||s.n)}
+function openMap(s){window.open(mapUrl(s),"_blank","noopener")} /* TODO: 나중에 지도 연동은 여기에서 (s.lat / s.lng 사용 가능) */
+
+/* ===================== 위치 · 멘토링 태그 (제목으로 찾아 일정에 붙임) ===================== */
+const DT="DoubleTree by Hilton Nashua",DTA="2 Somerset Pkwy, Nashua, NH 03063";
+const HM="Hanover Marriott",HMA="1401 Route 10 East, Whippany, NJ 07981";
+const BM="Bethesda Marriott",BMA="5151 Pooks Hill Rd, Bethesda, MD 20814";
+const JFK=["JFK 국제공항","Queens, NY 11430"],ICN=["인천국제공항 제2여객터미널","인천 중구 제2터미널대로 446"];
+const LOCR=[
+ [0,/^(인천공항 집합|출국 심사|면세구역|탑승$)/,...ICN],
+ [0,/^JFK 입국/,...JFK],
+ [0,/^예일대 비지터/,"Yale University Visitor Center","149 Elm St, New Haven, CT"],
+ [0,/^스털링/,"Sterling Memorial Library","120 High St, New Haven, CT"],
+ [0,/^예일 북스토어/,"Yale Bookstore","77 Broadway, New Haven, CT"],
+ [0,/^저녁 · 히바치/,"Hibachi Grill & Supreme Buffet","165 Slater St, Manchester, CT 06042"],
+ [0,/^월마트/,"Walmart (내슈아 호텔 인근)","지도에서 가까운 매장을 확인하세요","Walmart Supercenter Nashua NH"],
+ [0,/^더블트리/,DT,DTA],
+ [1,/^호텔 조식/,DT,DTA],
+ [1,/^스미스 캠퍼스/,"Smith Campus Center (하버드)","1350 Massachusetts Ave, Cambridge, MA 02138"],
+ [1,/^하버드 특강/,"Sackler Hall (하버드)","건물·입구는 당일 안내 확인","Sackler Hall Harvard University Cambridge MA"],
+ [1,/^하버드 캠퍼스 멘토링/,"Harvard Yard","Cambridge, MA 02138"],
+ [1,/^점심 자유식/,"하버드 스퀘어 · 스미스 캠퍼스 센터","1350 Massachusetts Ave, Cambridge, MA 02138"],
+ [1,/^매사추세츠 주 의사당/,"Massachusetts State House","24 Beacon St, Boston, MA 02133"],
+ [1,/^보스턴 커먼/,"Boston Common","Beacon St & Tremont St, Boston, MA"],
+ [1,/^프리덤 트레일/,"Old State House (프리덤 트레일)","206 Washington St, Boston, MA 02109"],
+ [1,/^퀸시 마켓/,"Quincy Market","4 S Market St, Boston, MA 02109","Quincy Market Faneuil Hall Marketplace Boston"],
+ [1,/^숙소 복귀/,DT,DTA],
+ [2,/^호텔 (조식|복귀)/,DT,DTA],
+ [2,/^동문 특강/,"MIT 34동 101호","MIT 캠퍼스 (77 Massachusetts Ave)","MIT Building 34 Cambridge MA"],
+ [2,/^킬리안 코트/,"Killian Court (MIT)","77 Massachusetts Ave, Cambridge, MA 02139"],
+ [2,/^심화 멘토링/,"MIT 캠퍼스","77 Massachusetts Ave, Cambridge, MA 02139"],
+ [2,/^(66동|MIT 특강)/,"MIT 66동 110호 Auditorium","MIT 캠퍼스 (Ames St 쪽)","MIT Building 66 Cambridge MA"],
+ [2,/^자유시간 · MIT/,"MIT 북스토어 (The Coop)","Kendall Square, Cambridge, MA","MIT Bookstore Kendall Square Cambridge MA"],
+ [2,/^저녁 · Out of the Woods/,"Out of the Woods","626 Main St, Bolton, MA 01740"],
+ [3,/^조식/,DT,DTA],
+ [3,/^점심 · 더큰집/,"Kunjip (더큰집)","32 W 32nd St, New York, NY 10001"],
+ [3,/^뉴욕 현대미술관/,"MoMA","11 W 53rd St, New York, NY 10019"],
+ [3,/^센트럴파크/,"Central Park","New York, NY"],
+ [3,/^저녁 · 댈러스/,"Dallas BBQ (타임스스퀘어)","241 W 42nd St, New York, NY 10036"],
+ [3,/^(도보 → 거슈윈|극장 앞|뮤지컬)/,"Gershwin Theatre","222 W 51st St, New York, NY 10019"],
+ [3,/^하노버/,HM,HMA],
+ [4,/^호텔 조식/,HM,HMA],
+ [4,/^월가/,"월가 · 황소상 (Bowling Green)","Bowling Green, New York, NY","Charging Bull Bowling Green New York"],
+ [4,/^자유의 여신상/,"Battery Park (유람선 승선)","Battery Park, New York, NY","Statue City Cruises Battery Park New York"],
+ [4,/^자유시간: 9/,"World Trade Center · 9/11 Memorial","117 West St, New York, NY 10007"],
+ [4,/^점심 · 효동각/,"효동각 (Hyodonggak)","51 W 35th St, New York, NY 10001"],
+ [4,/^메트로폴리탄/,"The Metropolitan Museum of Art","1000 5th Ave, New York, NY 10028"],
+ [4,/^저녁 · 칠러스/,"Chiller's Grill","2191 Fletcher Ave, Fort Lee, NJ 07024"],
+ [4,/^해밀턴/,"Hamilton Park","Boulevard East, Weehawken, NJ 07086"],
+ [4,/^숙소 복귀/,HM,HMA],
+ [5,/^조식/,HM,HMA],
+ [5,/^프린스턴 대학 스토어/,"Princeton University Store","36 University Pl, Princeton, NJ 08540"],
+ [5,/^AI 특강/,"Frist Campus Center 302호","프린스턴대 캠퍼스, Princeton, NJ","Frist Campus Center Princeton University"],
+ [5,/^반별 멘토링/,"프린스턴대 캠퍼스","Princeton, NJ 08544","Princeton University"],
+ [5,/^점심 · 골든/,"Golden Corral","1465 Street Rd, Bensalem, PA 19020"],
+ [5,/^내셔널 몰/,"National Mall","Washington, DC","National Mall Washington DC"],
+ [5,/^저녁 · 노쉬/,"Nosh Grill House","12 N Washington St, Rockville, MD 20850"],
+ [5,/^베데스다/,BM,BMA],
+ [6,/^조식/,BM,BMA],
+ [6,/^자유시간 · 자연사/,"국립자연사박물관","10th St & Constitution Ave NW, Washington, DC 20560","National Museum of Natural History Washington DC"],
+ [6,/^저지 가든/,"The Mills at Jersey Gardens","651 Kapkowski Rd, Elizabeth, NJ 07201","Jersey Gardens Elizabeth NJ"],
+ [6,/^JFK /,...JFK],
+ [8,/^인천공항 도착/,...ICN]];
+const LOCX={"자유시간 · 자연사":[{n:"국립항공우주박물관",a:"600 Independence Ave SW, Washington, DC 20560",q:"National Air and Space Museum Washington DC"}]};
+const MTR=[[0,/^(예일대 비지터|스털링)/,"yale"],[1,/^하버드 특강/,"lh"],[1,/^하버드 캠퍼스 멘토링/,"harvard"],[2,/^(동문 특강|심화 멘토링)/,"mit"],[2,/^MIT 특강/,"lm"],[5,/^AI 특강/,"lp"],[5,/^반별 멘토링/,"princeton"]];
+function decorate(it,di){
+ for(const r of LOCR){if(r[0]===di&&r[1].test(it.t)){const l={n:r[2],a:r[3]};if(r[4])l.q=r[4];const ex=Object.keys(LOCX).find(k=>it.t.startsWith(k));it.loc=ex?[l].concat(LOCX[ex]):l;break}}
+ for(const r of MTR){if(r[0]===di&&r[1].test(it.t)){it.mt=r[2];break}}
+}
+
+
+/* ===================== 지금 · 식사 · 색 ===================== */
+const NOW=()=>{try{const q=new URLSearchParams(location.search).get("now");if(q){const t=Date.parse(q);if(!isNaN(t))return t}}catch(e){}return Date.now()};
+const KC={move:"#64748B",meal:"#F59E0B",visit:"#16A34A",uni:"#2563EB",lec:"#7C3AED",free:"#EC4899",shop:"#0D9488",hotel:"#4F46E5",flight:"#0EA5E9",show:"#DC2626"};
+function mealOf(it){const t=it.t;if(/조식|아침/.test(t))return ["조식","b"];if(/점심/.test(t))return ["점심","l"];if(/저녁/.test(t))return ["저녁","d"];return null}
+const isFoodS=s=>s.type==="식사"||s.type==="간식";
+function freeMeal(it,d){return !!(it.free&&(mealOf(it)||/자유식/.test(it.t))&&gids(it).some(id=>{const g=d.groups.find(x=>x.id===id);return g&&g.spots.some(isFoodS)}))}
+function allItems(){const a=[];ST.days.forEach((d,di)=>d.items.forEach((it,i)=>{const {su,eu}=span(it);a.push({it,di,i,su,eu:eu==null?su+36e5:eu})}));return a.sort((x,y)=>x.su-y.su)}
+function nowInfo(){const n=NOW();const a=allItems();const act=a.filter(x=>x.su<=n&&n<x.eu);const cur=act.length?act.reduce((p,c)=>c.su>=p.su?c:p):null;const nxt=a.find(x=>x.su>n);return {n,cur,nxt}}
+const SITES=[[/인천국제공항/,"https://www.airport.kr"],[/JFK/,"https://www.jfkairport.com"],[/Yale University Visitor/,"https://visitorcenter.yale.edu"],[/Sterling/,"https://web.library.yale.edu/building/sterling-library"],[/Yale Bookstore/,"https://yale.bncollege.com"],[/Smith Campus Center/,"https://campuscenter.harvard.edu"],[/Sackler/,"https://harvardartmuseums.org"],[/Harvard Yard/,"https://www.harvard.edu"],[/State House/,"https://malegislature.gov/StateHouse"],[/Boston Common/,"https://www.boston.gov/parks/boston-common"],[/Old State House/,"https://www.revolutionaryspaces.org/old-state-house/"],[/Quincy Market|하버드 스퀘어/,"https://faneuilhallmarketplace.com"],[/MIT 북스토어/,"https://mitcoop.com"],[/MIT|Killian/,"https://www.mit.edu"],[/Out of the Woods/,"https://outofthewoodsma.com"],[/Kunjip/,"http://www.kunjip.net"],[/MoMA/,"https://www.moma.org"],[/Central Park/,"https://www.centralparknyc.org"],[/Dallas BBQ/,"https://www.dallasbbq.com"],[/Gershwin/,"https://www.wickedthemusical.com"],[/Battery Park/,"https://www.cityexperiences.com/new-york/city-cruises/statue/"],[/9\/11/,"https://www.911memorial.org"],[/Metropolitan/,"https://www.metmuseum.org"],[/Princeton University Store/,"https://pustore.com"],[/Frist|프린스턴대/,"https://www.princeton.edu"],[/Golden Corral/,"https://www.goldencorral.com"],[/National Mall/,"https://www.nps.gov/nama"],[/Nosh/,"https://noshgrillhouse.com"],[/자연사박물관/,"https://naturalhistory.si.edu"],[/항공우주박물관/,"https://airandspace.si.edu"],[/Jersey Gardens/,"https://www.themillsatjerseygardens.com"]];
+const siteOf=l=>{const r=SITES.find(x=>x[0].test(l.n));return r?r[1]:""};
+
+/* ===================== 상태 ===================== */
+let ST=load();ST.vault=ST.vault||[];
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.days)return ensureIds(s)}catch(e){}return fresh()}
+function fresh(){const days=JSON.parse(JSON.stringify(DAYS));days.forEach((d,di)=>{d.items.forEach((it,i)=>{it.id="d"+di+"i"+i;it.date=it.date||d.date;decorate(it,di)});d.items.sort((a,b)=>span(a).su-span(b).su)});applyFix(days);ensureIds({days});return {days,check:DEF_CHECK.map(t=>({t,d:false})),vault:[]}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(ST))}catch(e){alert("저장 공간이 부족해요. 백업을 먼저 해 주세요.")}}
+const ui={tab:"home",sel:{},edit:false,ad:"",bus:null,emb:{},fd:"",dc:""};
+let GEO={on:false};let MODE="walking";try{MODE=localStorage.getItem("usTrip.mode")||"walking"}catch(e){}
+let ME=null;
+try{ME=JSON.parse(localStorage.getItem(MEKEY))}catch(e){}
+
+/* ===================== 사람 · 좌석 ===================== */
+function lookup(q){
+ q=(q||"").trim();if(!q)return null;
+ const sp=q.replace(/\s+/g,"");const m=sp.match(/^(\d{4})(.*)$/);
+ if(m){const s=SN[m[1]];if(s&&(!m[2]||m[2]===s.n))return {id:s.id,n:s.n}}
+ const hit=STU.filter(s=>s.n===sp);if(hit.length===1)return {id:hit[0].id,n:hit[0].n};
+ for(const b of [1,2]){const t=BUS[b].find(x=>x.n&&x.n===sp&&x.t!=="stu");if(t)return {n:t.n}}
+ return null}
+function seatOf(me){if(!me)return null;for(const b of [1,2]){const s=BUS[b].find(x=>me.id?x.id===me.id:(x.n===me.n&&x.t!=="stu"));if(s)return {bus:b,s:s}}return null}
+function seatPos(n){let row,col;if(n<=52){row=Math.ceil(n/4);col=(n-1)%4}else{row=14+Math.floor((n-53)/2);col=(n-53)%2}return {row,col}}
+const COLN=["왼쪽 창가","왼쪽 복도","오른쪽 복도","오른쪽 창가"];
+const partner=n=>n%2===1?n+1:n-1;
+const clsOf=me=>me&&me.id?SN[me.id].c:0;
+const nm=id=>SN[id]?SN[id].n:id;
+function roomOf(me){if(!me)return null;return ROOMS.find(r=>r.names.includes(me.n))||null}
+function helperOf(r){return r?HELP.find(h=>h.k===r.k&&r.no>=h.f&&r.no<=h.t):null}
+const harOf=me=>me&&me.id?HAR.find(g=>g.ids.includes(me.id)):null;
+const mitOf=me=>me&&me.id?MIT.find(g=>g.ids.includes(me.id)):null;
+
+/* ===================== 사진 (IndexedDB) ===================== */
+let PH=[];const URLS={};
+const dbP=new Promise((res,rej)=>{try{const r=indexedDB.open("usTripPhotos",1);r.onupgradeneeded=()=>{r.result.createObjectStore("p",{keyPath:"id"})};r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}catch(e){rej(e)}});
+const dbop=(m,f)=>dbP.then(db=>new Promise((res,rej)=>{const t=db.transaction("p",m);const q=f(t.objectStore("p"));t.oncomplete=()=>res(q&&q.result);t.onerror=()=>rej(t.error)}));
+const purl=p=>URLS[p.id]||(URLS[p.id]=URL.createObjectURL(p.blob));
+async function shrink(file,mx){try{const b=await createImageBitmap(file);const sc=Math.min(1,(mx||1600)/Math.max(b.width,b.height));const c=document.createElement("canvas");c.width=Math.round(b.width*sc);c.height=Math.round(b.height*sc);c.getContext("2d").drawImage(b,0,0,c.width,c.height);return await new Promise(r=>c.toBlob(r,"image/jpeg",.85))}catch(e){return file}}
+async function addPhotos(files,owner,day,cap){const out=[];for(const f of files){const blob=await shrink(f,/^doc:/.test(owner)?2600:1600);const p={id:"p"+Date.now()+uid(),owner,day,caption:cap||"",blob,ts:Date.now(),name:f.name};try{await dbop("readwrite",s=>s.put(p))}catch(e){alert("사진을 저장하지 못했어요.");return}PH.push(p);out.push(p)}return out}
+async function delPhoto(id){await dbop("readwrite",s=>s.delete(id));PH=PH.filter(p=>p.id!==id)}
+const ALB=()=>PH.filter(p=>!/^doc:/.test(p.owner));
+const photosOf=o=>PH.filter(p=>p.owner===o).sort((a,b)=>a.ts-b.ts);
+const thumb=(p,key,sm)=>`<figure class="pf ${sm?"sm":""}"><img class="th" src="${purl(p)}" data-act="lb" data-id="${p.id}" data-list="item:${key}" alt="${esc(p.caption)}">${p.caption?`<figcaption>&lt;${esc(p.caption)}&gt;</figcaption>`:""}</figure>`;
+
+/* ===================== 첫 화면 (이름 입력) ===================== */
+function gate(err){
+ $("#app").innerHTML=`<div class="gate"><form class="gcard" id="gf" autocomplete="off"><div><span class="kick">경기북과학고 1학년 · 해외 이공계 진로체험학습</span><h1 class="ttl">미국 동부 체험학습</h1></div>
+ <p class="hint">이름을 입력하면 내 버스 자리와 내 멘토링 조가 바로 보여요. 학번(예: 1203)으로 입력해도 돼요.</p>
+ <input type="text" id="gn" name="who" placeholder="이름 또는 학번" aria-label="이름 또는 학번" autofocus>
+ <div class="gerr" id="ge" role="alert">${esc(err||"")}</div>
+ <div class="row2"><button type="submit" class="bt gold">내 자리 보기</button><button type="button" class="mini" data-act="browse">이름 없이 둘러보기</button></div></form></div>`;
+ $("#gf").onsubmit=e=>{e.preventDefault();const r=lookup($("#gn").value);if(!r){$("#ge").textContent="명단에서 찾을 수 없어요. 이름을 정확히 입력하거나 학번 4자리를 입력해 주세요.";return}setMe(r)}}
+function setMe(r){ME=r;try{localStorage.setItem(MEKEY,JSON.stringify(r))}catch(e){}ui.tab="home";ui.bus=null;shell();render()}
+function clearMe(){ME=null;try{localStorage.removeItem(MEKEY)}catch(e){}gate()}
+
+/* ===================== 틀 · 탭 ===================== */
+let HAVEME=false;try{HAVEME=localStorage.getItem(MEKEY)!==null}catch(e){}
+function shell(){
+ $("#app").innerHTML=`<header class="top"><div class="tt"><span class="kick">경기북과학고 1학년 · 2026.10.15–10.23</span><h1 class="ttl">미국 동부 체험학습</h1><div class="who" id="who"></div></div>
+ <div class="clk">미국 <i class="u">EDT</i> <b id="cE"></b> · 한국 <i class="k">KST</i> <b id="cK"></b></div>
+ <button class="bt" id="editBtn" data-act="editToggle">편집</button><button class="bt" data-act="menu">백업</button></header>
+ <div class="now" id="now"></div><div class="geo" id="geo"></div><div class="tabs"><nav class="seg" id="nav" role="tablist"></nav></div><main class="panelx" id="main"></main><nav class="bnav" id="bnav" aria-label="주요 메뉴"></nav>`;tick()}
+const dtab=i=>"d"+i;
+function renderNow(){
+ const el=$("#now");if(!el)return;const ni=nowInfo();const f=x=>{const a=rp(x.it,"EDT"),b=rp(x.it,"KST");return `미국 ${a.s}${a.e?"~"+a.e:""} · 한국 ${b.s}${b.e?"~"+b.e:""}`};
+ let h;
+ if(ni.cur){const n=ni.nxt;h=`<span class="tg nw">지금</span><button class="nt" data-act="gonow" data-di="${ni.cur.di}" data-i="${ni.cur.i}"><b>${esc(ni.cur.it.t)}</b><small>${ni.cur.di+1}일차 · ${f(ni.cur)}</small></button>${n?`<button class="nx" data-act="gonow" data-di="${n.di}" data-i="${n.i}"><small>다음</small> ${esc(n.it.t.slice(0,22))} <small>${rp(n.it,"EDT").s} (한국 ${rp(n.it,"KST").s})</small></button>`:""}`}
+ else if(ni.nxt){const ms=ni.nxt.su-ni.n,d=Math.floor(ms/864e5),hh=Math.floor(ms%864e5/36e5),mm=Math.floor(ms%36e5/6e4);const first=ni.n<allItems()[0].su;h=`<span class="tg">${first?"출발 전":"사이 시간"}</span><button class="nt" data-act="gonow" data-di="${ni.nxt.di}" data-i="${ni.nxt.i}"><b>${first?"첫 일정":"다음"} · ${esc(ni.nxt.it.t)}</b><small>${ni.nxt.di+1}일차 · ${f(ni.nxt)} · ${d?d+"일 ":""}${hh}시간 ${mm}분 뒤</small></button>`}
+ else h=`<span class="tg">끝</span><span class="nt"><b>여행이 끝났어요. 수고했어요!</b></span>`;
+ const tg=(ni.cur&&locs(ni.cur.it)[0])?ni.cur.it:ni.nxt?ni.nxt.it:null;el.innerHTML=h+dirBtn(tg)}
+function renderBnav(){const b=$("#bnav");if(!b)return;const t=ui.tab;const isD=/^d\d$/.test(t);const it=(k,l,on,act)=>`<button class="${on?"on":""}" data-act="${act||"tab"}" ${act?"":`data-k="${k}"`}>${l}</button>`;b.innerHTML=it("home","내 자리",t==="home")+it("","일정",isD,"today")+it("nav","길 찾기",t==="nav")+it("food","맛집",t==="food")+it("vault","보관함",t==="vault")+it("","더보기",["ment","info","album","shared"].includes(t),"more")}
+function renderNav(){
+ const t=ui.tab;renderGeo();renderNow();renderBnav();
+ const ic=(k,a)=>`<button class="tab main" role="tab" aria-selected="${t===k}" data-act="tab" data-k="${k}">${a}</button>`;
+ const day=ST.days.map((d,i)=>{const dt=new Date(d.date+"T00:00:00Z");return `<button class="tab" role="tab" aria-selected="${t===dtab(i)}" data-act="tab" data-k="${dtab(i)}">${i+1}일차<small>${mdOf(d.date)} ${DOW[dt.getUTCDay()]}</small></button>`}).join("");
+ $("#nav").innerHTML=ic("home","내 자리")+`<span class="tab-sep"></span>`+day+`<span class="tab-sep"></span>`+ic("nav","길 찾기")+ic("food","맛집")+ic("vault","보관함")+(SHARED_ON()?ic("shared","공용 앨범"):"")+ic("ment","멘토링")+ic("info","여행 정보")+ic("album","사진첩"+(ALB().length?` <small>${ALB().length}장</small>`:""));
+ const on=$('#nav .tab[aria-selected="true"]');if(on&&on.scrollIntoView)try{on.scrollIntoView({inline:"center",block:"nearest"})}catch(e){}
+ $("#who").innerHTML=ME?`<span><b>${esc(ME.n)}</b>${ME.id?` · ${ME.id.slice(0,1)}학년 ${ME.id.slice(1,2)}반`:""}</span><button class="mini" data-act="chgMe">이름 바꾸기</button>`:`<span>둘러보는 중</span><button class="mini" data-act="chgMe">이름 입력</button>`}
+function go(k){ui.tab=k;if(k==="shared")setTimeout(()=>shEnter(),0);{const m=/^d(\d)$/.exec(k);if(m&&ui.sel[+m[1]]==null){const ni=nowInfo();ui.sel[+m[1]]=ni.cur&&ni.cur.di===+m[1]?ni.cur.i:0}}try{history.replaceState(null,"","#"+k)}catch(e){}render();window.scrollTo({top:0})}
+function render(){
+ if(!$("#main"))return;renderNav();const k=ui.tab;document.body.dataset.t=/^d\d$/.test(k)?"day":"x";let h="";
+ if(k==="home")h=rHome();else if(/^d\d$/.test(k))h=rDay(+k.slice(1));else if(k==="food")h=rFood();else if(k==="nav")h=rNavi();else if(k==="vault")h=rVault();else if(k==="shared")h=rShared();else if(k==="ment")h=rMent();else if(k==="info")h=rInfo();else if(k==="album")h=rAlbum();
+ $("#main").innerHTML=h;bindInputs();{const on=$(".stop.on");const ln=$(".line");if(on&&ln){if(window.innerWidth<=980)ln.scrollLeft=on.offsetLeft-12;else ln.scrollTop=Math.max(0,on.offsetTop-90)}}}
+
+/* ===================== 홈: 내 버스 자리 ===================== */
+function seatH(x,me,mine){
+ let c="seat";
+ if(x.t==="teacher")c+=" tch";else if(x.t==="staff"||x.t==="guide")c+=" sta";else if(x.t==="empty")c+=" emp";
+ else if(x.org)c+=" org";else if(x.id)c+=" k"+SN[x.id].c;
+ const isMe=mine&&mine.s.s===x.s&&mine.bus===ui.bus;
+ if(isMe)c+=" me";else if(mine&&mine.bus===ui.bus&&x.s===partner(mine.s.s)&&x.t!=="empty")c+=" nb";
+ return `<div class="${c}"><span class="sn">${x.s}${x.star?' <span class="st">★</span>':""}</span><b>${esc(x.n)}</b>${isMe?'<span class="tagme">내 자리</span>':""}</div>`}
+function busH(b,mine){
+ const by={};BUS[b].forEach(x=>by[x.s]=x);let g="";
+ for(let r=1;r<=15;r++){
+  const L=r<=13?[(r-1)*4+1,(r-1)*4+2]:[53+(r-14)*2,54+(r-14)*2];
+  g+=L.map(n=>by[n]?seatH(by[n],ME,mine):"").join("")+`<div class="rn">${r}</div>`;
+  if(r<=13)g+=[(r-1)*4+3,(r-1)*4+4].map(n=>by[n]?seatH(by[n],ME,mine):"").join("");
+  else if(r===14)g+=`<div class="wc">화장실</div>`}
+ return `<div class="bus"><div class="hd"><span>운전석</span><span>출입구</span></div><div class="seats">${g}</div></div>
+ <div class="legend">${[1,2,3,4,5].map(k=>`<span><i style="background:var(--k${k})"></i>${k}반</span>`).join("")}<span><i style="background:#111"></i>선생님</span><span><i style="background:#E8590C"></i>수하물 도우미</span><span><i style="background:var(--gold);border-color:#000"></i>내 자리</span><span>★ 좌석표에 별 표시된 학생</span></div>`}
+function rHome(){
+ const mine=seatOf(ME);if(!ui.bus)ui.bus=mine?mine.bus:1;
+ let bar;
+ if(mine){const p=seatPos(mine.s.s);bar=`<h2><b>${esc(ME.n)}</b> 님의 버스 자리</h2><span class="seatbig">${mine.bus}호차 ${mine.s.s}번 · ${p.row}열 ${COLN[p.col]}</span>`}
+ else bar=`<h2>버스 좌석표</h2><span class="hint">${ME?"좌석표에서 이름을 찾지 못했어요.":"이름을 입력하면 내 자리가 표시돼요."}</span><button class="mini" data-act="chgMe">이름 입력</button>`;
+ const bsel=`<div class="bsel">${[1,2].map(b=>`<button class="bt" data-act="bus" data-b="${b}" aria-pressed="${ui.bus===b}">${b}호차${mine&&mine.bus===b?" (내 차)":""}</button>`).join("")}</div>`;
+ return `<div class="hbar">${bar}</div><div class="homegrid"><div>${bsel}${busH(ui.bus,mine)}</div><div>${myInfo(mine)}</div></div>`}
+function myInfo(mine){
+ if(!ME)return `<p class="hint">이름을 입력하면 방 배정, 멘토링 조, 담임 선생님 정보를 한곳에서 볼 수 있어요.</p>`;
+ const c=clsOf(ME),rows=[];const r=[];
+ rows.push(["이름",esc(ME.n)+(ME.id?` · 학번 ${ME.id}`:"")]);
+ if(mine){const p=seatPos(mine.s.s);const pn=BUS[mine.bus].find(x=>x.s===partner(mine.s.s));
+  rows.push(["버스",`${mine.bus}호차 ${mine.s.s}번 (${p.row}열 ${COLN[p.col]})`]);
+  if(pn&&pn.n&&pn.t!=="empty")rows.push(["옆자리",esc(pn.n)]);}
+ const rm=roomOf(ME);if(rm){const o=rm.names.filter(n=>n!==ME.n);rows.push(["방",`${rm.k} ${rm.no}호 · 룸메이트 ${esc(o.join(", ")||"-")}`]);const h=helperOf(rm);if(h)rows.push(["기상 도우미",esc(h.n)])}
+ if(c){const t=TEACH[c];rows.push(["담임",`${c}반 ${t[0]} 선생님<br><small>구글맵 위치 공유 메일 ${esc(t[1])}</small>`])}
+ const hg=harOf(ME),mg=mitOf(ME);
+ if(c){rows.push(["예일",`${YALE[c][0]} 멘토 · ${YALE[c][1]} <small>(10/15)</small>`])}
+ if(hg)rows.push(["하버드",`${hg.no}조 · ${esc(hg.mentor)} 멘토 · ${esc(hg.major)} <small>(10/16)</small>`]);
+ if(mg)rows.push(["MIT",`${mg.no}조 · ${esc(mg.mentor)} 멘토 · ${esc(mg.topic)} <small>(10/17)</small>`]);
+ if(c)rows.push(["프린스턴",`${PRIN[c][0]} 멘토 · ${PRIN[c][1]} <small>(10/20)</small>`]);
+ return `<div class="tblwrap"><table class="w me-info">${rows.map(x=>`<tr><td class="k">${x[0]}</td><td>${x[1]}</td></tr>`).join("")}</table></div><p class="hint" style="margin-top:.6rem">멘토링 조원과 전체 조 편성은 ‘멘토링’ 탭에서 볼 수 있어요.</p>`}
+
+/* ===================== 맛집 ===================== */
+const isFood=s=>s.type==="식사"||s.type==="간식";
+function grpKind(d,g){const its=d.items.filter(x=>gids(x).includes(g.id));if(its.some(x=>x.free))return "자유식 후보";if(its.some(x=>x.kind==="meal"))return "단체 식사";return "참고"}
+function rFood(){
+ const f=ui.fd;const days=ST.days.map((d,di)=>({d,di,gs:d.groups.map(g=>({g,sp:g.spots.map((s,si)=>[s,si]).filter(x=>isFood(x[0]))})).filter(x=>x.sp.length)})).filter(x=>x.gs.length);
+ const tot=days.reduce((a,x)=>a+x.gs.reduce((b,y)=>b+y.sp.length,0),0);
+ return `<h2 class="ttl" style="font-size:1.5rem">맛집</h2><p class="hint" style="margin:.5rem 0 0">일정에 나오는 식당과 먹을 곳을 날짜별로 모았어요. 확인 표시는 실제로 있는 곳인지 웹에서 본 결과예요. 사진은 ‘내 사진’ 칸에 올리세요.</p>
+ <div class="sub"><button class="pill ${f===""?"on":""}" data-act="fd" data-v="">전체 ${tot}</button>${days.map(x=>`<button class="pill ${String(f)===String(x.di)?"on":""}" data-act="fd" data-v="${x.di}">${x.di+1}일차 ${x.gs.reduce((b,y)=>b+y.sp.length,0)}</button>`).join("")}</div>
+ ${days.filter(x=>f===""||String(f)===String(x.di)).map(x=>`<div class="cap">${x.di+1}일차 · ${mdOf(x.d.date)} ${esc(x.d.title)}</div>${x.gs.map(y=>`<div class="sg">${esc(y.g.title)} <span class="tg mn">${grpKind(x.d,y.g)}</span></div><div class="cards">${y.sp.map(([s,si])=>spotH(x.di,y.g,s,si,false)).join("")}</div>`).join("")}`).join("")}`}
+
+/* ===================== 길 찾기 ===================== */
+const HOTELTEL={[DT]:"+1-603-886-1200",[HM]:"+1-973-538-8811",[BM]:"+1-301-897-9400"};
+const NEAR=[["화장실","restroom"],["편의점","convenience store"],["약국","pharmacy"],["ATM","ATM"],["카페","cafe"],["식당","restaurant"],["병원·응급실","emergency room"],["경찰서","police station"],["지하철역","subway station"]];
+function nearUrl(q){return GEO.lat!=null?"https://www.google.com/maps/search/"+encodeURIComponent(q)+"/@"+GEO.lat+","+GEO.lng+",16z":"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q+" near me")}
+function myLink(){return GEO.lat!=null?"https://www.google.com/maps?q="+GEO.lat+","+GEO.lng:""}
+function toast(m){let t=$("#toast");if(!t){t=document.createElement("div");t.id="toast";t.className="toast";document.body.appendChild(t)}t.textContent=m;t.classList.add("on");clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove("on"),1800)}
+function copyText(x){const done=()=>toast("복사했어요");if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(x).then(done,()=>fb())}else fb();function fb(){const a=document.createElement("textarea");a.value=x;a.style.position="fixed";a.style.opacity="0";document.body.appendChild(a);a.select();try{document.execCommand("copy");done()}catch(e){toast("복사하지 못했어요")}a.remove()}}
+const dirBtn=it=>{if(!it)return "";const l=locs(it)[0];if(!l)return "";const dest=l.q||(l.n+" "+(l.a||""));return `<a class="mini pr" data-act="dir" data-q="${esc(dest)}" href="${dirUrl(dest)}" target="_blank" rel="noopener">길 안내</a>`};
+function rNavi(){
+ const ni=nowInfo();const di=ni.cur?ni.cur.di:ni.nxt?ni.nxt.di:0;const hd=DAYHOTEL[Math.min(di,6)];
+ const itCard=(lab,x)=>{if(!x)return "";const L=locs(x.it);return `<div class="card"><div class="kind">${lab}</div><h3 style="margin:.1rem 0 .3rem">${esc(x.it.t)}</h3><div class="hint" style="font-size:.84rem">${x.di+1}일차 · 미국 ${rp(x.it,"EDT").s}${rp(x.it,"EDT").e?"~"+rp(x.it,"EDT").e:""} · 한국 ${rp(x.it,"KST").s}</div>${L.length?L.map(l=>{const dest=l.q||(l.n+" "+(l.a||""));return `<div class="nrow"><div><b>${esc(l.n)}</b><small>${esc(l.a||"")}</small></div><a class="mini pr" data-act="dir" data-q="${esc(dest)}" href="${dirUrl(dest)}" target="_blank" rel="noopener">길 안내</a></div>`}).join(""):`<p class="hint">이 일정엔 장소 정보가 없어요.</p>`}</div>`};
+ const b=ST.busLoc;
+ const gs=GEO.err?`<span class="gs err">${esc(GEO.err)}</span>`:GEO.on?(GEO.lat!=null?`<span class="gs">내 위치 확인됨 · 오차 약 ${GEO.acc}m</span>`:`<span class="gs">위치를 찾는 중…</span>`):`<span class="gs">꺼져 있어요. 켜면 지금 있는 곳에서 출발하는 길 안내와 ‘근처 찾기’가 정확해져요.</span>`;
+ return `<h2 class="ttl" style="font-size:1.5rem">길 찾기</h2>
+ <form class="card dq" id="dqf" autocomplete="off"><h3>어디 가요?</h3><div class="row"><input type="search" id="dq" placeholder="장소 이름이나 주소 (예: Harvard Coop)" aria-label="목적지"><button class="bt gold" type="submit" style="flex:none">길 안내</button></div><div class="modes" style="margin-top:.6rem">${MODES.map(x=>`<button type="button" class="pill ${MODE===x[0]?"on":""}" data-act="mode" data-m="${x[0]}">${x[1]}</button>`).join("")}</div></form>
+ <div class="card"><h3>내 위치</h3><div class="nrow"><div>${gs}</div><button class="bt ${GEO.on?"gold":""}" data-act="geo" style="flex:none">${GEO.on?"끄기":"위치 공유 켜기"}</button></div>
+ <div class="nrow2"><button class="mini" data-act="myCopy">내 위치 링크 복사</button><button class="mini" data-act="myShare">선생님께 보내기</button></div><p class="hint" style="font-size:.8rem;margin-top:.4rem">길을 잃으면 ‘선생님께 보내기’로 카톡·문자에 위치 링크를 보내요. 위치는 눌렀을 때만 쓰고 서버에 저장하지 않아요.</p></div>
+ ${itCard(ni.cur?"지금 일정":"다음 일정",ni.cur||ni.nxt)}${ni.cur?itCard("다음 일정",ni.nxt):""}
+ <div class="card"><h3>숙소로 돌아가기</h3><div class="hint" style="font-size:.84rem">${di+1}일차 기준 숙소</div><div class="nrow"><div><b>${esc(hd[0])}</b><small>${esc(hd[1])}</small></div><a class="mini pr" data-act="dir" data-q="${esc(hd[0]+" "+hd[1])}" href="${dirUrl(hd[0]+" "+hd[1])}" target="_blank" rel="noopener">길 안내</a></div>${HOTELTEL[hd[0]]?`<div class="nrow2"><a class="mini" href="tel:${HOTELTEL[hd[0]].replace(/[^+\\d]/g,"")}">호텔에 전화 ${HOTELTEL[hd[0]]}</a></div>`:""}</div>
+ <div class="card"><h3>버스 내린 곳 저장</h3>${b?`<div class="nrow"><div><b>${parts(b.ts,"EDT").md} ${parts(b.ts,"EDT").hm} (미국 시각)에 저장</b><small>오차 약 ${b.acc}m</small></div><a class="mini pr" data-act="dir" data-m="walking" data-q="${b.lat},${b.lng}" href="${dirUrl(b.lat+","+b.lng,"walking")}" target="_blank" rel="noopener">버스까지 걸어가기</a></div><div class="nrow2"><button class="mini" data-act="busSave">지금 위치로 다시 저장</button><button class="mini dg" data-act="busDel">지우기</button></div>`:`<p class="hint" style="font-size:.9rem">버스에서 내렸을 때 한 번 눌러 두면, 자유시간이 끝나고 버스로 돌아올 때 길 안내를 받을 수 있어요.</p><div class="nrow2"><button class="bt gold" data-act="busSave">여기에 저장</button></div>`}</div>
+ <div class="card"><h3>근처 찾기</h3><div class="near">${NEAR.map(x=>`<a class="pill" data-act="near" data-q="${x[1]}" href="${nearUrl(x[1])}" target="_blank" rel="noopener">${x[0]}</a>`).join("")}</div><p class="hint" style="font-size:.8rem;margin-top:.5rem">구글 지도에서 지금 위치 주변을 검색해요.</p></div>
+ <div class="card sos"><h3>급할 때</h3><div class="nrow2"><a class="bt gold" href="tel:911">미국 긴급 911</a><a class="bt" href="tel:+8223210404">영사콜센터 (24시간)</a></div><p class="hint" style="font-size:.84rem;margin-top:.5rem">영어로: “I need help. I’m a student from Korea. My location is …” 위치 링크를 복사해서 보여 주면 편해요.</p><div class="nrow2"><button class="mini" data-act="sosCopy">영어 문장 + 내 위치 복사</button></div></div>
+ <div class="card"><h3>데이터가 약할 때</h3><ul class="pts"><li>구글 지도 앱 → 프로필 → 오프라인 지도 → 직접 지도 선택으로 숙소와 방문지 주변을 미리 내려받아 두세요.</li><li>길 안내 중에는 배터리가 빨리 닳아요. 보조배터리를 챙기세요.</li><li>담임 선생님께 위치 공유하는 방법은 ‘여행 정보’ 탭에 있어요.</li></ul></div>`}
+
+/* ===================== 보관함 ===================== */
+const DOCC=["항공권","여권·비자","보험","숙소·예약","기타"];
+const VSUG=["항공권 예약번호","여권번호","보험 증권번호","호텔 확인번호","가족 연락처"];
+function docTile(p){const pdf=p.blob&&p.blob.type==="application/pdf";const cat=p.owner.slice(4);
+ return `<figure class="dt">${pdf?`<a class="pdfb" href="${purl(p)}" target="_blank" rel="noopener"><b>PDF</b><span>열기</span></a>`:`<img class="th" src="${purl(p)}" data-act="lb" data-id="${p.id}" data-list="item:${esc(p.owner)}" alt="${esc(p.caption)}">`}<figcaption><b>${esc(p.caption||"이름 없음")}</b><small>${esc(cat)}</small><span class="dact2"><button class="mini" data-act="renDoc" data-id="${p.id}">이름</button><button class="mini dg" data-act="delDoc" data-id="${p.id}">삭제</button></span></figcaption></figure>`}
+function rVault(){
+ const f=ui.dc;const docs=PH.filter(p=>/^doc:/.test(p.owner)&&(f===""||p.owner==="doc:"+f)).sort((a,b)=>b.ts-a.ts);const all=PH.filter(p=>/^doc:/.test(p.owner));
+ return `<h2 class="ttl" style="font-size:1.5rem">보관함</h2><p class="hint" style="margin:.5rem 0 0">항공권, 여권 사본, 보험, 호텔 예약처럼 늘 필요한 서류를 사진이나 PDF로 넣어 두세요.</p>
+ <div class="card warn"><b>꼭 알아두세요</b><ul class="pts" style="margin-top:.4rem"><li>이 폰(브라우저) 안에만 저장돼요. 서버로 올라가지 않아요.</li><li>아이폰 Safari는 오래 안 열면 저장 내용이 지워질 수 있어요. 중요한 서류는 사진 앨범에도 꼭 따로 두세요.</li><li>공유 버튼 → ‘홈 화면에 추가’로 앱처럼 두면 더 안전해요.</li></ul></div>
+ <div class="sub" style="margin-top:1rem"><button class="pill ${f===""?"on":""}" data-act="dcf" data-v="">전체 ${all.length}</button>${DOCC.map(c=>`<button class="pill ${f===c?"on":""}" data-act="dcf" data-v="${c}">${c} ${all.filter(p=>p.owner==="doc:"+c).length}</button>`).join("")}</div>
+ <button class="bt gold" data-act="addDoc" style="width:100%;justify-content:center">＋ 서류 사진·PDF 추가</button>
+ ${docs.length?`<div class="docs">${docs.map(docTile).join("")}</div>`:`<div class="empty-s">아직 서류가 없어요. 위 버튼으로 항공권부터 넣어 보세요.</div>`}
+ <div class="cap">빠른 메모 <small class="hint" style="font-weight:400">예약번호 같은 글자 정보</small></div>
+ <div class="card">${ST.vault.length?ST.vault.map(v=>`<div class="vrow"><div><small>${esc(v.t)}</small><span class="vv">${esc(v.v)}</span></div><div class="vb"><button class="mini pr" data-act="vcopy" data-id="${v.id}">복사</button><button class="mini" data-act="vedit" data-id="${v.id}">수정</button></div></div>`).join(""):`<p class="hint">아직 메모가 없어요.</p>`}<div class="near" style="margin-top:.7rem">${VSUG.map(x=>`<button class="pill" data-act="vnew" data-t="${x}">＋ ${x}</button>`).join("")}</div></div>`}
+
+/* ===================== 멘토링 ===================== */
+const chips=(ids)=>`<ul class="mem">${ids.map(i=>`<li class="${ME&&ME.id===i?"me":""}">${esc(nm(i))}</li>`).join("")}</ul>`;
+function classTbl(M,unit,fl){const c=clsOf(ME);return `<div class="tblwrap"><table class="w"><tr><th>반</th><th>멘토</th><th>전공</th></tr>${[1,2,3,4,5].map(k=>`<tr class="${k===c?"me":""}"><td class="c">${k}반</td><td>${M[k][0]}</td><td>${M[k][1]}</td></tr>`).join("")}</table></div>`}
+function groupBox(kind,full){
+ const G=kind==="harvard"?HAR:MIT;const my=kind==="harvard"?harOf(ME):mitOf(ME);
+ const name=kind==="harvard"?"하버드":"MIT";
+ const head=my?`<div class="cap">내 조 · ${my.no}조</div><p><b>${esc(my.mentor)}</b> 멘토 · ${esc(kind==="harvard"?my.major:my.topic)}${kind==="mit"?` <small>(${esc(my.school)})</small>`:""}</p>${chips(my.ids)}`:`<p class="hint">${ME&&ME.id?"조 편성에서 이름을 찾지 못했어요.":"이름을 입력하면 내 조가 표시돼요."}</p>`;
+ const tb=`<div class="tblwrap"><table class="w"><tr><th>조</th><th>${kind==="harvard"?"전공":"연구 주제"}</th><th>멘토</th><th>조원</th></tr>${G.map(g=>`<tr class="${my===g?"me":""}"><td class="c">${g.no}</td><td>${esc(kind==="harvard"?g.major:g.topic)}</td><td>${esc(g.mentor)}${kind==="mit"?`<br><small>${esc(g.school)}</small>`:""}</td><td>${g.ids.map(i=>esc(nm(i))).join(", ")}</td></tr>`).join("")}</table></div>`;
+ return `<div class="mbox"><div class="cap">${name} 멘토링${kind==="harvard"?" · 10/16 10:30–13:30 (희망자 10명 조)":" · 10/17 9:00–15:00 (심화 멘토링 · 동문 특강 · 멘토와 식사)"}</div>${head}${full?`<div class="cap">전체 조 편성</div>${tb}`:`<details class="all"><summary>전체 조 편성 보기</summary>${tb}</details>`}</div>`}
+function classBox(kind){const M=kind==="yale"?YALE:PRIN;const c=clsOf(ME);
+ return `<div class="mbox"><div class="cap">${kind==="yale"?"예일 멘토 · 10/15 14:30–15:30":"프린스턴 멘토 · 10/20 10:00–11:00"} (반별)</div>${c?`<p>내 멘토 · <b>${M[c][0]}</b> 멘토 (${M[c][1]})</p>`:`<p class="hint">이름을 입력하면 내 반 멘토가 표시돼요.</p>`}<details class="all" open><summary>반별 멘토 전체</summary>${classTbl(M)}</details></div>`}
+function lecBox(k){const l=LEC[k];return `<div class="mbox"><div class="cap">${l.u} · ${esc(l.t)}</div><table class="w"><tr><td class="k">일시</td><td>${l.w}</td></tr><tr><td class="k">장소</td><td>${esc(l.p)}</td></tr><tr><td class="k">연사</td><td><b>${esc(l.n)}</b><br><small>${esc(l.b)}</small></td></tr></table></div>`}
+function mentorBox(tag,full){if(tag==="yale"||tag==="princeton")return classBox(tag);if(tag==="harvard"||tag==="mit")return groupBox(tag,full);if(LEC[tag])return lecBox(tag);return ""}
+function rMent(){
+ return `<h2 class="ttl" style="font-size:1.5rem">멘토링 · 특강</h2><p class="hint" style="margin:.5rem 0 0">내 조에 표시가 돼요. 예일·프린스턴은 반별 멘토예요.</p>
+ <div class="cap">10/15 예일대</div>${mentorBox("yale")}
+ <div class="cap">10/16 하버드대</div>${mentorBox("lh")}${mentorBox("harvard",true)}
+ <div class="cap">10/17 MIT</div>${mentorBox("mit",true)}${mentorBox("lm")}
+ <div class="cap">10/20 프린스턴대</div>${mentorBox("lp")}${mentorBox("princeton")}`}
+
+/* ===================== 날짜 ===================== */
+function dirUrl(dest,mode){const o=GEO.lat!=null?"&origin="+GEO.lat+","+GEO.lng:"";return "https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(dest)+o+"&travelmode="+(mode||MODE)}
+const spDest=s=>s.a?s.n+" "+s.a:(s.q||s.n);
+const MODES=[["walking","도보"],["driving","차"],["transit","대중교통"]];
+const DAYHOTEL=[[DT,DTA],[DT,DTA],[DT,DTA],[HM,HMA],[HM,HMA],[BM,BMA],["JFK 국제공항","Queens, NY 11430"]];
+function renderGeo(){
+ const g=$("#geo");if(!g)return;if(ui.tab==="nav"){g.innerHTML="";g.style.display="none";return}g.style.display="";const m=/^d(\d)$/.exec(ui.tab);const hd=m&&DAYHOTEL[+m[1]];
+ const st=GEO.err?`<span class="gs err">${esc(GEO.err)}</span>`:GEO.on?(GEO.lat!=null?`<span class="gs">내 위치 확인됨 · 오차 약 ${GEO.acc}m</span>`:`<span class="gs">위치를 찾는 중…</span>`):`<span class="gs">켜면 ‘길 안내’ 버튼이 지금 있는 곳에서 출발해요.</span>`;
+ g.innerHTML=`<button class="bt ${GEO.on?"gold":""}" data-act="geo">${GEO.on?"위치 공유 중 · 끄기":"내 위치 공유"}</button>${st}<span class="modes" role="group" aria-label="이동 수단">${MODES.map(x=>`<button class="pill ${MODE===x[0]?"on":""}" data-act="mode" data-m="${x[0]}">${x[1]}</button>`).join("")}</span>${hd?`<a class="mini" data-act="dir" data-q="${esc(hd[0]+" "+hd[1])}" target="_blank" rel="noopener" href="${dirUrl(hd[0]+" "+hd[1])}">숙소로 길 안내</a>`:""}`}
+function geoToggle(){
+ if(GEO.on){try{navigator.geolocation.clearWatch(GEO.id)}catch(e){}GEO={on:false};return renderGeo()}
+ if(!navigator.geolocation){GEO={on:false,err:"이 브라우저는 위치 공유를 지원하지 않아요. 길 안내 버튼은 구글 지도 앱이 현재 위치를 써요."};return renderGeo()}
+ GEO={on:true};renderGeo();
+ GEO.id=navigator.geolocation.watchPosition(p=>{const first=GEO.lat==null;GEO.lat=p.coords.latitude;GEO.lng=p.coords.longitude;GEO.acc=Math.round(p.coords.accuracy);GEO.err="";renderGeo();if(first&&ui.tab==="nav")keepScroll(render)},e=>{try{navigator.geolocation.clearWatch(GEO.id)}catch(x){}GEO={on:false,err:e.code===1?"위치 권한이 꺼져 있어요. 주소창 옆 설정에서 허용해 주세요. 허용하지 않아도 구글 지도 앱이 현재 위치를 써요.":"위치를 가져오지 못했어요. 잠시 뒤 다시 눌러 주세요."};renderGeo()},{enableHighAccuracy:true,maximumAge:10000,timeout:20000})}
+const phOf=id=>photosOf("spot:"+id);
+function spotH(di,g,s,si,showDay){
+ const d=pts(s.desc);const ph=phOf(s.id);const dest=spDest(s);
+ return `<article class="spot ${isFoodS(s)?"food":""}"><div><h4 style="display:inline">${esc(s.n)}</h4><span class="ty">${esc(s.type)}</span>${showDay?`<span class="ty plain">${di+1}일차</span>`:""}</div>
+ ${d.length?`<ul class="d">${d.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}
+ ${s.m&&s.m.length?`<ul class="menu">${s.m.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}
+ ${s.p?`<div class="price">${esc(s.p)}</div>`:""}
+ ${s.a||s.h||s.tel?`<dl class="meta">${s.a?`<dt>주소</dt><dd>${esc(s.a)}</dd>`:""}${s.h?`<dt>시간</dt><dd>${esc(s.h)}</dd>`:""}${s.tel?`<dt>전화</dt><dd><a href="tel:${esc(s.tel.replace(/[^+\d]/g,""))}">${esc(s.tel)}</a></dd>`:""}</dl>`:""}
+ ${s.tip?`<div class="tip">${esc(s.tip)}</div>`:""}
+ ${s.v?`<div class="vf ${s.v.startsWith("ok|")?"ok":"no"}">${esc(s.v.replace(/^(ok|no)\|/,""))}</div>`:""}
+ <div class="sph">${ph.map(p=>thumb(p,"spot:"+s.id,true)).join("")}<button class="add" data-act="addPhoto" data-owner="spot:${s.id}" data-day="${di}"><span style="font-size:18px">＋</span>내 사진</button></div>
+ <div class="lk"><a class="mini pr" data-act="dir" data-q="${esc(dest)}" href="${dirUrl(dest)}" target="_blank" rel="noopener">길 안내</a><a class="mini" href="${gmap(dest)}" target="_blank" rel="noopener" data-act="map">지도</a>${s.u?`<a class="mini" href="${esc(s.u)}" target="_blank" rel="noopener">공식 사이트</a>`:""}</div>
+ <div class="ed"><button class="mini" data-act="editSpot" data-di="${di}" data-g="${g.id}" data-si="${si}">수정</button><button class="mini dg" data-act="delSpot" data-di="${di}" data-g="${g.id}" data-si="${si}">삭제</button></div></article>`}
+function grpH(di,g){
+ const isF=s=>s.type==="식사"||s.type==="간식";const F=[],O=[];g.spots.forEach((s,si)=>(isF(s)?F:O).push([s,si]));
+ const mk=a=>`<div class="cards">${a.map(([s,si])=>spotH(di,g,s,si)).join("")}</div>`;
+ const body=(F.length&&O.length&&g.spots.length>4)?`<div class="sg">먹을 곳 ${F.length}</div>${mk(F)}<div class="sg">볼 곳 · 살 곳 · 참고 ${O.length}</div>${mk(O)}`:mk(F.concat(O).sort((x,y)=>x[1]-y[1]));
+ return `<section class="${g.spots.some(isFoodS)?"gfood":""}"><div class="gh"><h3>${esc(g.title)}</h3>${g.note?`<p>${esc(g.note)}</p>`:""}</div>${body}
+ <div class="ed"><button class="mini" data-act="addSpot" data-di="${di}" data-g="${g.id}">＋ 장소 추가</button><button class="mini" data-act="editGrp" data-di="${di}" data-g="${g.id}">그룹 수정</button><button class="mini dg" data-act="delGrp" data-di="${di}" data-g="${g.id}">그룹 삭제</button></div></section>`}
+
+function rDay(di){
+ const d=ST.days[di];if(!d)return "";const dmd=mdOf(d.date);
+ const si=Math.min(ui.sel[di]||0,d.items.length-1);ui.sel[di]=si;const it=d.items[si];
+ const nmz=n=>n==="KST"?"한국":"미국";
+ const ni=nowInfo();
+ const list=d.items.map((x,i)=>{const nat=x.tz==="KST"?"KST":"EDT",oth=nat==="KST"?"EDT":"KST";const r=rp(x,nat),o=rp(x,oth);const du=dur(x);
+  const sp=span(x),eu=sp.eu==null?sp.su+36e5:sp.eu;const isNow=sp.su<=ni.n&&ni.n<eu,past=eu<=ni.n;const ml=mealOf(x),fm=freeMeal(x,d);
+  const cls=["stop",i===si?"on":"",isNow?"now":"",past?"past":"",fm?"freeml":ml||x.kind==="meal"?"meal":""].join(" ");
+  return `<button class="${cls}" style="--kc:${KC[x.kind]||"#999"}" data-act="sel" data-di="${di}" data-i="${i}" ${i===si?'aria-current="true"':""}><span class="tr"><b><i class="kd"></i>${r.s}</b>${r.e?`<span>~ ${r.e}${r.emd!==r.md?" (+1일)":""}</span>`:""}</span><span><span class="nm">${isNow?'<span class="tg nw">지금</span>':""}${ml?`<span class="ml ${ml[1]}">${ml[0]}</span>`:""}${fm?'<span class="tg fm">자유식</span>':""}${esc(x.t)}${x.opt?'<span class="tg">선택</span>':""}${x.free&&!fm?'<span class="tg">자유</span>':""}${x.mt?'<span class="tg mn">멘토링</span>':""}</span><span class="mt"><span class="z ${nat}">${nmz(nat)}</span>${r.md!==dmd?" "+r.md:""}${du?" · "+du:""} · ${nmz(oth)} ${o.s}${o.e?"~"+o.e:""}</span></span></button>`}).join("");
+ const hasNow=ni.cur&&ni.cur.di===di;
+ const wx=WEATHER[di];
+ return `<section class="dh" style="--c:${d.color}"><div class="k">${di+1}일차 · ${dmd} (${d.dow})</div><h1>${esc(d.title)}</h1><p>${esc(d.region)}</p><div class="chips">${wx?`<span class="chip">날씨 ${wx}</span>`:""}${d.hotel?`<span class="chip plain">숙소 ${esc(d.hotel)}</span>`:""}</div><div class="dact">${hasNow?`<button class="mini pr" data-act="gonow">지금 일정으로</button>`:""}<button class="mini only-edit" data-act="editDay" data-di="${di}">제목 수정</button></div></section>
+ <div class="stage"><aside class="line" aria-label="일정 목록">${list}<div class="ed" style="padding:10px 14px"><button class="mini pr" data-act="addItem" data-di="${di}">＋ 일정 추가</button></div></aside>
+ <article class="panel" style="--kc:${KC[it.kind]||"#999"}">${panelH(di,si,it)}</article></div>`}
+
+function panelH(di,si,it){
+ const d=ST.days[di];const ph=photosOf(it.id);
+ const gs=gids(it).map(id=>d.groups.find(g=>g.id===id)).filter(Boolean);
+ const prev=d.items[si-1],next=d.items[si+1];const du=dur(it);
+ const zs=it.tz==="KST"?["KST","EDT"]:["EDT","KST"];
+ const th=zs.map(z=>`<th class="${z==="EDT"?"u":"k"}">${z==="EDT"?"미국 동부 (EDT)":"한국 (KST)"}</th>`).join("");
+ const td=zs.map(z=>{const r=rp(it,z);return `<td>${r.s}${r.e?` ~ ${r.e}`:""}<small>${r.md}${r.e&&r.emd!==r.md?" → "+r.emd:""}${du?` · ${du}`:""}</small></td>`}).join("");
+ const P=pts(it.d);const L=locs(it);
+ const ml=mealOf(it),fm=freeMeal(it,d);
+ return `<span class="kind">${KIND[it.kind]||""}${it.opt?" · 선택 일정":""}${it.free&&it.kind!=="free"?" · 자유":""}</span><h2>${ml?`<span class="ml big ${ml[1]}">${ml[0]}</span>`:""}${esc(it.t)}</h2>
+ ${fm?`<div class="fmb"><b>자유식</b> 아래 후보 중에서 골라 먹어요. 카드마다 메뉴·가격·길 안내가 있어요. 예산 계산은 ‘여행 정보’의 $25 계산기를 써요.</div>`:ml?`<div class="fmb grp ${ml[1]}"><b>${ml[0]}</b> ${it.kind==="meal"?"정해진 단체 식사예요.":"이 일정의 식사 시간이에요."}</div>`:""}
+ <table class="w timetbl"><tr>${th}</tr><tr>${td}</tr></table>
+ ${L.map((l,i)=>{const dest=l.q||(l.n+" "+(l.a||""));const k=it.id+":"+i;return `<div class="locw"><div class="loc"><b>${esc(l.n)}</b>${l.a?`<span>${esc(l.a)}</span>`:""}<a class="mini pr" data-act="dir" data-q="${esc(dest)}" href="${dirUrl(dest)}" target="_blank" rel="noopener">길 안내</a><a class="mini" href="${gmap(dest)}" target="_blank" rel="noopener" data-act="map">지도</a>${siteOf(l)?`<a class="mini" href="${siteOf(l)}" target="_blank" rel="noopener">공식 사이트</a>`:""}<button class="mini" data-act="emb" data-k="${k}">${ui.emb[k]?"지도 닫기":"여기 보기"}</button></div>${ui.emb[k]?`<iframe class="emb" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="${esc(l.n)} 지도" src="https://www.google.com/maps?q=${encodeURIComponent(dest)}&output=embed"></iframe>`:""}</div>`}).join("")}
+ ${P.length?`<div class="sh">이 시간엔 이렇게 해요</div><ul class="pts">${P.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}
+ ${it.mt?mentorBox(it.mt):""}
+ ${gs.map(g=>grpH(di,g)).join("")}
+ <div class="ed"><button class="mini" data-act="addGrp" data-di="${di}" data-id="${it.id}">＋ 장소 그룹 추가</button><button class="mini" data-act="editItem" data-id="${it.id}">일정 수정</button><button class="mini dg" data-act="delItem" data-id="${it.id}">일정 삭제</button></div>
+ <section class="phs"><div class="sh" style="margin-top:0">사진${ph.length?` ${ph.length}장`:""}</div><div class="ph">${ph.map(p=>thumb(p,it.id,false)).join("")}<button class="add" data-act="addPhoto" data-owner="${it.id}" data-day="${di}"><span style="font-size:20px">＋</span>사진 추가</button></div></section>
+ <div class="pn"><button class="bt" data-act="sel" data-di="${di}" data-i="${si-1}" ${prev?"":"disabled"}>← ${prev?esc(prev.t.slice(0,14)):"처음"}</button><button class="bt gold" data-act="sel" data-di="${di}" data-i="${si+1}" ${next?"":"disabled"}>${next?esc(next.t.slice(0,14)):"마지막"} →</button></div>`}
+
+/* ===================== 정보 ===================== */
+function rInfo(){
+ const hotels=[["DoubleTree by Hilton Nashua","2 Somerset Pkwy, Nashua NH 03063","+1-603-886-1200","10/15 – 10/18"],["Hanover Marriott","1401 Route 10 East, Whippany NJ 07981","+1-973-538-8811","10/18 – 10/20"],["Bethesda Marriott","5151 Pooks Hill Rd, Bethesda MD 20814","+1-301-897-9400","10/20 – 10/21"]];
+ const emg=[["미국 긴급 (경찰·구급·소방)","911"],["영사안전콜센터 (24h)","+82-2-3210-0404"],["동포콜센터 (24h)","+82-2-6747-0404"],["주미 한국 대사관","+1-202-939-5600"],["대사관 근무시간 외","+1-202-641-8761"],["주뉴욕 총영사관","+1-646-674-6000"],["주뉴욕 총영사관 긴급","+1-646-965-3639"],["주보스턴 총영사관","+1-617-641-2830"],["주보스턴 총영사관 긴급","+1-617-264-0404"],["정풍관광 (국내 여행사)","02-732-7114"],["동부관광 뉴욕지사 (현지)","+1-718-939-1000"],["경기북과학고","031-870-2711"]];
+ const ph=[["입국심사","I’m here for a school educational trip.","학교 체험학습으로 왔어요."],["","We’ll stay for about a week.","일주일 정도 머물러요."],["식당","Does this have nuts / eggs / pork?","견과류·계란·돼지고기 들어 있나요?"],["","Is tax and tip included?","세금과 팁이 포함인가요?"],["","For here or to go? — For here. / To go.","먹고 가요 / 포장이에요."],["","Could we have the check, please?","계산서 주세요."],["쇼핑","How much is this? / Can I pay by card?","얼마예요? / 카드 되나요?"],["도움","Excuse me, where is the restroom?","화장실이 어디예요?"],["","I’m lost. Please call my teacher.","길을 잃었어요. 선생님께 연락해 주세요."]];
+ return `<h2 class="ttl" style="font-size:1.5rem">여행 정보</h2><div class="info">
+ <div class="card"><h3>항공편</h3><table class="w"><tr><th>편명</th><th>구간</th><th>출발 → 도착</th></tr><tr><td class="c">KE081</td><td>인천 T2 → 뉴욕 JFK<br><small>약 14시간</small></td><td>10/15 10:00 KST<br>→ 10/15 11:00 EDT</td></tr><tr><td class="c">KE086</td><td>JFK → 인천 T2<br><small>약 15시간 20분</small></td><td>10/22 00:50 EDT<br>→ 10/23 05:10 KST</td></tr></table></div>
+ <div class="card"><h3>숙소</h3><table class="w">${hotels.map(h=>`<tr><td><b>${h[0]}</b><br><small>${h[1]}</small></td><td>${h[3]}<br><a href="tel:${h[2].replace(/[^+\d]/g,"")}">${h[2]}</a> · <a href="${gmap(h[0]+" "+h[1])}" target="_blank" rel="noopener">지도</a></td></tr>`).join("")}</table></div>
+ <div class="card"><h3>구글맵 위치 공유 (4단계)</h3><ol style="margin:0;padding-left:1.2rem;font-size:.92rem"><li>구글맵 실행 후 로그인 (휴대전화 위치 권한 켜기)</li><li>우측 상단 프로필 아이콘 → ‘위치 공유’ 선택</li><li>기간을 ‘직접 끌 때까지’로 변경</li><li>담임 선생님과 부모님 구글 계정으로 공유 전송</li></ol><table class="w" style="margin-top:.7rem">${[1,2,3,4,5].map(k=>`<tr class="${clsOf(ME)===k?"me":""}"><td class="k">${k}반 ${TEACH[k][0]}T</td><td>${TEACH[k][1]}</td></tr>`).join("")}</table></div>
+ <div class="card"><h3>시차 변환기</h3><div class="row"><input type="time" id="tcE" value="09:00"><input type="date" id="tcD" value="2026-10-16"></div><div id="tcO" style="margin-top:10px;font-weight:700;font-size:1.1rem"></div><small class="hint">미국 동부 시각을 넣으면 한국 시각(+13시간)으로 바꿔줘요.</small></div>
+ <div class="card"><h3>$25 자유식 계산기</h3><div class="row"><input type="number" id="cp" placeholder="메뉴 가격 $" step="0.01"><input type="number" id="ct" value="8" step="0.1" title="세금 %"><select id="cg"><option>10</option><option>15</option><option selected>18</option><option>20</option></select></div><div class="row" style="margin-top:6px"><input type="number" id="cr" value="1400" title="환율"><div class="hint" style="align-self:center;font-size:.8rem">← 환율(원/$) · 세금% · 팁%</div></div><div id="cO" style="margin-top:10px;font-weight:700"></div><small class="hint">세금 8%는 연습용이에요. 카운터 주문(푸드코트)은 팁이 필요 없어요.</small></div>
+ <div class="card wide"><h3>준비물</h3><div class="cols2">${ST.check.map((c,i)=>`<label class="ck ${c.d?"done":""}"><input type="checkbox" data-act="ck" data-i="${i}" ${c.d?"checked":""}><span style="flex:1">${esc(c.t)}</span><button class="mini dg only-edit" data-act="ckDel" data-i="${i}">✕</button></label>`).join("")}</div><div class="row" style="margin-top:10px;max-width:460px"><input type="text" id="ckN" placeholder="준비물 추가"><button class="bt gold" data-act="ckAdd" style="flex:none">추가</button></div></div>
+ <div class="card"><h3>비상 연락처</h3><table class="w">${emg.map(e=>`<tr><td>${e[0]}</td><td><a href="tel:${e[1].replace(/[^+\d]/g,"")}">${e[1]}</a></td></tr>`).join("")}</table></div>
+ <div class="card"><h3>영어 표현</h3><div class="eng">${ph.map(x=>`<div>${x[0]?`<small>${x[0]}</small>`:""}${esc(x[1])}<small>${esc(x[2])}</small></div>`).join("")}</div></div></div>
+ <p class="hint" style="margin-top:16px">가격·영업시간·메뉴는 예상이고 바뀔 수 있어요. 선생님 공지와 현장 안내가 우선이에요.</p>`}
+
+/* ===================== 사진첩 ===================== */
+function rAlbum(){
+ const f=ui.ad;const list=ALB().filter(p=>f===""||String(p.day)===String(f)).sort((a,b)=>b.ts-a.ts);
+ const items={};ST.days.forEach(d=>{d.items.forEach(i=>items[i.id]=i.t);d.groups.forEach(g=>g.spots.forEach(x=>items["spot:"+x.id]=x.n))});
+ return `<h2 class="ttl" style="font-size:1.5rem">사진첩</h2><div class="drop" style="margin-top:.8rem"><div style="font-weight:700;margin-bottom:10px">여행 사진을 올려 보세요. 여러 장도 한 번에 돼요.</div><div class="row" style="max-width:520px;margin:0 auto"><select id="ad"><option value="">날짜 선택 (선택사항)</option>${ST.days.map((d,i)=>`<option value="${i}">${i+1}일차 · ${mdOf(d.date)}</option>`).join("")}</select><button class="bt gold" data-act="albumUp" style="justify-content:center">＋ 사진 올리기</button></div><div class="hint" style="font-size:.8rem;margin-top:8px">사진은 이 브라우저에만 저장돼요. 일정 페이지에서 올린 사진도 여기에 모여요.</div></div>
+ <div class="sub"><button class="pill ${f===""?"on":""}" data-act="albF" data-v="">전체 ${ALB().length}</button>${ST.days.map((d,i)=>`<button class="pill ${String(f)===String(i)?"on":""}" data-act="albF" data-v="${i}">${i+1}일차 ${ALB().filter(p=>String(p.day)===String(i)).length}</button>`).join("")}</div>
+ ${list.length?`<div class="alb">${list.map(p=>`<figure data-act="lb" data-id="${p.id}" data-list="album"><img src="${purl(p)}" alt=""><figcaption>${p.caption?`&lt;${esc(p.caption)}&gt;`:esc(items[p.owner]||"")}</figcaption></figure>`).join("")}</div>`:`<div class="empty-s">아직 사진이 없어요. 위에서 첫 사진을 올려 보세요.</div>`}`}
+
+/* ===================== 입력 바인딩 ===================== */
+function bindInputs(){
+ const e=$("#tcE");if(e){const f=()=>{const d=$("#tcD").value,t=$("#tcE").value;if(!d||!t)return;const a=parts(utc(d,t,"EDT"),"KST");$("#tcO").textContent="한국 "+a.md+" "+a.hm+" KST"};e.oninput=$("#tcD").oninput=f;f()}
+ const c=$("#cp");if(c){const f=()=>{const p=+$("#cp").value||0,t=+$("#ct").value||0,g=+$("#cg").value,r=+$("#cr").value||0;const tot=p*(1+t/100)+p*g/100;$("#cO").textContent=p?`합계 약 $${tot.toFixed(2)} (${Math.round(tot*r).toLocaleString()}원) · $25 대비 ${tot<=25?"여유 $"+(25-tot).toFixed(2):"초과 $"+(tot-25).toFixed(2)}`:""};["cp","ct","cg","cr"].forEach(i=>$("#"+i).oninput=f);f()}}
+
+/* ===================== 모달/편집 ===================== */
+function modal(title,fields,vals,onSave,onDel,btn){const ov=$("#ov");$("#md").innerHTML=`<h3>${esc(title)}</h3><form id="mf">${fields.map(f=>{const v=vals[f.k]==null?"":vals[f.k];let inp;if(f.t==="area")inp=`<textarea name="${f.k}" rows="${f.r||4}">${esc(v)}</textarea>`;else if(f.t==="sel")inp=`<select name="${f.k}">${f.o.map(o=>{const ov=Array.isArray(o)?o[0]:o,ol=Array.isArray(o)?o[1]:o;return `<option value="${esc(ov)}" ${String(v)===String(ov)?"selected":""}>${esc(ol)}</option>`}).join("")}</select>`;else inp=`<input type="${f.t||"text"}" name="${f.k}" value="${esc(v)}">`;return `<div class="fld"><label>${f.l}</label>${inp}${f.h?`<div class="hint" style="font-size:.75rem">${f.h}</div>`:""}</div>`}).join("")}<div class="row"><button type="submit" class="bt gold" style="justify-content:center">${btn||"저장"}</button><button type="button" class="bt" data-act="close" style="justify-content:center">취소</button>${onDel?`<button type="button" class="bt" id="mdel" style="justify-content:center;color:#b3122b">삭제</button>`:""}</div></form>`;
+ ov.classList.add("on");{const fi=$("#mf input,#mf textarea");if(fi)setTimeout(()=>fi.focus(),30)}$("#mf").onsubmit=e=>{e.preventDefault();const o={};fields.forEach(f=>o[f.k]=$("#mf").elements[f.k].value);onSave(o);closeM()};if(onDel)$("#mdel").onclick=()=>{if(confirm("삭제할까요?")){onDel();closeM()}}}
+function closeM(){$("#ov").classList.remove("on")}
+const TZ=[["EDT","미국 동부 (EDT)"],["KST","한국 (KST)"]];
+const itemF=[{k:"t",l:"제목"},{k:"kind",l:"종류",t:"sel",o:Object.entries(KIND)},{k:"date",l:"시작 날짜",t:"date"},{k:"s",l:"시작 시간",t:"time"},{k:"tz",l:"시작 시간 기준",t:"sel",o:TZ},{k:"e",l:"종료 시간 (선택)",t:"time"},{k:"etz",l:"종료 시간 기준",t:"sel",o:[["","시작과 같음"],...TZ]},{k:"edate",l:"종료 날짜 (자정을 넘기거나 시간대가 다를 때만)",t:"date"},{k:"d",l:"설명 (문장마다 한 줄씩 보여요)",t:"area",r:5},{k:"ln",l:"위치 이름 (선택)"},{k:"la",l:"위치 주소 (선택)"},{k:"lq",l:"지도 검색어 (비우면 이름+주소)"},{k:"g",l:"연결할 장소 그룹 ID (쉼표로 여러 개)",h:"비우면 장소 없음"},{k:"flags",l:"표시",t:"sel",o:[["","없음"],["opt","선택 일정"],["free","자유시간·자유식"]]}];
+function itemApply(it,o){["t","kind","date","s","tz","e","etz","edate","d","g"].forEach(k=>{if(k==="e"||k==="etz"||k==="edate"||k==="g"){if(o[k])it[k]=o[k];else delete it[k]}else it[k]=o[k]});it.opt=o.flags==="opt";it.free=o.flags==="free";
+ const rest=locs(it).slice(1);if(o.ln){const l={n:o.ln,a:o.la};if(o.lq)l.q=o.lq;it.loc=rest.length?[l].concat(rest):l}else if(rest.length)it.loc=rest;else delete it.loc}
+const spF=[{k:"n",l:"이름"},{k:"type",l:"종류",t:"sel",o:TYPES},{k:"desc",l:"설명",t:"area",r:3},{k:"m",l:"메뉴/대표 (한 줄에 하나)",t:"area",r:3},{k:"p",l:"가격·비용"},{k:"tip",l:"팁·주의"},{k:"a",l:"주소"},{k:"h",l:"영업시간"},{k:"tel",l:"전화"},{k:"u",l:"공식 사이트 URL"},{k:"q",l:"지도 검색어 (비우면 이름+주소)"}];
+const findG=(di,gid)=>ST.days[di].groups.find(g=>g.id===gid);
+function findIt(id){for(let di=0;di<ST.days.length;di++){const it=ST.days[di].items.find(i=>i.id===id);if(it)return [di,it]}return []}
+function resort(di){const cur=ST.days[di].items[ui.sel[di]||0];ST.days[di].items.sort((a,b)=>span(a).su-span(b).su);ui.sel[di]=Math.max(0,ST.days[di].items.indexOf(cur))}
+function keepScroll(fn){const y=window.scrollY;fn();window.scrollTo(0,y)}
+const spFrom=o=>({n:o.n,type:o.type,desc:o.desc,m:o.m.split("\n").map(x=>x.trim()).filter(Boolean),p:o.p,tip:o.tip,u:o.u,q:o.q,a:o.a,h:o.h,tel:o.tel});
+
+/* ===================== 이벤트 ===================== */
+let pendingOwner=null;
+document.addEventListener("click",e=>{const el=e.target.closest("[data-act]");if(!el)return;const a=el.dataset.act;const D=el.dataset;
+ if(a==="map")return;
+ if(a==="dir"){el.href=dirUrl(D.q,D.m);return}
+ if(a==="geo")return geoToggle();
+ if(a==="mode"){MODE=D.m;try{localStorage.setItem("usTrip.mode",MODE)}catch(x){}renderGeo();return keepScroll(render)}
+ if(a==="emb"){ui.emb[D.k]=!ui.emb[D.k];return keepScroll(render)}
+ if(a==="dcf"){ui.dc=D.v;return render()}
+ if(a==="near"){el.href=nearUrl(D.q);return}
+ if(a==="myCopy"){const l=myLink();if(!l){toast("먼저 위치 공유를 켜 주세요");return}return copyText("내 위치: "+l)}
+ if(a==="myShare"){const l=myLink();if(!l){toast("먼저 위치 공유를 켜 주세요");return}if(navigator.share)return navigator.share({title:"내 위치",text:"내 위치예요",url:l}).catch(()=>{});return copyText("내 위치: "+l)}
+ if(a==="sosCopy"){const l=myLink();return copyText("I need help. I’m a student from Korea (Gyeonggi Bukbu Science High School). "+(l?"My location: "+l:"Please help me find where I am."))}
+ if(a==="busSave"){if(GEO.lat==null){toast("먼저 위치 공유를 켜 주세요");if(!GEO.on)geoToggle();return}ST.busLoc={lat:GEO.lat,lng:GEO.lng,acc:GEO.acc,ts:Date.now()};save();toast("저장했어요");return keepScroll(render)}
+ if(a==="busDel"){delete ST.busLoc;save();return keepScroll(render)}
+ if(a==="addDoc"){pendingOwner={owner:"doc",day:""};const fi=$("#fileIn");fi.accept="image/*,application/pdf";fi.click();return}
+ if(a==="renDoc"){const p=PH.find(x=>x.id===D.id);return modal("서류 이름",[{k:"c",l:"이름 (예: KE081 탑승권)"}],{c:p.caption},async o=>{p.caption=o.c.trim();await dbop("readwrite",s=>s.put(p));keepScroll(render)})}
+ if(a==="delDoc"){if(confirm("이 서류를 지울까요? 되돌릴 수 없어요.")){return delPhoto(D.id).then(()=>keepScroll(render))}return}
+ if(a==="vcopy"){const v=ST.vault.find(x=>x.id===D.id);if(v)copyText(v.v);return}
+ if(a==="vnew"||a==="vedit"){const v=a==="vedit"?ST.vault.find(x=>x.id===D.id):null;return modal(v?"메모 수정":"메모 추가",[{k:"t",l:"제목"},{k:"v",l:"내용",t:"area",r:3}],v||{t:D.t||"",v:""},o=>{if(v){v.t=o.t;v.v=o.v}else ST.vault.push({id:"v"+uid(),t:o.t,v:o.v});save();keepScroll(render)},v?()=>{ST.vault=ST.vault.filter(x=>x!==v);save();keepScroll(render)}:null)}
+ if(a==="more")return moreUI();
+ if(a==="shretry"){ui.sh.state="idle";return shEnter()}
+ if(a==="shmore"){el.disabled=true;return shMore(false).then(()=>keepScroll(render)).catch(()=>{toast("불러오지 못했어요");el.disabled=false})}
+ if(a==="shv"){shI=+D.i;return showSh()}
+ if(a==="shup"){pendingOwner={owner:"shared",day:""};$("#fileIn").click();return}
+ if(a==="dgo"){return}
+ if(a==="fd"){ui.fd=D.v;return render()}
+ if(a==="gonow"){const ni=nowInfo();const t=D.di!=null&&D.di!==""?{di:+D.di,i:+D.i}:ni.cur||ni.nxt;if(t){ui.sel[t.di]=t.i;go("d"+t.di)}return}
+ if(a==="today"){const ni=nowInfo();const t=ni.cur||ni.nxt;if(t&&ni.cur){ui.sel[t.di]=t.i}go("d"+(t?t.di:0));return}
+ if(a==="browse"){ME=null;try{localStorage.setItem(MEKEY,"null")}catch(x){}ui.tab="home";shell();render();return}
+ if(a==="chgMe"){closeM();return gate()}
+ if(a==="tab"){closeM();return go(D.k)}
+ if(a==="bus"){ui.bus=+D.b;return keepScroll(render)}
+ if(a==="sel"){const di=+D.di,i=+D.i;if(el.disabled)return;ui.sel[di]=i;keepScroll(render);if(window.innerWidth>980){const p=$(".panel");if(p&&p.getBoundingClientRect().top<110)window.scrollTo({top:p.offsetTop-120})}return}
+ if(a==="albF"){ui.ad=D.v;return render()}
+ if(a==="editToggle"){closeM();ui.edit=!ui.edit;document.body.classList.toggle("edit",ui.edit);const b=$("#editBtn");b.classList.toggle("gold",ui.edit);b.textContent=ui.edit?"편집 중":"편집";return}
+ if(a==="close")return closeM();
+ if(a==="menu")return menuUI();
+ if(a==="editDay"){const d=ST.days[D.di];return modal("날짜 정보 수정",[{k:"title",l:"제목"},{k:"region",l:"지역"},{k:"hotel",l:"숙소·비고"}],d,o=>{Object.assign(d,o);save();render()})}
+ if(a==="editItem"){const [di,it]=findIt(D.id);const l=locs(it)[0]||{};const v=Object.assign({},it,{flags:it.opt?"opt":it.free?"free":"",ln:l.n||"",la:l.a||"",lq:l.q||""});return modal("일정 수정",itemF,v,o=>{itemApply(it,o);resort(di);save();render()},()=>{ST.days[di].items=ST.days[di].items.filter(x=>x!==it);ui.sel[di]=0;save();render()})}
+ if(a==="delItem"){const [di,it]=findIt(D.id);if(confirm("이 일정을 삭제할까요?")){ST.days[di].items=ST.days[di].items.filter(x=>x!==it);ui.sel[di]=0;save();render()}return}
+ if(a==="addItem"){const di=+D.di,d=ST.days[di];return modal("일정 추가",itemF,{t:"",kind:"visit",date:d.date,s:"12:00",tz:"EDT",e:"",etz:"",edate:"",d:"",g:"",flags:""},o=>{const it={id:"n"+uid(),note:""};itemApply(it,o);d.items.push(it);resort(di);ui.sel[di]=d.items.indexOf(it);save();render()})}
+ if(a==="addGrp"){const di=+D.di,[,it]=findIt(D.id);return modal("장소 그룹 추가",[{k:"title",l:"제목"},{k:"note",l:"한 줄 설명",t:"area",r:2}],{},o=>{const id="g"+uid();ST.days[di].groups.push({id,title:o.title,note:o.note,spots:[]});it.g=gids(it).concat(id).join(",");save();keepScroll(render)})}
+ if(a==="editGrp"){const di=+D.di,g=findG(di,D.g);return modal("그룹 수정",[{k:"title",l:"제목"},{k:"note",l:"한 줄 설명",t:"area",r:2}],g,o=>{Object.assign(g,o);save();keepScroll(render)})}
+ if(a==="delGrp"){const di=+D.di;if(confirm("그룹과 안의 장소를 모두 삭제할까요?")){ST.days[di].groups=ST.days[di].groups.filter(g=>g.id!==D.g);ST.days[di].items.forEach(x=>{if(x.g){const r=gids(x).filter(i=>i!==D.g).join(",");if(r)x.g=r;else delete x.g}});save();keepScroll(render)}return}
+ if(a==="addSpot"){const di=+D.di,g=findG(di,D.g);return modal("장소 추가",spF,{type:"구경"},o=>{g.spots.push(Object.assign(spFrom(o),{id:"s"+uid(),lat:null,lng:null}));save();keepScroll(render)})}
+ if(a==="editSpot"){const di=+D.di,g=findG(di,D.g),s=g.spots[+D.si];return modal("장소 수정",spF,Object.assign({},s,{m:(s.m||[]).join("\n")}),o=>{Object.assign(s,spFrom(o));save();keepScroll(render)},()=>{g.spots.splice(+D.si,1);save();keepScroll(render)})}
+ if(a==="delSpot"){const di=+D.di,g=findG(di,D.g);if(confirm("삭제할까요?")){g.spots.splice(+D.si,1);save();keepScroll(render)}return}
+ if(a==="ck"){ST.check[+D.i].d=el.checked;save();return keepScroll(render)}
+ if(a==="ckDel"){e.preventDefault();ST.check.splice(+D.i,1);save();return keepScroll(render)}
+ if(a==="ckAdd"){const v=$("#ckN").value.trim();if(v){ST.check.push({t:v,d:false});save();keepScroll(render)}return}
+ if(a==="addPhoto"){pendingOwner={owner:D.owner,day:D.day};$("#fileIn").click();return}
+ if(a==="albumUp"){pendingOwner={owner:"album",day:$("#ad").value};$("#fileIn").click();return}
+ if(a==="lb")return openLb(D.id,D.list);
+});
+$("#fileIn").onchange=e=>{const fs=[...e.target.files];e.target.value="";$("#fileIn").accept="image/*";if(!fs.length||!pendingOwner)return;const po=pendingOwner;
+ if(po.owner==="doc"){try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(x){}modal(`서류 ${fs.length}개 올리기`,[{k:"cat",l:"종류",t:"sel",o:DOCC},{k:"c",l:"이름 (예: KE081 탑승권)"}],{cat:ui.dc||"항공권",c:""},async o=>{await addPhotos(fs,"doc:"+o.cat,"",o.c.trim());ui.dc=o.cat;keepScroll(render)},null,"완료");return}
+ if(po.owner==="shared"){modal(`공용 앨범에 ${fs.length}장 올리기`,[{k:"c",l:"사진 설명 (선택)",h:"사진 아래에 &lt;설명&gt;으로 보여요."}],{c:""},async o=>{const L=[];for(const f of fs)L.push({blob:await shrink(f,1600),caption:o.c.trim()});toast("올리는 중…");if(await shShare(L,{name:ME?ME.n:"",c:clsOf(ME)||0,day:""})){await shEnter(true)}},null,"올리기");return}
+ const fl=[{k:"c",l:"사진 설명 (선택)",h:"쓰면 사진 아래에 &lt;설명&gt; 모양으로 보여요. 여러 장이면 같은 설명이 붙어요."}];if(SHARED_ON())fl.push({k:"sh",l:"공용 앨범에도 올릴까요?",t:"sel",o:[["0","아니요 (내 폰에만)"],["1","예 (친구들도 볼 수 있어요)"]]});
+ modal(`사진 ${fs.length}장 올리기`,fl,{c:"",sh:"0"},async o=>{const L=await addPhotos(fs,po.owner,po.day,o.c.trim());if(o.sh==="1")await shShare(L,{name:ME?ME.n:"",c:clsOf(ME)||0,day:po.day});keepScroll(render)},null,"완료")};
+$("#ov").addEventListener("click",e=>{if(e.target.id==="ov")closeM()});
+$("#impIn").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const j=JSON.parse(await f.text());if(!j.days)throw 0;ST=ensureIds(j);ST.vault=ST.vault||[];save();closeM();render();alert("복원했어요!")}catch(x){alert("올바른 백업 파일이 아니에요.")}e.target.value=""};
+function moreUI(){$("#md").innerHTML=`<h3>더보기</h3><div style="display:grid;gap:10px"><button class="bt" data-act="tab" data-k="ment" style="justify-content:center">멘토링 · 특강</button><button class="bt" data-act="tab" data-k="info" style="justify-content:center">여행 정보 (항공·숙소·연락처)</button><button class="bt" data-act="tab" data-k="album" style="justify-content:center">내 사진첩</button>${SHARED_ON()?`<button class="bt" data-act="tab" data-k="shared" style="justify-content:center">공용 앨범</button>`:""}<button class="bt ${ui.edit?"gold":""}" data-act="editToggle" style="justify-content:center">${ui.edit?"편집 끄기":"편집 켜기"}</button><button class="bt" data-act="menu" style="justify-content:center">백업 · 복원</button><button class="bt" data-act="chgMe" style="justify-content:center">이름 바꾸기</button><button class="bt" data-act="close" style="justify-content:center">닫기</button></div>`;$("#ov").classList.add("on")}
+function menuUI(){$("#md").innerHTML=`<h3>백업 · 복원</h3><p class="hint">일정·장소·체크리스트는 JSON 파일로 저장하고 복원할 수 있어요. 사진은 이 브라우저 안에만 있어서 백업에 들어가지 않아요. 사진첩에서 한 장씩 저장하세요.</p><div style="display:grid;gap:10px;margin-top:.8rem"><button class="bt gold" id="bx" style="justify-content:center">백업 파일 내려받기</button><button class="bt" id="bi" style="justify-content:center">백업 파일 불러오기</button><button class="bt" id="br" style="justify-content:center;color:#b3122b">기본 일정으로 초기화 (사진은 유지)</button><button class="bt" data-act="close" style="justify-content:center">닫기</button></div>`;$("#ov").classList.add("on");
+ $("#bx").onclick=()=>{const b=new Blob([JSON.stringify(ST,null,1)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="us-trip-backup.json";a.click()};
+ $("#bi").onclick=()=>$("#impIn").click();$("#br").onclick=()=>{if(confirm("정말 초기화할까요? 수정한 일정이 사라져요.")){ST=fresh();save();closeM();render()}}}
+
+/* 사진 확대 */
+let lbList=[],lbI=0;
+function openLb(id,list){if(list==="album"){lbList=ALB().filter(p=>ui.ad===""||String(p.day)===String(ui.ad)).sort((a,b)=>b.ts-a.ts)}else{lbList=photosOf(list.slice(list.indexOf(":")+1))}lbI=Math.max(0,lbList.findIndex(p=>p.id===id));showLb()}
+function showLb(){const p=lbList[lbI];const lb=$("#lb");if(!p){lb.classList.remove("on");return}lb.classList.add("on");lb.innerHTML=`<img src="${purl(p)}" alt=""><input type="text" id="lc" placeholder="사진 설명" value="${esc(p.caption)}" style="max-width:560px"><div class="bar"><button class="bt" id="lp">◀</button><span style="align-self:center">${lbI+1} / ${lbList.length}</span><button class="bt" id="ln">▶</button><a class="bt" download="${esc(p.name||"photo.jpg")}" href="${purl(p)}">저장</a><button class="bt" id="lx" style="color:#b3122b">삭제</button><button class="bt gold" id="lc2">닫기</button></div>`;
+ $("#lc").onchange=async e=>{p.caption=e.target.value;await dbop("readwrite",s=>s.put(p))};$("#lp").onclick=()=>{lbI=(lbI+lbList.length-1)%lbList.length;showLb()};$("#ln").onclick=()=>{lbI=(lbI+1)%lbList.length;showLb()};$("#lc2").onclick=()=>{lb.classList.remove("on");keepScroll(render)};
+ $("#lx").onclick=async()=>{if(!confirm("사진을 삭제할까요? 되돌릴 수 없어요."))return;await delPhoto(p.id);lbList.splice(lbI,1);lbI=Math.min(lbI,lbList.length-1);showLb();keepScroll(render)}}
+$("#lb").addEventListener("click",e=>{if(e.target.id==="lb"){e.target.classList.remove("on");keepScroll(render)}});
+document.addEventListener("submit",e=>{if(e.target.id==="shf"){e.preventDefault();const v=$("#shp").value;if(v)shLogin(v);return}if(e.target.id==="dqf"){e.preventDefault();const v=$("#dq").value.trim();if(v)window.open(dirUrl(v),"_blank","noopener")}});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeM();$("#lb").classList.remove("on")}});
+
+/* 시계 */
+function tick(){const a=$("#cE"),b=$("#cK");if(!a||!b)return;const n=Date.now();const f=tz=>{const x=new Date(n+OFF[tz]*36e5);return p2(x.getUTCHours())+":"+p2(x.getUTCMinutes())};a.textContent=f("EDT");b.textContent=f("KST")}
+setInterval(tick,5000);setInterval(()=>{try{renderNow();if(/^d\d$/.test(ui.tab)&&!document.querySelector("#ov.on,#lb.on"))keepScroll(render)}catch(e){}},60000);
+
+/* 시작 */
+(async()=>{try{PH=await dbop("readonly",s=>s.getAll())||[]}catch(e){PH=[]}
+ const h=location.hash.slice(1);if(h==="home"||h==="ment"||h==="food"||h==="nav"||h==="vault"||h==="shared"||h==="info"||h==="album"||/^d\d$/.test(h))ui.tab=h;
+ if(ME&&ME.n){shell();render()}else if(HAVEME&&ME===null){shell();render()}else gate()})();
+
+/* ===================== 공용 앨범 (Firebase) =====================
+   아래 값을 채우면 ‘공용 앨범’이 켜져요. 설정 방법은 firebase-setup.md 에 있어요.
+   email 은 파이어베이스 Authentication 에 만든 공용 계정의 이메일이에요. 비밀번호는 코드에 넣지 않아요. */
+const FBCFG={apiKey:"AIzaSyAbKCseIbysAciOi7wJFVCLNqh4M6vvIMo",authDomain:"ustrip-37513.firebaseapp.com",projectId:"ustrip-37513",storageBucket:"ustrip-37513.firebasestorage.app",appId:"1:189970892354:web:781af8ff8f9dbb06ac4fdb",email:"class@example.com"};
+const SHARED_ON=()=>!!(FBCFG.apiKey&&FBCFG.projectId&&FBCFG.email);
+let SH=null;
+async function smallImg(blob){const b=await createImageBitmap(blob);for(const [mx,q] of [[1100,.6],[900,.55],[700,.5],[500,.5]]){const sc=Math.min(1,mx/Math.max(b.width,b.height));const c=document.createElement("canvas");c.width=Math.max(1,Math.round(b.width*sc));c.height=Math.max(1,Math.round(b.height*sc));c.getContext("2d").drawImage(b,0,0,c.width,c.height);const u=c.toDataURL("image/jpeg",q);if(u.length<850000)return u}throw new Error("사진이 너무 커요")}
+async function shLoad(){
+ if(SH)return SH;
+ const B="https://www.gstatic.com/firebasejs/10.12.2/";
+ const [A,Au,Fs]=await Promise.all([import(B+"firebase-app.js"),import(B+"firebase-auth.js"),import(B+"firebase-firestore.js")]);
+ const app=A.initializeApp(FBCFG),auth=Au.getAuth(app),db=Fs.getFirestore(app);
+ SH={
+  wait:()=>auth.authStateReady(),
+  ready:()=>!!auth.currentUser,
+  login:pw=>Au.signInWithEmailAndPassword(auth,FBCFG.email,pw),
+  async list(after){const q=Fs.query(Fs.collection(db,"photos"),Fs.orderBy("ts","desc"),...(after?[Fs.startAfter(after)]:[]),Fs.limit(12));const s=await Fs.getDocs(q);const items=s.docs.map(d=>Object.assign({id:d.id},d.data()));return {items,more:items.length===12}},
+  async upload(blob,meta){const img=await smallImg(blob);await Fs.addDoc(Fs.collection(db,"photos"),Object.assign({url:img,ts:Date.now()},meta))},
+  async remove(it){await Fs.deleteDoc(Fs.doc(db,"photos",it.id))}
+ };
+ return SH}
+ui.sh={state:"idle",items:[],more:false,err:"",busy:false};
+async function shMore(reset){const sh=await shLoad();const last=!reset&&ui.sh.items.length?ui.sh.items[ui.sh.items.length-1].ts:null;const r=await sh.list(last);ui.sh.items=reset?r.items:ui.sh.items.concat(r.items);ui.sh.more=r.more}
+async function shEnter(force){
+ if(!SHARED_ON())return;if(ui.sh.state!=="idle"&&!force)return;ui.sh.state="loading";if(ui.tab==="shared")render();
+ try{const sh=await shLoad();await sh.wait();if(!sh.ready())ui.sh.state="login";else{await shMore(true);ui.sh.state="ready"}}
+ catch(e){ui.sh.state="err";ui.sh.err=String((e&&e.message)||e)}
+ if(ui.tab==="shared")keepScroll(render)}
+async function shLogin(pw){try{const sh=await shLoad();await sh.login(pw);ui.sh.state="idle";await shEnter(true)}catch(e){ui.sh.err="비밀번호가 맞지 않아요. 다시 입력해 주세요.";ui.sh.state="login";render()}}
+async function shShare(list,meta){if(!SH||!SH.ready()){toast("공용 앨범 탭에서 비밀번호를 먼저 입력해 주세요");return false}
+ try{for(const b of list)await SH.upload(b.blob,Object.assign({},meta,{cap:b.caption||meta.cap||""}));toast("공용 앨범에 올렸어요");ui.sh.state="idle";return true}catch(e){toast("공용 앨범에 올리지 못했어요");return false}}
+function rShared(){
+ const s=ui.sh;let body;
+ if(!SHARED_ON())body=`<div class="card warn"><b>공용 앨범이 아직 연결되지 않았어요</b><p class="hint" style="margin-top:.4rem">파일 위쪽 FBCFG에 파이어베이스 설정을 넣으면 켜져요. 방법은 firebase-setup.md에 있어요.</p></div>`;
+ else if(s.state==="loading"||s.state==="idle")body=`<div class="empty-s">불러오는 중…</div>`;
+ else if(s.state==="err")body=`<div class="card warn"><b>연결하지 못했어요</b><p class="hint" style="margin-top:.4rem">${esc(s.err)}</p><button class="bt" data-act="shretry" style="margin-top:.6rem">다시 시도</button></div>`;
+ else if(s.state==="login")body=`<form class="card" id="shf" autocomplete="off"><h3>공용 앨범 비밀번호</h3><p class="hint" style="font-size:.88rem">선생님이나 친구에게 받은 비밀번호를 입력하면 우리 반 사진을 볼 수 있어요.</p><div class="row"><input type="password" id="shp" placeholder="비밀번호" aria-label="공용 앨범 비밀번호"><button class="bt gold" type="submit" style="flex:none">열기</button></div><div class="gerr" role="alert">${esc(s.err)}</div></form>`;
+ else body=`<button class="bt gold" data-act="shup" style="width:100%;justify-content:center">＋ 공용 앨범에 사진 올리기</button><p class="hint" style="font-size:.8rem;margin:.5rem 0">올린 사진은 비밀번호를 아는 친구 모두가 볼 수 있어요. 얼굴이 나오는 사진은 친구에게 먼저 물어보고 올려요. 내가 올린 사진만 지울 수 있어요.</p>
+ ${s.items.length?`<div class="alb">${s.items.map((p,i)=>`<figure data-act="shv" data-i="${i}"><img loading="lazy" src="${esc(p.url)}" alt=""><figcaption>${p.cap?`&lt;${esc(p.cap)}&gt; `:""}<small>${esc(p.name||"")}</small></figcaption></figure>`).join("")}</div>${s.more?`<button class="bt" data-act="shmore" style="margin:1rem auto 0;display:flex">더 보기</button>`:""}`:`<div class="empty-s">아직 공용 사진이 없어요. 첫 사진을 올려 보세요.</div>`}`;
+ return `<h2 class="ttl" style="font-size:1.5rem">공용 앨범</h2><p class="hint" style="margin:.5rem 0 .8rem">친구들과 같이 보는 사진첩이에요. 내 사진첩과는 따로예요.</p>${body}`}
+let shI=0;
+function showSh(){const p=ui.sh.items[shI];const lb=$("#lb");if(!p){lb.classList.remove("on");return}const mine=ME&&p.name===ME.n;lb.classList.add("on");
+ lb.innerHTML=`<img src="${esc(p.url)}" alt=""><div style="text-align:center;font-size:.9rem">${p.cap?`&lt;${esc(p.cap)}&gt; `:""}<small>${esc(p.name||"")}</small></div><div class="bar"><button class="bt" id="sp">◀</button><span style="align-self:center">${shI+1} / ${ui.sh.items.length}</span><button class="bt" id="sn">▶</button><a class="bt" href="${esc(p.url)}" target="_blank" rel="noopener">원본 열기</a>${mine?`<button class="bt" id="sx" style="color:#b3122b">삭제</button>`:""}<button class="bt gold" id="sc">닫기</button></div>`;
+ $("#sp").onclick=()=>{shI=(shI+ui.sh.items.length-1)%ui.sh.items.length;showSh()};$("#sn").onclick=()=>{shI=(shI+1)%ui.sh.items.length;showSh()};$("#sc").onclick=()=>lb.classList.remove("on");
+ if(mine)$("#sx").onclick=async()=>{if(!confirm("공용 앨범에서 이 사진을 지울까요?"))return;try{await SH.remove(p);ui.sh.items.splice(shI,1);shI=Math.min(shI,ui.sh.items.length-1);showSh();keepScroll(render)}catch(e){toast("지우지 못했어요")}}}
+
+</script>
+</body></html>
