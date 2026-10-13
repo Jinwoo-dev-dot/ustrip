@@ -202,6 +202,11 @@ textarea{min-height:76px;resize:vertical}
 .alb{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
 .alb figure{margin:0;cursor:zoom-in}
 .alb img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;display:block;border:1px solid var(--hair)}
+.alb video{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;display:block;border:1px solid var(--hair);background:#000}
+.alb figure{position:relative}.vbadge{position:absolute;top:8px;left:8px;background:#000;color:var(--gold);font-size:.7rem;font-weight:700;border-radius:999px;padding:1px 8px;pointer-events:none}
+#lb video{max-width:100%;max-height:68vh;border-radius:10px;background:#000}
+.frow{display:flex;gap:8px;align-items:center;border:1px solid #000;border-radius:10px;padding:8px 10px;margin:6px 0;background:var(--paper)}.frow .fm{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.frow .fm b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.92rem}.frow .fm small{color:var(--ink-2)}
+.shg{margin:.3rem 0 .9rem}.shg h4{font-size:.95rem;margin:.6rem 0 .3rem}
 .alb figcaption{font-size:.75rem;color:var(--ink-2);padding:3px 2px;line-height:1.3}
 .empty-s{color:var(--ink-2);padding:26px;text-align:center}
 
@@ -789,7 +794,7 @@ function hid(t){let h=5381;for(let i=0;i<t.length;i++)h=((h<<5)+h+t.charCodeAt(i
 function ensureIds(st){st.vault=st.vault||[];st.days.forEach(d=>d.groups.forEach(g=>g.spots.forEach(s=>{if(!s.id)s.id="s"+hid(g.id+"|"+s.n)})));return st}
 
 /* ===================== 유틸 ===================== */
-const VER="ver 4";const VERD="10/12 23:59 업데이트";
+const VER="ver 5";const VERD="10/13 12:40 업데이트";
 const KEY="usTrip.v6",MEKEY="usTrip.me";
 const OFF={KST:9,EDT:-4};
 const p2=n=>String(n).padStart(2,"0");
@@ -936,9 +941,16 @@ const dbP=new Promise((res,rej)=>{try{const r=indexedDB.open("usTripPhotos",1);r
 const dbop=(m,f)=>dbP.then(db=>new Promise((res,rej)=>{const t=db.transaction("p",m);const q=f(t.objectStore("p"));t.oncomplete=()=>res(q&&q.result);t.onerror=()=>rej(t.error)}));
 const purl=p=>URLS[p.id]||(URLS[p.id]=URL.createObjectURL(p.blob));
 async function shrink(file,mx){try{const b=await createImageBitmap(file);const sc=Math.min(1,(mx||1600)/Math.max(b.width,b.height));const c=document.createElement("canvas");c.width=Math.round(b.width*sc);c.height=Math.round(b.height*sc);c.getContext("2d").drawImage(b,0,0,c.width,c.height);return await new Promise(r=>c.toBlob(r,"image/jpeg",.85))}catch(e){return file}}
-async function addPhotos(files,owner,day,cap){const out=[];for(const f of files){const blob=await shrink(f,/^doc:/.test(owner)?2600:1600);const p={id:"p"+Date.now()+uid(),owner,day,caption:cap||"",blob,ts:Date.now(),name:f.name};try{await dbop("readwrite",s=>s.put(p))}catch(e){alert("사진을 저장하지 못했어요.");return}PH.push(p);out.push(p)}return out}
+async function addPhotos(files,owner,day,cap){const out=[];for(const f of files){const blob=/^video\//.test(f.type)||/\.(mp4|mov|m4v|webm)$/i.test(f.name||"")?(f.type?f:new Blob([f],{type:"video/mp4"})):await shrink(f,/^doc:/.test(owner)?2600:1600);const p={id:"p"+Date.now()+uid(),owner,day,caption:cap||"",blob,ts:Date.now(),name:f.name};try{await dbop("readwrite",s=>s.put(p))}catch(e){alert("사진을 저장하지 못했어요.");return}PH.push(p);out.push(p)}return out}
 async function delPhoto(id){await dbop("readwrite",s=>s.delete(id));PH=PH.filter(p=>p.id!==id)}
-const ALB=()=>PH.filter(p=>!/^doc:/.test(p.owner));
+const ALB=()=>PH.filter(p=>p.owner==="album");
+const isVid=p=>!!(p&&p.blob&&/^video\//.test(p.blob.type));
+const fsz=n=>n>1048576?(n/1048576).toFixed(1)+"MB":Math.max(1,Math.round(n/1024))+"KB";
+async function addFiles(files,owner,cap){const out=[];for(const f of files){const p={id:"p"+Date.now()+uid(),owner,day:"m",caption:cap||"",blob:f,fname:f.name||"file",size:f.size||0,ts:Date.now(),name:f.name};try{await dbop("readwrite",s=>s.put(p))}catch(e){alert("파일을 저장하지 못했어요. 폰 저장 공간을 확인해 주세요.");return out}PH.push(p);out.push(p)}return out}
+function lecFiles(k){const key="mt:"+k;const mine=PH.filter(p=>p.owner===key).sort((a,b)=>a.ts-b.ts);const fr=(ui.sh.files[key]||[]).filter(x=>!(x.lid&&PH.some(p=>p.id===x.lid)));const shared=p=>(ui.sh.files[key]||[]).some(x=>x.lid===p.id);
+ const rows=mine.map(p=>`<div class="frow"><div class="fm"><b>${esc(p.fname||"파일")}</b><small>${fsz(p.size||0)}${p.caption?` · &lt;${esc(p.caption)}&gt;`:""} · 내 파일${shared(p)?" · 공유됨":""}</small></div><a class="mini" href="${purl(p)}" download="${esc(p.fname||"file")}" target="_blank" rel="noopener">열기</a>${SHARED_ON()&&!shared(p)?`<button class="mini" data-act="fShare" data-id="${p.id}" data-k="${key}">공유</button>`:""}<button class="mini" data-act="fDel" data-id="${p.id}" style="color:#b3122b">삭제</button></div>`).join("")
+ +fr.map((x,i)=>`<div class="frow"><div class="fm"><b>${esc(x.fname||"파일")}</b><small>${fsz(x.size||0)}${x.cap?` · &lt;${esc(x.cap)}&gt;`:""} · by ${esc(x.name||"")}</small></div><button class="mini" data-act="shFile" data-k="${key}" data-i="${i}">받기</button>${ME&&x.name===ME.n?`<button class="mini" data-act="shFileDel" data-k="${key}" data-i="${i}" style="color:#b3122b">삭제</button>`:""}</div>`).join("");
+ return `<div class="cap">특강 자료</div>${rows||`<p class="hint" style="font-size:.85rem">아직 올린 자료가 없어요. 강의 자료나 필기 사진·PDF를 올려 두세요.</p>`}<button class="bt" data-act="lecUp" data-k="${k}" style="margin-top:.4rem">＋ 자료 올리기</button>`}
 const photosOf=o=>PH.filter(p=>p.owner===o).sort((a,b)=>a.ts-b.ts);
 const thumb=(p,key,sm)=>`<figure class="pf ${sm?"sm":""}"><img class="th" src="${purl(p)}" data-act="lb" data-id="${p.id}" data-list="item:${key}" alt="${esc(p.caption)}">${p.caption?`<figcaption>&lt;${esc(p.caption)}&gt;</figcaption>`:""}</figure>`;
 
@@ -976,7 +988,7 @@ function renderNav(){
  $("#nav").innerHTML=ic("home","내 자리")+`<span class="tab-sep"></span>`+day+`<span class="tab-sep"></span>`+ic("nav","길 찾기")+ic("food","맛집")+ic("vault","보관함")+(SHARED_ON()?ic("shared","공용 앨범"):"")+ic("ment","멘토링")+ic("info","여행 정보")+ic("album","사진첩"+(ALB().length?` <small>${ALB().length}장</small>`:""));
  const on=$('#nav .tab[aria-selected="true"]');if(on&&on.scrollIntoView)try{on.scrollIntoView({inline:"center",block:"nearest"})}catch(e){}
  $("#who").innerHTML=ME?`<span><b>${esc(ME.n)}</b>${ME.id?` · ${ME.id.slice(0,1)}학년 ${ME.id.slice(1,2)}반`:""}</span><button class="mini" data-act="chgMe">이름 바꾸기</button>`:`<span>둘러보는 중</span><button class="mini" data-act="chgMe">이름 입력</button>`}
-function go(k){ui.tab=k;if(typeof shWarm==="function"&&(/^d\d$/.test(k)||k==="food"))shWarm();if(k==="shared")setTimeout(()=>shEnter(),0);{const m=/^d(\d)$/.exec(k);if(m&&ui.sel[+m[1]]==null){const ni=nowInfo();ui.sel[+m[1]]=ni.cur&&ni.cur.di===+m[1]?ni.cur.i:0}}try{history.replaceState(null,"","#"+k)}catch(e){}render();window.scrollTo({top:0})}
+function go(k){ui.tab=k;if(typeof shWarm==="function"&&(/^d\d$/.test(k)||k==="food"||k==="album"||k==="ment"))shWarm();if(k==="shared")setTimeout(()=>shEnter(),0);{const m=/^d(\d)$/.exec(k);if(m&&ui.sel[+m[1]]==null){const ni=nowInfo();ui.sel[+m[1]]=ni.cur&&ni.cur.di===+m[1]?ni.cur.i:0}}try{history.replaceState(null,"","#"+k)}catch(e){}render();window.scrollTo({top:0})}
 function render(){
  if(!$("#main"))return;renderNav();const k=ui.tab;document.body.dataset.t=/^d\d$/.test(k)?"day":"x";let h="";
  if(k==="home")h=rHome();else if(/^d\d$/.test(k))h=rDay(+k.slice(1));else if(k==="food")h=rFood();else if(k==="nav")h=rNavi();else if(k==="vault")h=rVault();else if(k==="shared")h=rShared();else if(k==="ment")h=rMent();else if(k==="info")h=rInfo();else if(k==="album")h=rAlbum();
@@ -1082,7 +1094,7 @@ function groupBox(kind,full){
  return `<div class="mbox"><div class="cap">${name} 멘토링${kind==="harvard"?" · 10/16 10:30–13:30 (희망자 10명 조)":" · 10/17 9:00–15:00 (심화 멘토링 · 동문 특강 · 멘토와 식사)"}</div>${head}${full?`<div class="cap">전체 조 편성</div>${tb}`:`<details class="all"><summary>전체 조 편성 보기</summary>${tb}</details>`}</div>`}
 function classBox(kind){const M=kind==="yale"?YALE:PRIN;const c=clsOf(ME);
  return `<div class="mbox"><div class="cap">${kind==="yale"?"예일 멘토 · 10/15 14:30–15:30":"프린스턴 멘토 · 10/20 10:00–11:00"} (반별)</div>${c?`<p>내 멘토 · <b>${M[c][0]}</b> 멘토 (${M[c][1]})</p>`:`<p class="hint">이름을 입력하면 내 반 멘토가 표시돼요.</p>`}<details class="all" open><summary>반별 멘토 전체</summary>${classTbl(M)}</details></div>`}
-function lecBox(k){const l=LEC[k];return `<div class="mbox"><div class="cap">${l.u} · ${esc(l.t)}</div><table class="w"><tr><td class="k">일시</td><td>${l.w}</td></tr><tr><td class="k">장소</td><td>${esc(l.p)}</td></tr><tr><td class="k">연사</td><td><b>${esc(l.n)}</b><br><small>${esc(l.b)}</small></td></tr></table></div>`}
+function lecBox(k){const l=LEC[k];return `<div class="mbox"><div class="cap">${l.u} · ${esc(l.t)}</div><table class="w"><tr><td class="k">일시</td><td>${l.w}</td></tr><tr><td class="k">장소</td><td>${esc(l.p)}</td></tr><tr><td class="k">연사</td><td><b>${esc(l.n)}</b><br><small>${esc(l.b)}</small></td></tr></table>${lecFiles(k)}</div>`}
 function mentorBox(tag,full){if(tag==="yale"||tag==="princeton")return classBox(tag);if(tag==="harvard"||tag==="mit")return groupBox(tag,full);if(LEC[tag])return lecBox(tag);return ""}
 function rMent(){
  return `<h2 class="ttl" style="font-size:1.5rem">멘토링 · 특강</h2><p class="hint" style="margin:.5rem 0 0">내 조에 표시가 돼요. 예일·프린스턴은 반별 멘토예요.</p>
@@ -1180,9 +1192,11 @@ function rInfo(){
 function rAlbum(){
  const f=ui.ad;const list=ALB().filter(p=>f===""||String(p.day)===String(f)).sort((a,b)=>b.ts-a.ts);
  const items={};ST.days.forEach(d=>{d.items.forEach(i=>items[i.id]=i.t);d.groups.forEach(g=>g.spots.forEach(x=>items["spot:"+x.id]=x.n))});
- return `<h2 class="ttl" style="font-size:1.5rem">사진첩</h2><div class="drop" style="margin-top:.8rem"><div style="font-weight:700;margin-bottom:10px">여행 사진을 올려 보세요. 여러 장도 한 번에 돼요.</div><div class="row" style="max-width:520px;margin:0 auto"><select id="ad"><option value="">날짜 선택 (선택사항)</option>${ST.days.map((d,i)=>`<option value="${i}">${i+1}일차 · ${mdOf(d.date)}</option>`).join("")}</select><button class="bt gold" data-act="albumUp" style="justify-content:center">＋ 사진 올리기</button></div><div class="hint" style="font-size:.8rem;margin-top:8px">사진은 이 브라우저에만 저장돼요. 일정 페이지에서 올린 사진도 여기에 모여요.</div></div>
+ return `<h2 class="ttl" style="font-size:1.5rem">사진첩</h2><div class="drop" style="margin-top:.8rem"><div style="font-weight:700;margin-bottom:10px">일상 사진·영상을 올려 보세요. 여러 개도 한 번에 돼요.</div><div class="row" style="max-width:520px;margin:0 auto"><select id="ad"><option value="">날짜 선택 (선택사항)</option>${ST.days.map((d,i)=>`<option value="${i}">${i+1}일차 · ${mdOf(d.date)}</option>`).join("")}</select><button class="bt gold" data-act="albumUp" style="justify-content:center">＋ 사진·영상 올리기</button></div><div class="hint" style="font-size:.8rem;margin-top:8px">일상 사진과 영상을 올려요. 영상은 내 폰에만 저장되고, 사진은 올릴 때 ‘친구들과 공유’를 고르면 친구도 볼 수 있어요. 일정 장소·식당 소개 사진은 ‘공용 앨범’에 올려요.</div></div>
  <div class="sub"><button class="pill ${f===""?"on":""}" data-act="albF" data-v="">전체 ${ALB().length}</button>${ST.days.map((d,i)=>`<button class="pill ${String(f)===String(i)?"on":""}" data-act="albF" data-v="${i}">${i+1}일차 ${ALB().filter(p=>String(p.day)===String(i)).length}</button>`).join("")}</div>
- ${list.length?`<div class="alb">${list.map(p=>`<figure data-act="lb" data-id="${p.id}" data-list="album"><img src="${purl(p)}" alt=""><figcaption>${p.caption?`&lt;${esc(p.caption)}&gt;`:esc(items[p.owner]||"")}</figcaption></figure>`).join("")}</div>`:`<div class="empty-s">아직 사진이 없어요. 위에서 첫 사진을 올려 보세요.</div>`}`}
+ ${list.length?`<div class="alb">${list.map(p=>`<figure data-act="lb" data-id="${p.id}" data-list="album">${isVid(p)?`<video src="${purl(p)}#t=0.1" preload="metadata" muted playsinline></video><span class="vbadge">영상</span>`:`<img src="${purl(p)}" alt="">`}<figcaption>${p.caption?`&lt;${esc(p.caption)}&gt;`:esc(items[p.owner]||"")}</figcaption></figure>`).join("")}</div>`:`<div class="empty-s">아직 사진이 없어요. 위에서 첫 사진을 올려 보세요.</div>`}${albFriends()}`}
+function albFriends(){if(!SHARED_ON())return "";const f=ui.ad;const L=ui.sh.alb.filter(x=>f===""||String(x.day)===String(f));
+ return `<h3 class="sh">친구들이 공유한 사진 ${L.length||""}</h3>${shNote()}${L.length?`<div class="alb">${L.map((p,i)=>`<figure data-act="shA" data-i="${i}"><img loading="lazy" src="${esc(shTh(p))}" alt=""><figcaption>${p.cap?`&lt;${esc(p.cap)}&gt; `:""}<small>${esc(p.name||"")}</small></figcaption></figure>`).join("")}</div>`:`<div class="empty-s">${ui.sh.werr?"":"아직 친구들이 공유한 사진이 없어요."}</div>`}`}
 
 /* ===================== 입력 바인딩 ===================== */
 function bindInputs(){
@@ -1227,9 +1241,15 @@ document.addEventListener("click",e=>{const el=e.target.closest("[data-act]");if
  if(a==="more")return moreUI();
  if(a==="shretry"){ui.sh.state="idle";return shEnter()}
  if(a==="shmore"){el.disabled=true;return shMore(false).then(()=>keepScroll(render)).catch(()=>{toast("불러오지 못했어요");el.disabled=false})}
- if(a==="shwarm"){shWarm(true);return}if(a==="shO"){const l=shOf(D.k);return openShList(l,+D.i)}
- if(a==="shv"){return openShList(ui.sh.items,+D.i)}
- if(a==="shup"){pendingOwner={owner:"shared",day:""};$("#fileIn").click();return}
+ if(a==="shwarm"){shWarm(true);return}if(a==="shO"){const l=D.all?shAll(D.k):shOf(D.k);return openShList(l,+D.i)}
+ if(a==="shA"){const f=ui.ad;return openShList(ui.sh.alb.filter(x=>f===""||String(x.day)===String(f)),+D.i)}
+ if(a==="lecUp"){pendingOwner={owner:"mt:"+D.k,day:"m"};$("#fileIn").accept="*/*";$("#fileIn").click();return}
+ if(a==="fDel"){if(!confirm("이 파일을 내 폰에서 지울까요?"))return;return delPhoto(D.id).then(()=>keepScroll(render))}
+ if(a==="fShare"){const p=PH.find(x=>x.id===D.id);if(!p)return;return shShareFiles([p],{name:ME?ME.n:"",c:clsOf(ME)||0,owner:p.owner}).then(()=>keepScroll(render))}
+ if(a==="shFile"){const x=((ui.sh.files[D.k]||[]).filter(y=>!(y.lid&&PH.some(p=>p.id===y.lid))))[+D.i];if(!x)return;toast("받는 중…");return shLoad().then(sh=>sh.fileBlob(x)).then(b=>{const u=URL.createObjectURL(b);const A=document.createElement("a");A.href=u;A.download=x.fname||"file";A.target="_blank";document.body.appendChild(A);A.click();A.remove();setTimeout(()=>URL.revokeObjectURL(u),60000)}).catch(()=>toast("받지 못했어요"))}
+ if(a==="shFileDel"){const x=((ui.sh.files[D.k]||[]).filter(y=>!(y.lid&&PH.some(p=>p.id===y.lid))))[+D.i];if(!x||!confirm("공유한 파일을 지울까요?"))return;return shLoad().then(sh=>sh.remove(x)).then(()=>{ui.sh.files[D.k]=ui.sh.files[D.k].filter(y=>y.id!==x.id);keepScroll(render)}).catch(()=>toast("지우지 못했어요"))}
+ 
+ if(a==="shup"){pendingOwner={owner:"pick",day:""};$("#fileIn").accept="image/*";$("#fileIn").click();return}
  if(a==="dgo"){return}
  if(a==="fd"){ui.fd=D.v;return render()}
  if(a==="gonow"){const ni=nowInfo();const t=D.di!=null&&D.di!==""?{di:+D.di,i:+D.i}:ni.cur||ni.nxt;if(t){ui.sel[t.di]=t.i;go("d"+t.di)}return}
@@ -1256,15 +1276,17 @@ document.addEventListener("click",e=>{const el=e.target.closest("[data-act]");if
  if(a==="ck"){ST.check[+D.i].d=el.checked;save();return keepScroll(render)}
  if(a==="ckDel"){e.preventDefault();ST.check.splice(+D.i,1);save();return keepScroll(render)}
  if(a==="ckAdd"){const v=$("#ckN").value.trim();if(v){ST.check.push({t:v,d:false});save();keepScroll(render)}return}
- if(a==="addPhoto"){pendingOwner={owner:D.owner,day:D.day};$("#fileIn").click();return}
- if(a==="albumUp"){pendingOwner={owner:"album",day:$("#ad").value};$("#fileIn").click();return}
+ if(a==="addPhoto"){pendingOwner={owner:D.owner,day:D.day};$("#fileIn").accept="image/*";$("#fileIn").click();return}
+ if(a==="albumUp"){pendingOwner={owner:"album",day:$("#ad").value};$("#fileIn").accept="image/*,video/*";$("#fileIn").click();return}
  if(a==="lb")return openLb(D.id,D.list);
 });
 $("#fileIn").onchange=e=>{const fs=[...e.target.files];e.target.value="";$("#fileIn").accept="image/*";if(!fs.length||!pendingOwner)return;const po=pendingOwner;
  if(po.owner==="doc"){try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(x){}modal(`서류 ${fs.length}개 올리기`,[{k:"cat",l:"종류",t:"sel",o:DOCC},{k:"c",l:"이름 (예: KE081 탑승권)"}],{cat:ui.dc||"항공권",c:""},async o=>{await addPhotos(fs,"doc:"+o.cat,"",o.c.trim());ui.dc=o.cat;keepScroll(render)},null,"완료");return}
- if(po.owner==="shared"){modal(`공용 앨범에 ${fs.length}장 올리기`,[{k:"c",l:"사진 설명 (선택)",h:"사진 아래에 &lt;설명&gt;으로 보여요."}],{c:""},async o=>{const L=[];for(const f of fs)L.push({blob:await shrink(f,1600),caption:o.c.trim()});toast("올리는 중…");if(await shShare(L,{name:ME?ME.n:"",c:clsOf(ME)||0,day:""})){await shEnter(true)}},null,"올리기");return}
- const fl=[{k:"c",l:"사진 설명 (선택)",h:"쓰면 사진 아래에 &lt;설명&gt; 모양으로 보여요. 여러 장이면 같은 설명이 붙어요."}];if(SHARED_ON())fl.push({k:"sh",l:"공용 앨범에도 올릴까요?",t:"sel",o:[["0","아니요 (내 폰에만)"],["1","예 (친구들도 볼 수 있어요)"]]});
- modal(`사진 ${fs.length}장 올리기`,fl,{c:"",sh:"0"},async o=>{const L=await addPhotos(fs,po.owner,po.day,o.c.trim());if(o.sh==="1")await shShare(L,{name:ME?ME.n:"",c:clsOf(ME)||0,day:po.day,owner:po.owner});keepScroll(render)},null,"완료")};
+ if(/^mt:/.test(po.owner)){modal(`특강 자료 ${fs.length}개 올리기`,[{k:"c",l:"설명 (선택)",h:"자료 이름 옆에 &lt;설명&gt;으로 보여요."}].concat(SHARED_ON()?[{k:"sh",l:"친구들에게도 공유할까요?",t:"sel",o:[["0","아니요 (내 폰에만)"],["1","예 (2MB 이하 파일만)"]]}]:[]),{c:"",sh:"0"},async o=>{try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(x){}const L=await addFiles(fs,po.owner,o.c.trim());if(o.sh==="1"&&L.length)await shShareFiles(L,{name:ME?ME.n:"",c:clsOf(ME)||0,owner:po.owner});keepScroll(render)},null,"완료");return}
+ if(po.owner==="pick"){const opts=shItemsAll();modal(`일정 소개 사진 ${fs.length}장 올리기`,[{k:"o",l:"어느 일정의 사진인가요?",t:"sel",o:opts.map(x=>[x[0],x[1]])},{k:"c",l:"사진 설명 (선택)",h:"사진 아래에 &lt;설명&gt;으로 보여요."}],{o:opts[0]?opts[0][0]:"",c:""},async o=>{const it=opts.find(x=>x[0]===o.o);const di=it?it[2]:"";const L=await addPhotos(fs,o.o,di,o.c.trim());if(L&&L.length&&await shShare(L,{name:ME?ME.n:"",c:clsOf(ME)||0,day:di,owner:o.o}))await shEnter(true);keepScroll(render)},null,"올리기");return}
+ const isAlb=po.owner==="album";const vids=fs.filter(f=>/^video\//.test(f.type)||/\.(mp4|mov|m4v|webm)$/i.test(f.name||""));
+ const fl=[{k:"c",l:"사진 설명 (선택)",h:"쓰면 사진 아래에 &lt;설명&gt; 모양으로 보여요. 여러 개면 같은 설명이 붙어요."}];if(SHARED_ON())fl.push(isAlb?{k:"sh",l:"친구들과 공유할까요? (사진만, 영상은 내 폰에만)",t:"sel",o:[["0","아니요 (내 폰에만)"],["1","예 (친구들도 볼 수 있어요)"]]}:{k:"sh",l:"공용 앨범(일정 소개 사진)에도 올릴까요?",t:"sel",o:[["1","예 (친구들도 볼 수 있어요)"],["0","아니요 (내 폰에만)"]]});
+ modal(`${vids.length?"사진·영상":"사진"} ${fs.length}개 올리기`,fl,{c:"",sh:isAlb?"0":"1"},async o=>{const L=await addPhotos(fs,po.owner,po.day,o.c.trim())||[];if(o.sh==="1"){const pics=L.filter(p=>!isVid(p));if(L.length>pics.length)toast("영상은 내 폰에만 저장돼요");if(pics.length)await shShare(pics,{name:ME?ME.n:"",c:clsOf(ME)||0,day:po.day,owner:isAlb?"album":po.owner})}keepScroll(render)},null,"완료")};
 $("#ov").addEventListener("click",e=>{if(e.target.id==="ov")closeM()});
 $("#impIn").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const j=JSON.parse(await f.text());if(!j.days)throw 0;ST=ensureIds(j);ST.vault=ST.vault||[];save();closeM();render();alert("복원했어요!")}catch(x){alert("올바른 백업 파일이 아니에요.")}e.target.value=""};
 function moreUI(){$("#md").innerHTML=`<h3>더보기 <small class="vtag">${VER} · ${VERD}</small></h3><div style="display:grid;gap:10px"><button class="bt" data-act="tab" data-k="ment" style="justify-content:center">멘토링 · 특강</button><button class="bt" data-act="tab" data-k="info" style="justify-content:center">여행 정보 (항공·숙소·연락처)</button><button class="bt" data-act="tab" data-k="album" style="justify-content:center">내 사진첩</button>${SHARED_ON()?`<button class="bt" data-act="tab" data-k="shared" style="justify-content:center">공용 앨범</button>`:""}<button class="bt ${ui.edit?"gold":""}" data-act="editToggle" style="justify-content:center">${ui.edit?"편집 끄기":"편집 켜기"}</button><button class="bt" data-act="menu" style="justify-content:center">백업 · 복원</button><button class="bt" data-act="chgMe" style="justify-content:center">이름 바꾸기</button><button class="bt" data-act="close" style="justify-content:center">닫기</button></div>`;$("#ov").classList.add("on")}
@@ -1275,7 +1297,7 @@ function menuUI(){$("#md").innerHTML=`<h3>백업 · 복원</h3><p class="hint">�
 /* 사진 확대 */
 let lbList=[],lbI=0;
 function openLb(id,list){if(list==="album"){lbList=ALB().filter(p=>ui.ad===""||String(p.day)===String(ui.ad)).sort((a,b)=>b.ts-a.ts)}else{lbList=photosOf(list.slice(list.indexOf(":")+1))}lbI=Math.max(0,lbList.findIndex(p=>p.id===id));showLb()}
-function showLb(){const p=lbList[lbI];const lb=$("#lb");if(!p){lb.classList.remove("on");return}lb.classList.add("on");lb.innerHTML=`<img src="${purl(p)}" alt=""><input type="text" id="lc" placeholder="사진 설명" value="${esc(p.caption)}" style="max-width:560px"><div class="bar"><button class="bt" id="lp">◀</button><span style="align-self:center">${lbI+1} / ${lbList.length}</span><button class="bt" id="ln">▶</button><a class="bt" download="${esc(p.name||"photo.jpg")}" href="${purl(p)}">저장</a><button class="bt" id="lx" style="color:#b3122b">삭제</button><button class="bt gold" id="lc2">닫기</button></div>`;
+function showLb(){const p=lbList[lbI];const lb=$("#lb");if(!p){lb.classList.remove("on");return}lb.classList.add("on");lb.innerHTML=`${isVid(p)?`<video src="${purl(p)}" controls playsinline autoplay></video>`:`<img src="${purl(p)}" alt="">`}<input type="text" id="lc" placeholder="사진 설명" value="${esc(p.caption)}" style="max-width:560px"><div class="bar"><button class="bt" id="lp">◀</button><span style="align-self:center">${lbI+1} / ${lbList.length}</span><button class="bt" id="ln">▶</button><a class="bt" download="${esc(p.name||"photo.jpg")}" href="${purl(p)}">저장</a><button class="bt" id="lx" style="color:#b3122b">삭제</button><button class="bt gold" id="lc2">닫기</button></div>`;
  $("#lc").onchange=async e=>{p.caption=e.target.value;await dbop("readwrite",s=>s.put(p))};$("#lp").onclick=()=>{lbI=(lbI+lbList.length-1)%lbList.length;showLb()};$("#ln").onclick=()=>{lbI=(lbI+1)%lbList.length;showLb()};$("#lc2").onclick=()=>{lb.classList.remove("on");keepScroll(render)};
  $("#lx").onclick=async()=>{if(!confirm("사진을 삭제할까요? 되돌릴 수 없어요."))return;await delPhoto(p.id);lbList.splice(lbI,1);lbI=Math.min(lbI,lbList.length-1);showLb();keepScroll(render)}}
 $("#lb").addEventListener("click",e=>{if(e.target.id==="lb"){e.target.classList.remove("on");keepScroll(render)}});
@@ -1311,23 +1333,36 @@ async function shLoad(){
   async list(after){const q=Fs.query(Fs.collection(db,"photos"),Fs.orderBy("ts","desc"),...(after?[Fs.startAfter(after)]:[]),Fs.limit(12));const s=await Fs.getDocs(q);const items=s.docs.map(d=>Object.assign({id:d.id},d.data()));return {items,more:items.length===12}},
   async upload(blob,meta){const th=await shrinkTo(blob,[[360,.6],[300,.5],[240,.5],[180,.5]],100000);const img=await shrinkTo(blob,[[1100,.6],[900,.55],[700,.5],[500,.5]],850000);const ref=Fs.doc(Fs.collection(db,"photos"));await Fs.setDoc(Fs.doc(db,"full",ref.id),{img});await Fs.setDoc(ref,Object.assign({},meta,{th,ts:Date.now()}))},
   async full(it){if(it.url)return it.url;const d=await Fs.getDoc(Fs.doc(db,"full",it.id));return d.exists()?d.data().img:it.th},
-  async owners(){const s=await Fs.getDocs(Fs.query(Fs.collection(db,"photos"),Fs.where("day","in",["0","1","2","3","4","5","6","7","8","9"]),Fs.limit(300)));return s.docs.map(d=>Object.assign({id:d.id},d.data())).filter(x=>x.owner)},
-  async remove(it){await Fs.deleteDoc(Fs.doc(db,"photos",it.id));try{await Fs.deleteDoc(Fs.doc(db,"full",it.id))}catch(e){}}
+  async uploadFile(file,meta){const b64=await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(String(r.result).split(",")[1]||"");r.onerror=()=>rej(r.error);r.readAsDataURL(file)});const CH=700000;if(b64.length>CH*4)throw new Error("파일이 2MB보다 커서 공유할 수 없어요. 내 폰에는 저장돼요.");const ids=[];for(let i=0;i<b64.length;i+=CH){const ref=Fs.doc(Fs.collection(db,"full"));await Fs.setDoc(ref,{img:b64.slice(i,i+CH)});ids.push(ref.id)}const ref=Fs.doc(Fs.collection(db,"photos"));await Fs.setDoc(ref,Object.assign({},meta,{th:"",k:"f",chunks:ids,fname:file.name||"file",size:file.size||0,mime:file.type||"application/octet-stream",ts:Date.now()}))},
+  async fileBlob(it){let b64="";for(const id of it.chunks||[]){const d=await Fs.getDoc(Fs.doc(db,"full",id));if(d.exists())b64+=d.data().img}const bin=atob(b64),u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return new Blob([u],{type:it.mime||"application/octet-stream"})},
+  async owners(){const s=await Fs.getDocs(Fs.query(Fs.collection(db,"photos"),Fs.where("day","in",["0","1","2","3","4","5","6","7","8","9","m"]),Fs.limit(300)));return s.docs.map(d=>Object.assign({id:d.id},d.data()))}
+  ,async albumDocs(){const s=await Fs.getDocs(Fs.query(Fs.collection(db,"photos"),Fs.where("owner","in",["","album"]),Fs.limit(200)));return s.docs.map(d=>Object.assign({id:d.id},d.data()))},
+  async remove(it){await Fs.deleteDoc(Fs.doc(db,"photos",it.id));for(const id of (it.chunks||[it.id])){try{await Fs.deleteDoc(Fs.doc(db,"full",id))}catch(e){}}}
  };
  return SH}
-ui.sh={state:"idle",items:[],more:false,err:"",busy:false,own:{},ownAt:0};
+ui.sh={state:"idle",items:[],more:false,err:"",busy:false,own:{},files:{},alb:[],ownAt:0,werr:""};
 const shTh=p=>p.th||p.url||"";
 async function shMore(reset){const sh=await shLoad();const last=!reset&&ui.sh.items.length?ui.sh.items[ui.sh.items.length-1].ts:null;const r=await sh.list(last);ui.sh.items=reset?r.items:ui.sh.items.concat(r.items);ui.sh.more=r.more}
+const shTabs=()=>/^d\d$/.test(ui.tab)||ui.tab==="food"||ui.tab==="album"||ui.tab==="ment"||ui.tab==="shared";
 async function shWarm(force){
  if(!SHARED_ON())return;if(!force&&Date.now()-ui.sh.ownAt<90000)return;ui.sh.ownAt=Date.now();
- ui.sh.werr="";try{const sh=await shLoad();await sh.wait();if(!sh.ready()){ui.sh.werr="login";if(/^d\d$/.test(ui.tab)||ui.tab==="food")keepScroll(render);return}const all=await sh.owners();const m={};all.forEach(x=>{(m[x.owner]=m[x.owner]||[]).push(x)});Object.values(m).forEach(a=>a.sort((x,y)=>x.ts-y.ts));ui.sh.own=m;
-  if(/^d\d$/.test(ui.tab)||ui.tab==="food"){if(!document.querySelector("#ov.on,#lb.on"))keepScroll(render)}}catch(e){ui.sh.ownAt=0;ui.sh.werr=shErr(e);if(/^d\d$/.test(ui.tab)||ui.tab==="food")keepScroll(render)}}
-function shNote(){const w=ui.sh.werr;if(!w||!SHARED_ON())return "";return `<div class="card warn" style="margin:.5rem 0;padding:.6rem .8rem;font-size:.85rem">${w==="login"?"친구들이 올린 사진을 보려면 ‘더보기 → 공용 앨범’에서 비밀번호를 한 번 입력해 주세요.":"친구 사진을 불러오지 못했어요: "+esc(w)}<button class="bt" data-act="shwarm" style="margin-top:.4rem">다시 불러오기</button></div>`}
+ const redraw=()=>{if(shTabs()&&!document.querySelector("#ov.on,#lb.on"))keepScroll(render)};
+ ui.sh.werr="";
+ try{const sh=await shLoad();await sh.wait();if(!sh.ready()){ui.sh.werr="login";redraw();return}
+  const [a,b]=await Promise.all([sh.owners(),sh.albumDocs()]);const seen={},all=[];a.concat(b).forEach(x=>{if(!seen[x.id]){seen[x.id]=1;all.push(x)}});
+  const own={},files={},alb=[];
+  all.forEach(x=>{if(x.k==="f")(files[x.owner]=files[x.owner]||[]).push(x);else if(!x.owner||x.owner==="album")alb.push(x);else (own[x.owner]=own[x.owner]||[]).push(x)});
+  Object.values(own).forEach(l=>l.sort((x,y)=>x.ts-y.ts));Object.values(files).forEach(l=>l.sort((x,y)=>x.ts-y.ts));alb.sort((x,y)=>y.ts-x.ts);
+  ui.sh.own=own;ui.sh.files=files;ui.sh.alb=alb;redraw()}
+ catch(e){ui.sh.ownAt=0;ui.sh.werr=shErr(e);redraw()}}
+function shNote(){const w=ui.sh.werr;if(!w||!SHARED_ON())return "";return `<div class="card warn" style="margin:.5rem 0;padding:.6rem .8rem;font-size:.85rem">${w==="login"?"친구들이 올린 것을 보려면 ‘더보기 → 공용 앨범’에서 비밀번호를 한 번 입력해 주세요.":"친구 자료를 불러오지 못했어요: "+esc(w)}<button class="bt" data-act="shwarm" style="margin-top:.4rem">다시 불러오기</button></div>`}
+const shAll=key=>ui.sh.own[key]||[];
+function shGrid(key,sm){return shAll(key).map((p,i)=>`<figure class="pf shd ${sm?"sm":""}"><img class="th" loading="lazy" src="${esc(shTh(p))}" data-act="shO" data-all="1" data-k="${esc(key)}" data-i="${i}" alt=""><figcaption>${p.cap?`&lt;${esc(p.cap)}&gt; `:""}<small>by ${esc(p.name||"")}</small></figcaption></figure>`).join("")}
 const shOf=key=>(ui.sh.own[key]||[]).filter(x=>!(x.lid&&PH.some(p=>p.id===x.lid)));
 function shThumbs(key,sm){const L=shOf(key);return L.map((p,i)=>`<figure class="pf shd ${sm?"sm":""}"><img class="th" loading="lazy" src="${esc(shTh(p))}" data-act="shO" data-k="${esc(key)}" data-i="${i}" alt=""><figcaption>${p.cap?`&lt;${esc(p.cap)}&gt; `:""}<small>by ${esc(p.name||"")}</small></figcaption></figure>`).join("")}
 async function shEnter(force){
  if(!SHARED_ON())return;if(ui.sh.state!=="idle"&&!force)return;ui.sh.state="loading";if(ui.tab==="shared")render();
- try{const sh=await shLoad();await sh.wait();if(!sh.ready())ui.sh.state="login";else{await shMore(true);ui.sh.state="ready";shWarm(true)}}
+ try{const sh=await shLoad();await sh.wait();if(!sh.ready())ui.sh.state="login";else{await shWarm(true);if(ui.sh.werr&&ui.sh.werr!=="login"){ui.sh.state="err";ui.sh.err=ui.sh.werr}else ui.sh.state="ready"}}
  catch(e){ui.sh.state="err";ui.sh.err=shErr(e)}
  if(ui.tab==="shared")keepScroll(render)}
 function shErr(e){const c=(e&&e.code)||"",m=String((e&&e.message)||e);
@@ -1339,6 +1374,13 @@ function shErr(e){const c=(e&&e.code)||"",m=String((e&&e.message)||e);
  if(/network/.test(c))return "인터넷 연결을 확인해 주세요. ("+c+")";
  return (c?c+" · ":"")+m}
 async function shLogin(pw){try{const sh=await shLoad();await sh.login(pw);ui.sh.state="idle";await shEnter(true)}catch(e){ui.sh.err=shErr(e);ui.sh.state="login";render()}}
+async function shShareFiles(list,meta){
+ try{const sh=await shLoad();await sh.wait();
+  if(!sh.ready()){alert("공유하려면 먼저 ‘공용 앨범’ 탭에서 비밀번호를 입력해야 해요. 파일은 내 폰에는 저장됐어요.");return false}
+  toast("올리는 중…");
+  for(const p of list){const f=new File([p.blob],p.fname||"file",{type:p.blob.type||p.mime||""});await sh.uploadFile(f,Object.assign({},meta,{cap:p.caption||"",lid:p.id||"",owner:meta.owner,day:"m"}))}
+  toast("공유했어요");shWarm(true);return true}
+ catch(e){alert("공유하지 못했어요.\n"+(e&&e.message&&!e.code?e.message:shErr(e)));return false}}
 async function shShare(list,meta){
  try{const sh=await shLoad();await sh.wait();
   if(!sh.ready()){alert("공용 앨범에 올리려면 먼저 ‘공용 앨범’ 탭에서 비밀번호를 입력해야 해요. 사진은 내 폰에는 저장됐어요. 로그인한 뒤 다시 올려 주세요.");return false}
@@ -1346,23 +1388,23 @@ async function shShare(list,meta){
   for(const b of list)await sh.upload(b.blob,Object.assign({},meta,{cap:b.caption||meta.cap||"",lid:b.id||"",owner:meta.owner||"",day:String(meta.day==null?"":meta.day)}));
   toast("공용 앨범에 올렸어요");ui.sh.state="idle";shWarm(true);return true}
  catch(e){alert("공용 앨범에 올리지 못했어요.\n"+shErr(e));return false}}
+function shItemsAll(){const o=[];ST.days.forEach((d,di)=>{d.items.forEach(i=>o.push([i.id,`${di+1}일차 · ${i.t}`,di]));d.groups.forEach(g=>g.spots.forEach(x=>o.push(["spot:"+x.id,`${di+1}일차 · ${x.n}`,di])))});return o}
 function rShared(){
  const s=ui.sh;let body;
  if(!SHARED_ON())body=`<div class="card warn"><b>공용 앨범이 아직 연결되지 않았어요</b><p class="hint" style="margin-top:.4rem">파일 위쪽 FBCFG에 파이어베이스 설정을 넣으면 켜져요. 방법은 firebase-setup.md에 있어요.</p></div>`;
  else if(s.state==="loading"||s.state==="idle")body=`<div class="empty-s">불러오는 중…</div>`;
  else if(s.state==="err")body=`<div class="card warn"><b>연결하지 못했어요</b><p class="hint" style="margin-top:.4rem">${esc(s.err)}</p><button class="bt" data-act="shretry" style="margin-top:.6rem">다시 시도</button></div>`;
  else if(s.state==="login")body=`<form class="card" id="shf" autocomplete="off"><h3>공용 앨범 비밀번호</h3><p class="hint" style="font-size:.88rem">선생님이나 친구에게 받은 비밀번호를 입력하면 우리 반 사진을 볼 수 있어요.</p><div class="row"><input type="password" id="shp" placeholder="비밀번호" aria-label="공용 앨범 비밀번호"><button class="bt gold" type="submit" style="flex:none">열기</button></div><div class="gerr" role="alert">${esc(s.err)}</div></form>`;
- else body=`<button class="bt gold" data-act="shup" style="width:100%;justify-content:center">＋ 공용 앨범에 사진 올리기</button><p class="hint" style="font-size:.8rem;margin:.5rem 0">올린 사진은 비밀번호를 아는 친구 모두가 볼 수 있어요. 얼굴이 나오는 사진은 친구에게 먼저 물어보고 올려요. 내가 올린 사진만 지울 수 있어요.</p>
- ${s.items.length?`<div class="alb">${s.items.map((p,i)=>`<figure data-act="shv" data-i="${i}"><img loading="lazy" src="${esc(shTh(p))}" alt=""><figcaption>${p.cap?`&lt;${esc(p.cap)}&gt; `:""}<small>${esc(p.name||"")}</small></figcaption></figure>`).join("")}</div>${s.more?`<button class="bt" data-act="shmore" style="margin:1rem auto 0;display:flex">더 보기</button>`:""}`:`<div class="empty-s">아직 공용 사진이 없어요. 첫 사진을 올려 보세요.</div>`}`;
- return `<h2 class="ttl" style="font-size:1.5rem">공용 앨범</h2><p class="hint" style="margin:.5rem 0 .8rem">친구들과 같이 보는 사진첩이에요. 내 사진첩과는 따로예요.</p>${body}`}
+ else{const all=shItemsAll();let n=0;const secs=ST.days.map((d,di)=>{const rows=all.filter(x=>x[2]===di&&shAll(x[0]).length);if(!rows.length)return "";return `<h3 class="sh">${di+1}일차 · ${mdOf(d.date)}</h3>`+rows.map(x=>{n+=shAll(x[0]).length;return `<div class="shg"><h4>${esc(x[1].replace(/^\d+일차 · /,""))}</h4><div class="ph">${shGrid(x[0],true)}</div></div>`}).join("")}).join("");
+  body=`<button class="bt gold" data-act="shup" style="width:100%;justify-content:center">＋ 일정 소개 사진 올리기</button><p class="hint" style="font-size:.8rem;margin:.5rem 0">여기는 세부 일정(장소·식당)을 소개하는 사진이 모여요. 일상 사진은 ‘사진첩’에 올려요. 올린 사진은 비밀번호를 아는 친구 모두가 볼 수 있고, 내가 올린 것만 지울 수 있어요.</p>${n?secs:`<div class="empty-s">아직 소개 사진이 없어요. 일정 페이지의 ‘사진 추가’에서 올리거나 위 버튼을 눌러 보세요.</div>`}`}
+ return `<h2 class="ttl" style="font-size:1.5rem">공용 앨범</h2><p class="hint" style="margin:.5rem 0 .8rem">일정별 소개 사진을 친구들과 같이 봐요.</p>${body}`}
 let shV={list:[],i:0};
 function openShList(list,i){shV={list,i};showSh()}
 async function showSh(){const p=shV.list[shV.i];const lb=$("#lb");if(!p){lb.classList.remove("on");return}const mine=ME&&p.name===ME.n;lb.classList.add("on");const n=shV.list.length;
  lb.innerHTML=`<img id="shimg" src="${esc(shTh(p))}" alt="" style="opacity:.6"><div style="text-align:center;font-size:.9rem">${p.cap?`&lt;${esc(p.cap)}&gt; `:""}<small>${esc(p.name||"")}</small></div><div class="bar"><button class="bt" id="sp">◀</button><span style="align-self:center">${shV.i+1} / ${n}</span><button class="bt" id="sn">▶</button><a class="bt" id="so" href="${esc(shTh(p))}" target="_blank" rel="noopener">원본 열기</a>${mine?`<button class="bt" id="sx" style="color:#b3122b">삭제</button>`:""}<button class="bt gold" id="sc">닫기</button></div>`;
  $("#sp").onclick=()=>{shV.i=(shV.i+n-1)%n;showSh()};$("#sn").onclick=()=>{shV.i=(shV.i+1)%n;showSh()};$("#sc").onclick=()=>{lb.classList.remove("on");keepScroll(render)};
- if(mine)$("#sx").onclick=async()=>{if(!confirm("공용 앨범에서 이 사진을 지울까요?"))return;try{await SH.remove(p);shV.list.splice(shV.i,1);ui.sh.items=ui.sh.items.filter(x=>x.id!==p.id);Object.keys(ui.sh.own).forEach(k=>ui.sh.own[k]=ui.sh.own[k].filter(x=>x.id!==p.id));if(!shV.list.length){lb.classList.remove("on");keepScroll(render);return}shV.i=Math.min(shV.i,shV.list.length-1);showSh()}catch(e){toast("지우지 못했어요")}};
+ if(mine)$("#sx").onclick=async()=>{if(!confirm("공용 앨범에서 이 사진을 지울까요?"))return;try{await SH.remove(p);shV.list.splice(shV.i,1);ui.sh.items=ui.sh.items.filter(x=>x.id!==p.id);Object.keys(ui.sh.own).forEach(k=>ui.sh.own[k]=ui.sh.own[k].filter(x=>x.id!==p.id));ui.sh.alb=ui.sh.alb.filter(x=>x.id!==p.id);if(!shV.list.length){lb.classList.remove("on");keepScroll(render);return}shV.i=Math.min(shV.i,shV.list.length-1);showSh()}catch(e){toast("지우지 못했어요")}};
  try{const sh=await shLoad();const full=await sh.full(p);if(shV.list[shV.i]===p){const im=$("#shimg");if(im){im.src=full;im.style.opacity=1}const so=$("#so");if(so)so.href=full}}catch(e){}}
 
 </script>
 </body></html>
-  
