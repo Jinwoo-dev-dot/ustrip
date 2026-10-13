@@ -794,7 +794,7 @@ function hid(t){let h=5381;for(let i=0;i<t.length;i++)h=((h<<5)+h+t.charCodeAt(i
 function ensureIds(st){st.vault=st.vault||[];st.days.forEach(d=>d.groups.forEach(g=>g.spots.forEach(s=>{if(!s.id)s.id="s"+hid(g.id+"|"+s.n)})));return st}
 
 /* ===================== 유틸 ===================== */
-const VER="ver 5";const VERD="10/13 12:40 업데이트";
+const VER="ver 6";const VERD="10/13 12:55 업데이트";
 const KEY="usTrip.v6",MEKEY="usTrip.me";
 const OFF={KST:9,EDT:-4};
 const p2=n=>String(n).padStart(2,"0");
@@ -940,7 +940,8 @@ let PH=[];const URLS={};
 const dbP=new Promise((res,rej)=>{try{const r=indexedDB.open("usTripPhotos",1);r.onupgradeneeded=()=>{r.result.createObjectStore("p",{keyPath:"id"})};r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}catch(e){rej(e)}});
 const dbop=(m,f)=>dbP.then(db=>new Promise((res,rej)=>{const t=db.transaction("p",m);const q=f(t.objectStore("p"));t.oncomplete=()=>res(q&&q.result);t.onerror=()=>rej(t.error)}));
 const purl=p=>URLS[p.id]||(URLS[p.id]=URL.createObjectURL(p.blob));
-async function shrink(file,mx){try{const b=await createImageBitmap(file);const sc=Math.min(1,(mx||1600)/Math.max(b.width,b.height));const c=document.createElement("canvas");c.width=Math.round(b.width*sc);c.height=Math.round(b.height*sc);c.getContext("2d").drawImage(b,0,0,c.width,c.height);return await new Promise(r=>c.toBlob(r,"image/jpeg",.85))}catch(e){return file}}
+async function decodeImg(f){try{return await createImageBitmap(f)}catch(e){const u=URL.createObjectURL(f);try{return await new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=u})}finally{setTimeout(()=>URL.revokeObjectURL(u),5000)}}}
+async function shrink(file,mx){try{const b=await decodeImg(file);const sc=Math.min(1,(mx||1600)/Math.max(b.width,b.height));const c=document.createElement("canvas");c.width=Math.round(b.width*sc);c.height=Math.round(b.height*sc);c.getContext("2d").drawImage(b,0,0,c.width,c.height);return await new Promise(r=>c.toBlob(r,"image/jpeg",.85))}catch(e){return file}}
 async function addPhotos(files,owner,day,cap){const out=[];for(const f of files){const blob=/^video\//.test(f.type)||/\.(mp4|mov|m4v|webm)$/i.test(f.name||"")?(f.type?f:new Blob([f],{type:"video/mp4"})):await shrink(f,/^doc:/.test(owner)?2600:1600);const p={id:"p"+Date.now()+uid(),owner,day,caption:cap||"",blob,ts:Date.now(),name:f.name};try{await dbop("readwrite",s=>s.put(p))}catch(e){alert("사진을 저장하지 못했어요.");return}PH.push(p);out.push(p)}return out}
 async function delPhoto(id){await dbop("readwrite",s=>s.delete(id));PH=PH.filter(p=>p.id!==id)}
 const ALB=()=>PH.filter(p=>p.owner==="album");
@@ -1249,7 +1250,7 @@ document.addEventListener("click",e=>{const el=e.target.closest("[data-act]");if
  if(a==="shFile"){const x=((ui.sh.files[D.k]||[]).filter(y=>!(y.lid&&PH.some(p=>p.id===y.lid))))[+D.i];if(!x)return;toast("받는 중…");return shLoad().then(sh=>sh.fileBlob(x)).then(b=>{const u=URL.createObjectURL(b);const A=document.createElement("a");A.href=u;A.download=x.fname||"file";A.target="_blank";document.body.appendChild(A);A.click();A.remove();setTimeout(()=>URL.revokeObjectURL(u),60000)}).catch(()=>toast("받지 못했어요"))}
  if(a==="shFileDel"){const x=((ui.sh.files[D.k]||[]).filter(y=>!(y.lid&&PH.some(p=>p.id===y.lid))))[+D.i];if(!x||!confirm("공유한 파일을 지울까요?"))return;return shLoad().then(sh=>sh.remove(x)).then(()=>{ui.sh.files[D.k]=ui.sh.files[D.k].filter(y=>y.id!==x.id);keepScroll(render)}).catch(()=>toast("지우지 못했어요"))}
  
- if(a==="shup"){pendingOwner={owner:"pick",day:""};$("#fileIn").accept="image/*";$("#fileIn").click();return}
+ if(a==="shup"){pendingOwner={owner:"pick",day:""};$("#fileIn").accept="image/*,.heic,.heif,.webp,.avif,.gif,.bmp,.tif,.tiff,.jfif,.png,.jpg,.jpeg";$("#fileIn").click();return}
  if(a==="dgo"){return}
  if(a==="fd"){ui.fd=D.v;return render()}
  if(a==="gonow"){const ni=nowInfo();const t=D.di!=null&&D.di!==""?{di:+D.di,i:+D.i}:ni.cur||ni.nxt;if(t){ui.sel[t.di]=t.i;go("d"+t.di)}return}
@@ -1276,11 +1277,11 @@ document.addEventListener("click",e=>{const el=e.target.closest("[data-act]");if
  if(a==="ck"){ST.check[+D.i].d=el.checked;save();return keepScroll(render)}
  if(a==="ckDel"){e.preventDefault();ST.check.splice(+D.i,1);save();return keepScroll(render)}
  if(a==="ckAdd"){const v=$("#ckN").value.trim();if(v){ST.check.push({t:v,d:false});save();keepScroll(render)}return}
- if(a==="addPhoto"){pendingOwner={owner:D.owner,day:D.day};$("#fileIn").accept="image/*";$("#fileIn").click();return}
- if(a==="albumUp"){pendingOwner={owner:"album",day:$("#ad").value};$("#fileIn").accept="image/*,video/*";$("#fileIn").click();return}
+ if(a==="addPhoto"){pendingOwner={owner:D.owner,day:D.day};$("#fileIn").accept="image/*,.heic,.heif,.webp,.avif,.gif,.bmp,.tif,.tiff,.jfif,.png,.jpg,.jpeg";$("#fileIn").click();return}
+ if(a==="albumUp"){pendingOwner={owner:"album",day:$("#ad").value};$("#fileIn").accept="image/*,.heic,.heif,.webp,.avif,.gif,.bmp,.tif,.tiff,.jfif,.png,.jpg,.jpeg,video/*,.mp4,.mov,.m4v,.webm";$("#fileIn").click();return}
  if(a==="lb")return openLb(D.id,D.list);
 });
-$("#fileIn").onchange=e=>{const fs=[...e.target.files];e.target.value="";$("#fileIn").accept="image/*";if(!fs.length||!pendingOwner)return;const po=pendingOwner;
+$("#fileIn").onchange=e=>{const fs=[...e.target.files];e.target.value="";$("#fileIn").accept="image/*,.heic,.heif,.webp,.avif,.gif,.bmp,.tif,.tiff,.jfif,.png,.jpg,.jpeg";if(!fs.length||!pendingOwner)return;const po=pendingOwner;
  if(po.owner==="doc"){try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(x){}modal(`서류 ${fs.length}개 올리기`,[{k:"cat",l:"종류",t:"sel",o:DOCC},{k:"c",l:"이름 (예: KE081 탑승권)"}],{cat:ui.dc||"항공권",c:""},async o=>{await addPhotos(fs,"doc:"+o.cat,"",o.c.trim());ui.dc=o.cat;keepScroll(render)},null,"완료");return}
  if(/^mt:/.test(po.owner)){modal(`특강 자료 ${fs.length}개 올리기`,[{k:"c",l:"설명 (선택)",h:"자료 이름 옆에 &lt;설명&gt;으로 보여요."}].concat(SHARED_ON()?[{k:"sh",l:"친구들에게도 공유할까요?",t:"sel",o:[["0","아니요 (내 폰에만)"],["1","예 (2MB 이하 파일만)"]]}]:[]),{c:"",sh:"0"},async o=>{try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(x){}const L=await addFiles(fs,po.owner,o.c.trim());if(o.sh==="1"&&L.length)await shShareFiles(L,{name:ME?ME.n:"",c:clsOf(ME)||0,owner:po.owner});keepScroll(render)},null,"완료");return}
  if(po.owner==="pick"){const opts=shItemsAll();modal(`일정 소개 사진 ${fs.length}장 올리기`,[{k:"o",l:"어느 일정의 사진인가요?",t:"sel",o:opts.map(x=>[x[0],x[1]])},{k:"c",l:"사진 설명 (선택)",h:"사진 아래에 &lt;설명&gt;으로 보여요."}],{o:opts[0]?opts[0][0]:"",c:""},async o=>{const it=opts.find(x=>x[0]===o.o);const di=it?it[2]:"";const L=await addPhotos(fs,o.o,di,o.c.trim());if(L&&L.length&&await shShare(L,{name:ME?ME.n:"",c:clsOf(ME)||0,day:di,owner:o.o}))await shEnter(true);keepScroll(render)},null,"올리기");return}
@@ -1320,7 +1321,7 @@ setInterval(tick,5000);setInterval(()=>{try{renderNow();if(/^d\d$/.test(ui.tab)&
 const FBCFG={apiKey:"AIzaSyAbKCseIbysAciOi7wJFVCLNqh4M6vvIMo",authDomain:"ustrip-37513.firebaseapp.com",projectId:"ustrip-37513",storageBucket:"ustrip-37513.firebasestorage.app",appId:"1:189970892354:web:781af8ff8f9dbb06ac4fdb",email:"class@example.com"};
 const SHARED_ON=()=>!!(FBCFG.apiKey&&FBCFG.projectId&&FBCFG.email);
 let SH=null;
-async function shrinkTo(blob,steps,maxLen){const b=await createImageBitmap(blob);for(const [mx,q] of steps){const sc=Math.min(1,mx/Math.max(b.width,b.height));const c=document.createElement("canvas");c.width=Math.max(1,Math.round(b.width*sc));c.height=Math.max(1,Math.round(b.height*sc));c.getContext("2d").drawImage(b,0,0,c.width,c.height);const u=c.toDataURL("image/jpeg",q);if(u.length<maxLen)return u}throw new Error("사진이 너무 커요")}
+async function shrinkTo(blob,steps,maxLen){const b=await decodeImg(blob);for(const [mx,q] of steps){const sc=Math.min(1,mx/Math.max(b.width,b.height));const c=document.createElement("canvas");c.width=Math.max(1,Math.round(b.width*sc));c.height=Math.max(1,Math.round(b.height*sc));c.getContext("2d").drawImage(b,0,0,c.width,c.height);const u=c.toDataURL("image/jpeg",q);if(u.length<maxLen)return u}throw new Error("사진이 너무 커요")}
 async function shLoad(){
  if(SH)return SH;
  const B="https://www.gstatic.com/firebasejs/10.12.2/";
